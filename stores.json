@@ -1,0 +1,5 @@
+[
+  {"name": "Kotn", "domain": "kotn.com", "path": "/products.json", "currency": "CAD"},
+  {"name": "Taylor Stitch", "domain": "taylorstitch.com", "path": "/products.json", "currency": "USD"},
+  {"name": "Frank & Oak", "domain": "frankandoak.ca", "path": "/products.json", "currency": "CAD"}
+]
