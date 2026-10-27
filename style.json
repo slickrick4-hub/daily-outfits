@@ -1,0 +1,9 @@
+{
+  "outfit_budget_cad": 200,
+  "like_words": ["oxford", "chambray", "flannel", "stripe", "striped", "merino", "polo", "trouser",
+                 "indigo", "black", "olive", "brown", "navy", "charcoal", "grey", "gray", "cream",
+                 "oat", "khaki", "truffle", "otter", "taupe", "espresso", "coffee", "marshmallow"],
+  "avoid_words": ["henley", "tee", "hoodie", "jacket", "white", "light wash", "sorbet", "salsa",
+                  "fiery", "jester", "azure", "cabernet"],
+  "final_sale_penalty": 1
+}
