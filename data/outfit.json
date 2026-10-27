@@ -1,0 +1,84 @@
+{
+ "date": "2026-10-27",
+ "budget_cad": 200,
+ "items": [
+  {
+   "store": "Frank & Oak",
+   "title": "ENGINEERED STRIPE JOHNNY COLLAR POLO",
+   "url": "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
+   "image": "https://cdn.shopify.com/s/files/1/0553/7100/6130/files/2MKT013FE_CLASSICNAVY_LARGE_1236.jpg?v=1779383293",
+   "price_cad": 68.6,
+   "was_cad": 98.0,
+   "off_pct": 30,
+   "sizes": [
+    "L",
+    "M",
+    "S",
+    "XL",
+    "XS",
+    "XXL"
+   ],
+   "final_sale": false,
+   "kind": "top"
+  },
+  {
+   "store": "Kotn",
+   "title": "Men's Buma Trouser in Black",
+   "url": "https://kotn.com/products/mens-buma-trouser-in-black",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_BUMA_TROUSER_BLACK_01.jpg?v=1775485097",
+   "price_cad": 89.0,
+   "was_cad": 148.0,
+   "off_pct": 40,
+   "sizes": [
+    "28/32",
+    "29/28",
+    "29/32",
+    "30/28",
+    "30/32",
+    "32/28",
+    "36/28",
+    "38/28",
+    "38/32"
+   ],
+   "final_sale": true,
+   "kind": "bottom"
+  },
+  {
+   "store": "Kotn",
+   "title": "Mina Vest in Black",
+   "url": "https://kotn.com/products/mens-mina-vest-in-black",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
+   "price_cad": 40.0,
+   "was_cad": 108.0,
+   "off_pct": 63,
+   "sizes": [
+    "M",
+    "XS",
+    "XXS"
+   ],
+   "final_sale": true,
+   "kind": "outerwear"
+  }
+ ],
+ "alternatives": [
+  [
+   "The Pacific Polo in Black Indigo Pique Stripe",
+   "Men's Work Trouser in Dark Camel",
+   "Mina Vest in Black"
+  ],
+  [
+   "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
+   "Men's Buma Trouser in Black",
+   "Mina Vest in Black"
+  ],
+  [
+   "Men's Wool Flannel Shirt in Olive Plaid",
+   "Men's Work Trouser in Dark Camel",
+   "Mina Vest in Black"
+  ]
+ ],
+ "total_cad": 197.6,
+ "was_total_cad": 354.0,
+ "saved_cad": 156.4,
+ "note": "No shoes in the sale data yet, so wear your own."
+}
