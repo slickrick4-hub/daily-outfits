@@ -49,7 +49,7 @@ def size_ok(item, kind):
         s = str(raw).strip().upper()
         if kind == "bottom":
             m = re.match(r"^(\d{2})(?:\s*/\s*(\d{2}))?$", s)
-            if m and int(m.group(1)) == S["waist"]:
+            if m and S["waist_min"] <= int(m.group(1)) <= S["waist_max"]:
                 if not m.group(2) or int(m.group(2)) in S["lengths"]:
                     return True
         elif s.split(" - ")[0].strip() in S["top_sizes"]:
