@@ -1,0 +1,16 @@
+{
+  "top_sizes": [
+    "M",
+    "L"
+  ],
+  "waist_min": 30,
+  "waist_max": 32,
+  "lengths": [
+    30,
+    31,
+    32
+  ],
+  "usd_to_cad": 1.38,
+  "min_off_pct": 20,
+  "max_item_cad": 150
+}
