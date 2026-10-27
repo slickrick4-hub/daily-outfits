@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Today’s outfit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#e9ebe7;--card:#fbfbf9;--ink:#14181b;--mut:#687068;--line:#cfd3cc;--yes:#2b6a4d;--no:#8e2f2f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}}
+:root[data-theme="dark"]{--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:520px;margin:0 auto;padding:16px 16px 32px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px}
+.sub{color:var(--mut);margin:0 0 14px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:14px}
+.card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:var(--line)}
+.body{padding:12px 14px 14px}
+.kind{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.title{font-size:18px;font-weight:600;margin:2px 0 6px}
+.price b{font-size:20px}.price s{color:var(--mut);margin:0 6px}.off{color:var(--yes);font-weight:600}
+.sizes{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.sizes span{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13px}
+.fs{display:inline-block;margin-left:8px;color:var(--no);border:1px solid var(--no);border-radius:6px;padding:0 6px;font-size:12px;font-weight:600}
+.buy{display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;border-radius:999px;padding:10px 18px}
+.buy:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.sum{font-size:17px;font-weight:600;margin:6px 0}
+details{margin-top:16px;color:var(--mut);font-size:14px}
+summary{cursor:pointer}li{margin:6px 0}
+</style></head><body><main>
+<h1>Today’s outfit</h1>
+<p class="sub" id="meta">Loading…</p>
+<section id="items"></section>
+<p class="sum" id="sum"></p>
+<p class="sub" id="warn"></p>
+<p class="sub" id="note"></p>
+<details id="alts" hidden><summary>Other outfits on the shortlist</summary><ul id="altl"></ul></details>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>'CAD '+Number(n).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
+const KIND={top:'Top',bottom:'Bottom',outerwear:'Layer'};
+fetch('data/outfit.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(o=>{
+  if(!o.items||!o.items.length){$('meta').textContent=o.message||'No outfit today.';return}
+  $('meta').textContent=new Date(o.date+'T12:00:00').toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+  $('items').innerHTML=o.items.map(i=>'<article class="card"><img src="'+esc(i.image)+'" alt="'+esc(nice(i.title))+'"><div class="body">'+
+    '<div class="kind">'+(KIND[i.kind]||'')+' · '+esc(i.store)+'</div>'+
+    '<div class="title">'+esc(nice(i.title))+(i.final_sale?'<span class="fs">FINAL SALE</span>':'')+'</div>'+
+    '<div class="price"><b>'+money(i.price_cad)+'</b><s>'+money(i.was_cad)+'</s><span class="off">'+i.off_pct+'% off</span></div>'+
+    '<div class="sizes">'+(i.sizes||[]).map(s=>'<span>'+esc(s)+'</span>').join('')+'</div>'+
+    '<a class="buy" href="'+esc(i.url)+'" target="_blank" rel="noopener">Buy at '+esc(i.store)+' →</a></div></article>').join('');
+  $('sum').textContent=money(o.total_cad)+' of your '+money(o.budget_cad)+' budget · you save '+money(o.saved_cad)+' (was '+money(o.was_total_cad)+')';
+  if(o.items.some(i=>i.final_sale))$('warn').textContent='Items marked final sale usually can’t be returned, so check the size before buying.';
+  $('note').textContent=o.note||'';
+  if(o.alternatives&&o.alternatives.length){$('alts').hidden=false;$('altl').innerHTML=o.alternatives.map(a=>'<li>'+a.map(t=>esc(nice(t))).join(' + ')+'</li>').join('')}
+}).catch(()=>{$('meta').textContent='Couldn’t load today’s outfit. Open this page from your GitHub Pages address, not as a file on your computer.'});
+</script></body></html>
