@@ -1,13 +1,14 @@
-name: Daily sales
 
+name: Daily sales
+ 
 on:
   schedule:
     - cron: "0 11 * * *"
   workflow_dispatch:
-
+ 
 permissions:
   contents: write
-
+ 
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -18,9 +19,10 @@ jobs:
           python-version: "3.12"
       - run: python collect_sales.py
       - run: python filter_sales.py
+      - run: python build_outfit.py
       - name: Save results
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add data/sales.json data/filtered.json
+          git add data/sales.json data/filtered.json data/outfit.json
           git diff --cached --quiet || (git commit -m "Update sales" && git push)
