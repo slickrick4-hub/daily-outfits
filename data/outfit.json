@@ -3,22 +3,19 @@
  "budget_cad": 200,
  "items": [
   {
-   "store": "Frank & Oak",
-   "title": "ENGINEERED STRIPE JOHNNY COLLAR POLO",
-   "url": "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
-   "image": "https://cdn.shopify.com/s/files/1/0553/7100/6130/files/2MKT013FE_CLASSICNAVY_LARGE_1236.jpg?v=1779383293",
-   "price_cad": 68.6,
-   "was_cad": 98.0,
-   "off_pct": 30,
+   "store": "Kotn",
+   "title": "Men's Jadd Longsleeve Knit Polo in Sandstone",
+   "url": "https://kotn.com/products/mens-jadd-longsleeve-knit-polo-in-sandstone",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/20260115_ECOMM_SS26_MEN_SJADDLONGSLEEVEKNITPOLO_SANDSTONE_8672.jpg?v=1769625049",
+   "price_cad": 69.0,
+   "was_cad": 148.0,
+   "off_pct": 53,
    "sizes": [
-    "L",
     "M",
     "S",
-    "XL",
-    "XS",
-    "XXL"
+    "XS"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
@@ -77,8 +74,8 @@
    "Mina Vest in Black"
   ]
  ],
- "total_cad": 197.6,
- "was_total_cad": 354.0,
- "saved_cad": 156.4,
- "note": "No shoes in the sale data yet, so wear your own."
+ "total_cad": 198.0,
+ "was_total_cad": 404.0,
+ "saved_cad": 206.0,
+ "note": "Colors: black + tan. No shoes in the sale data yet, so wear your own."
 }
