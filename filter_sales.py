@@ -11,7 +11,7 @@ SKIP_REGEX = r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glove
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
-BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo"]
+BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo", "selvedge", "selvage"]
 TOP = ["shirt", "sweater", "polo", "crew", "henley", "hood", "sweatshirt", "pullover", "cardigan",
        "knit", "zip", "rugby", "longsleeve", "long sleeve", "popover", "oxford", "chambray",
        "flannel", "jack in", "mock"]
@@ -58,7 +58,7 @@ def size_ok(item, kind):
             if m and float(m.group(1)) in S["shoe_sizes"]:
                 return True
         elif kind == "bottom":
-            m = re.match(r"^(\d{2})(?:\s*/\s*(\d{2}))?$", s)
+            m = re.match(r"^(\d{2})(?:\s*[/X-]\s*(\d{2}))?$", s)
             if m and S["waist_min"] <= int(m.group(1)) <= S["waist_max"]:
                 if not m.group(2) or int(m.group(2)) in S["lengths"]:
                     return True

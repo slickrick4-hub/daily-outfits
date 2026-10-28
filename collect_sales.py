@@ -19,7 +19,7 @@ def size_names(product):
         if not v.get("available"):
             continue
         for i, n in enumerate(names):
-            if n == "size" and v.get(f"option{i + 1}"):
+            if n in ("size", "waist", "waist size", "jean size") and v.get(f"option{i + 1}"):
                 found.add(v[f"option{i + 1}"])
     return sorted(found)
 

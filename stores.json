@@ -3,5 +3,7 @@
   {"name": "Taylor Stitch", "domain": "taylorstitch.com", "path": "/products.json", "currency": "USD"},
   {"name": "Frank & Oak", "domain": "frankandoak.ca", "path": "/products.json", "currency": "CAD"},
   {"name": "Beckett Simonon", "domain": "beckettsimonon.com", "path": "/products.json", "currency": "USD"},
-  {"name": "Thursday Boot Co.", "domain": "thursdayboots.com", "path": "/products.json", "currency": "USD"}
+  {"name": "Thursday Boot Co.", "domain": "thursdayboots.com", "path": "/products.json", "currency": "USD"},
+  {"name": "Naked & Famous", "domain": "nakedandfamousdenim.com", "path": "/products.json", "currency": "CAD"},
+  {"name": "Wings + Horns", "domain": "wingsandhorns.com", "path": "/products.json", "currency": "CAD"}
 ]
