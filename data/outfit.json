@@ -3,103 +3,94 @@
  "budget_cad": 500,
  "items": [
   {
-   "store": "Taylor Stitch",
-   "title": "The Arlo Sweater Polo in Oat Texture Knit",
-   "url": "https://taylorstitch.com/products/arlo-sweater-polo-in-oat-texture-knit-2605",
-   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/arlo-sweater-polo-in-oat-texture-knit-2605_001.jpg?v=1790611069",
-   "price_cad": 122.54,
-   "was_cad": 204.24,
-   "off_pct": 40,
+   "store": "Frank & Oak",
+   "title": "ENGINEERED STRIPE JOHNNY COLLAR POLO",
+   "url": "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
+   "image": "https://cdn.shopify.com/s/files/1/0553/7100/6130/files/2MKT013FE_CLASSICNAVY_LARGE_1236.jpg?v=1779383293",
+   "price_cad": 68.6,
+   "was_cad": 98.0,
+   "off_pct": 30,
    "sizes": [
-    "L - 42",
-    "M - 40",
-    "S - 38"
+    "L",
+    "M",
+    "S",
+    "XL",
+    "XS",
+    "XXL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
    "store": "Kotn",
-   "title": "Men's Buma Trouser in Black",
-   "url": "https://kotn.com/products/mens-buma-trouser-in-black",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_BUMA_TROUSER_BLACK_01.jpg?v=1775485097",
-   "price_cad": 89.0,
+   "title": "Men's Work Trouser in Dark Camel",
+   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
+   "price_cad": 70.0,
    "was_cad": 148.0,
-   "off_pct": 40,
+   "off_pct": 53,
    "sizes": [
-    "28/32",
-    "29/28",
-    "29/32",
-    "30/28",
-    "30/32",
-    "32/28",
-    "36/28",
-    "38/28",
-    "38/32"
+    "29",
+    "30"
    ],
    "final_sale": true,
    "kind": "bottom"
   },
   {
    "store": "Beckett Simonon",
-   "title": "Jones Slippers - Pebbled - Men's",
-   "url": "https://beckettsimonon.com/products/jones-slippers-pebbled",
-   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_tan_1_jones_slippers_pebbled.jpg?v=1762269431",
-   "price_cad": 136.62,
-   "was_cad": 241.5,
-   "off_pct": 43,
+   "title": "Vasco Oxfords - Men's",
+   "url": "https://beckettsimonon.com/products/vasco-oxfords",
+   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_black_1_vasco_oxfords.jpg?v=1762201016",
+   "price_cad": 343.62,
+   "was_cad": 510.6,
+   "off_pct": 33,
    "sizes": [
     "10",
+    "10.5",
     "11",
+    "11.5",
     "12",
     "13",
     "14",
     "7",
     "8",
-    "9"
+    "8.5",
+    "9",
+    "9.5"
    ],
    "final_sale": false,
    "kind": "shoes"
-  },
-  {
-   "store": "Kotn",
-   "title": "Mina Vest in Black",
-   "url": "https://kotn.com/products/mens-mina-vest-in-black",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
-   "price_cad": 40.0,
-   "was_cad": 108.0,
-   "off_pct": 63,
-   "sizes": [
-    "M",
-    "XS",
-    "XXS"
-   ],
-   "final_sale": true,
-   "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
    "The Pacific Polo in Black Indigo Pique Stripe",
-   "The Easy Pant in Washed Indigo Chambray",
-   "Jones Slippers - Pebbled - Men's",
-   "Mina Vest in Black"
-  ],
-  [
-   "The Merino Polo in Heather Black",
-   "The Easy Pant in Washed Indigo Chambray",
-   "Jones Slippers - Pebbled - Men's",
-   "Mina Vest in Black"
+   "Men's Work Trouser in Dark Camel",
+   "Vasco Oxfords - Men's"
   ],
   [
    "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
    "Men's Buma Trouser in Black",
-   "Jones Slippers - Pebbled - Men's",
-   "Mina Vest in Black"
+   "Vasco Oxfords - Men's"
+  ],
+  [
+   "Men's Wool Flannel Shirt in Olive Plaid",
+   "Men's Work Trouser in Dark Camel",
+   "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 388.16,
- "was_total_cad": 701.74,
- "saved_cad": 313.58,
- "note": "Colors: black + white."
+ "total_cad": 482.22,
+ "was_total_cad": 756.6,
+ "saved_cad": 274.38,
+ "note": "Colors: brown + navy.",
+ "history": [
+  {
+   "date": "2026-10-28",
+   "urls": [
+    "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
+    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  }
+ ]
 }
