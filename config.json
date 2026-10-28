@@ -1,0 +1,19 @@
+{
+  "outfit_budget_cad": 500,
+  "top_sizes": ["M", "L"],
+  "waist_min": 30,
+  "waist_max": 32,
+  "lengths": [30, 31, 32],
+  "shoe_sizes": [9],
+  "usd_to_cad": 1.38,
+  "min_off_pct": 20,
+  "max_item_cad": 250,
+  "max_shoe_cad": 350,
+  "like_words": ["oxford", "chambray", "flannel", "stripe", "striped", "merino", "polo", "trouser",
+                 "indigo", "black", "olive", "brown", "navy", "charcoal", "grey", "gray", "cream",
+                 "oat", "khaki", "truffle", "otter", "taupe", "espresso", "coffee", "marshmallow",
+                 "loafer", "derby", "oxfords"],
+  "avoid_words": ["henley", "tee", "hoodie", "jacket", "white", "light wash", "sorbet", "salsa",
+                  "fiery", "jester", "azure", "cabernet", "sneaker", "trainer", "boot", "chelsea", "sandal"],
+  "final_sale_penalty": 1
+}

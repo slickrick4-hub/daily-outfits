@@ -40,7 +40,7 @@ const $=id=>document.getElementById(id);
 const money=n=>'CAD '+Number(n).toFixed(2);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
-const KIND={top:'Top',bottom:'Bottom',outerwear:'Layer'};
+const KIND={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 fetch('data/outfit.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(o=>{
   if(!o.items||!o.items.length){$('meta').textContent=o.message||'No outfit today.';return}
   $('meta').textContent=new Date(o.date+'T12:00:00').toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});

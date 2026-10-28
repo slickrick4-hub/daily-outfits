@@ -2,12 +2,14 @@
 import json, re
 from datetime import datetime, timezone
 
-S = json.load(open("settings.json"))
+S = json.load(open("config.json"))
 
 # Words that remove an item (summer pieces, accessories, lounge wear, internal notes).
 SKIP_WORDS = ["short", "tank", "dress", "skirt", "swim", "linen", "seersucker", "camp shirt",
               "resort", "sweatpant", "jogger", "lounge", "check with"]
 SKIP_REGEX = r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glove|bag|pin)s?\b"
+SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
+         "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
 BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo"]
 TOP = ["shirt", "sweater", "polo", "crew", "henley", "hood", "sweatshirt", "pullover", "cardigan",
@@ -33,6 +35,8 @@ def is_mens(item):
 
 def kind_of(item):
     text = ((item.get("title") or "") + " " + (item.get("type") or "")).lower()
+    if any(w in text for w in SHOES):
+        return "shoes"
     if any(w in text for w in SKIP_WORDS) or re.search(SKIP_REGEX, text):
         return None
     if any(w in text for w in OUTER):
@@ -45,9 +49,15 @@ def kind_of(item):
 
 
 def size_ok(item, kind):
+    if kind == "shoes" and not S["shoe_sizes"]:
+        return bool(item.get("sizes"))  # no shoe size set yet, so accept anything in stock
     for raw in item.get("sizes") or []:
         s = str(raw).strip().upper()
-        if kind == "bottom":
+        if kind == "shoes":
+            m = re.match(r"^(?:US\s*)?(\d{1,2}(?:\.\d)?)", s)
+            if m and float(m.group(1)) in S["shoe_sizes"]:
+                return True
+        elif kind == "bottom":
             m = re.match(r"^(\d{2})(?:\s*/\s*(\d{2}))?$", s)
             if m and S["waist_min"] <= int(m.group(1)) <= S["waist_max"]:
                 if not m.group(2) or int(m.group(2)) in S["lengths"]:
@@ -68,7 +78,8 @@ def main():
             continue
         rate = S["usd_to_cad"] if it.get("currency") == "USD" else 1
         price, was = round(it["price"] * rate, 2), round(it["was"] * rate, 2)
-        if it["off_pct"] < S["min_off_pct"] or price > S["max_item_cad"]:
+        cap = S["max_shoe_cad"] if kind == "shoes" else S["max_item_cad"]
+        if it["off_pct"] < S["min_off_pct"] or price > cap:
             continue
         it = dict(it, kind=kind, price_cad=price, was_cad=was,
                   final_sale="final-sale" in tag_list(it))
@@ -79,7 +90,7 @@ def main():
     with open("data/filtered.json", "w") as f:
         json.dump(out, f)
     print(f"Kept {len(kept)} of {len(data['items'])} items")
-    for k in ("top", "bottom", "outerwear"):
+    for k in ("top", "bottom", "shoes", "outerwear"):
         print(f"  {k}: {sum(1 for i in kept if i['kind'] == k)}")
 
 
