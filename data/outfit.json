@@ -1,21 +1,21 @@
 {
- "date": "2026-10-27",
- "budget_cad": 200,
+ "date": "2026-10-28",
+ "budget_cad": 500,
  "items": [
   {
-   "store": "Kotn",
-   "title": "Men's Jadd Longsleeve Knit Polo in Sandstone",
-   "url": "https://kotn.com/products/mens-jadd-longsleeve-knit-polo-in-sandstone",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/20260115_ECOMM_SS26_MEN_SJADDLONGSLEEVEKNITPOLO_SANDSTONE_8672.jpg?v=1769625049",
-   "price_cad": 69.0,
-   "was_cad": 148.0,
-   "off_pct": 53,
+   "store": "Taylor Stitch",
+   "title": "The Arlo Sweater Polo in Oat Texture Knit",
+   "url": "https://taylorstitch.com/products/arlo-sweater-polo-in-oat-texture-knit-2605",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/arlo-sweater-polo-in-oat-texture-knit-2605_001.jpg?v=1790611069",
+   "price_cad": 122.54,
+   "was_cad": 204.24,
+   "off_pct": 40,
    "sizes": [
-    "M",
-    "S",
-    "XS"
+    "L - 42",
+    "M - 40",
+    "S - 38"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
@@ -41,6 +41,27 @@
    "kind": "bottom"
   },
   {
+   "store": "Beckett Simonon",
+   "title": "Jones Slippers - Pebbled - Men's",
+   "url": "https://beckettsimonon.com/products/jones-slippers-pebbled",
+   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_tan_1_jones_slippers_pebbled.jpg?v=1762269431",
+   "price_cad": 136.62,
+   "was_cad": 241.5,
+   "off_pct": 43,
+   "sizes": [
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "7",
+    "8",
+    "9"
+   ],
+   "final_sale": false,
+   "kind": "shoes"
+  },
+  {
    "store": "Kotn",
    "title": "Mina Vest in Black",
    "url": "https://kotn.com/products/mens-mina-vest-in-black",
@@ -60,22 +81,25 @@
  "alternatives": [
   [
    "The Pacific Polo in Black Indigo Pique Stripe",
-   "Men's Work Trouser in Dark Camel",
+   "The Easy Pant in Washed Indigo Chambray",
+   "Jones Slippers - Pebbled - Men's",
+   "Mina Vest in Black"
+  ],
+  [
+   "The Merino Polo in Heather Black",
+   "The Easy Pant in Washed Indigo Chambray",
+   "Jones Slippers - Pebbled - Men's",
    "Mina Vest in Black"
   ],
   [
    "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
    "Men's Buma Trouser in Black",
-   "Mina Vest in Black"
-  ],
-  [
-   "Men's Wool Flannel Shirt in Olive Plaid",
-   "Men's Work Trouser in Dark Camel",
+   "Jones Slippers - Pebbled - Men's",
    "Mina Vest in Black"
   ]
  ],
- "total_cad": 198.0,
- "was_total_cad": 404.0,
- "saved_cad": 206.0,
- "note": "Colors: black + tan. No shoes in the sale data yet, so wear your own."
+ "total_cad": 388.16,
+ "was_total_cad": 701.74,
+ "saved_cad": 313.58,
+ "note": "Colors: black + white."
 }
