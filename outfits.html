@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Outfits on sale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#e9ebe7;--card:#fbfbf9;--ink:#14181b;--mut:#687068;--line:#cfd3cc;--yes:#2b6a4d;--no:#8e2f2f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}}
+:root[data-theme="dark"]{--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px}
+.sub{color:var(--mut);margin:0 0 14px;font-size:15px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:16px}
+summary{cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:4px}.wide{grid-column:1/-1}
+input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+button{font:inherit;cursor:pointer;border-radius:999px;padding:10px 20px;font-weight:600;border:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+button.o{background:transparent;color:var(--ink)}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.outfit{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px;margin-bottom:16px}
+.flat{display:grid;gap:6px}.flat img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;background:var(--line);display:block}
+ul{list-style:none;margin:10px 4px 4px;padding:0}li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:8px 0;font-size:14px}
+li span{grid-column:1/-1;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+li a{color:var(--ink)}.fs{font-style:normal;font-size:11px;color:var(--no);border:1px solid var(--no);border-radius:5px;padding:0 5px;margin-left:6px}
+.tot{font-weight:600;margin:8px 4px 2px}.tot s{color:var(--mut);font-weight:400;margin:0 4px}
+.act{display:flex;gap:10px;flex-wrap:wrap}
+</style></head><body><main>
+<h1>Outfits on sale</h1>
+<p class="sub" id="meta">Loading the catalog…</p>
+<details id="setup" open><summary>Your sizes, budget and taste</summary>
+<div class="grid">
+<label>Top size(s)<input id="tops" placeholder="M, L"></label>
+<label>Waist (inches)<input id="waist" type="number" min="24" max="50"></label>
+<label>Shoe size (US)<input id="shoe" type="number" step="0.5" min="5" max="16"></label>
+<label>Budget per outfit (CAD)<input id="budget" type="number" min="50"></label>
+<label class="wide">Words you like (colors, styles)<input id="like"></label>
+<label class="wide">Words to avoid<input id="avoid"></label>
+</div>
+<div class="act"><button id="go">Show my outfits</button><button id="reset" class="o">Reset</button></div>
+</details>
+<section id="feed"></section>
+<div class="act"><button id="more" class="o" hidden>Shuffle for new ideas</button></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const DEF={tops:'M, L',waist:31,shoe:9,budget:500,
+ like:'oxford, chambray, flannel, stripe, merino, polo, trouser, indigo, black, olive, brown, navy, charcoal, grey, cream, khaki, loafer, derby',
+ avoid:'henley, tee, hoodie, jacket, white, sneaker, trainer, boot, sandal, slipper'};
+const list=s=>String(s).split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+const money=n=>'CAD '+Number(n).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
+const re=w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+const hit=(t,ws)=>ws.filter(w=>re(w).test(t)).length;
+const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
+const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
+let CAT=[],SAVED=false;
+function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){Object.assign(p,JSON.parse(s));SAVED=true}}catch(e){}return p}
+function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid}
+function read(){return{tops:$('tops').value,waist:+$('waist').value||DEF.waist,shoe:+$('shoe').value||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value}}
+function sizeOk(i,p){const ss=(i.sizes||[]).map(String);
+  if(i.kind==='shoes')return ss.some(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&Math.abs(+m[1]-p.shoe)<.01});
+  if(i.kind==='bottom')return ss.some(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&Math.abs(+m[1]-p.waist)<=1});
+  const want=list(p.tops).map(x=>x.toUpperCase());return ss.some(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
+const DARK=['black','navy','grey'];
+function cb(parts){const f=new Set(parts.flatMap(x=>x.colors||[]));if(!f.size)return 0;let b=0;
+  if([...f].every(c=>DARK.includes(c)))b-=2.5;if([...f].some(c=>!DARK.includes(c)))b+=1.5;if(f.size>=4)b-=3;if(f.has('bright'))b-=2;return b}
+function build(items,p,shuffle){
+  const likeW=list(p.like),avoidW=list(p.avoid);
+  const ok=items.filter(i=>i.price_cad<=p.budget&&sizeOk(i,p)&&hit(i.title.toLowerCase(),avoidW)===0);
+  ok.forEach(i=>{i._s=i.off_pct/10+2*hit(i.title.toLowerCase(),likeW)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
+  const pick=(k,n)=>ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).slice(0,n);
+  const tops=pick('top',30),bots=pick('bottom',20),shoes=pick('shoes',20),lay=pick('outerwear',15),combos=[];
+  for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
+    const base=[t,b].concat(s?[s]:[]),cost=sum(base,'price_cad');if(cost>p.budget)continue;
+    const sc=sum(base,'_s');combos.push([sc+cb(base),base]);
+    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=base.concat([o]);combos.push([sc+.5*o._s+cb(f),f])}}
+  combos.sort((a,b)=>b[0]-a[0]);
+  const out=[],uT={},uB={},uS={};
+  for(const[,parts]of combos){const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes');
+    if(uT[t.url]||(uB[b.url]||0)>=3||(s&&(uS[s.url]||0)>=4))continue;
+    uT[t.url]=1;uB[b.url]=(uB[b.url]||0)+1;if(s)uS[s.url]=(uS[s.url]||0)+1;out.push(parts);if(out.length===12)break}
+  return out}
+function card(parts){const tot=sum(parts,'price_cad'),was=sum(parts,'was_cad');
+  const cols=parts.length===4?2:parts.length;
+  return '<article class="outfit"><div class="flat" style="grid-template-columns:repeat('+cols+',1fr)">'+
+    parts.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>').join('')+'</div><ul>'+
+    parts.map(x=>'<li><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+(x.final_sale?'<i class="fs">final sale</i>':'')+'</a><b>'+money(x.price_cad)+'</b></li>').join('')+
+    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p></article>'}
+function run(shuffle){const p=read();try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}
+  const res=build(CAT,p,shuffle);
+  $('feed').innerHTML=res.length?res.map(card).join(''):'<p class="sub">No outfits fit right now. Try a bigger budget, fewer words to avoid, or check back tomorrow when new sales arrive.</p>';
+  $('more').hidden=!res.length;$('setup').open=!res.length}
+$('go').onclick=()=>run(false);$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
+$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}show(DEF)};
+const P0=load();show(P0);
+fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;
+  $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
+  if(SAVED){$('setup').open=false;run(false)}
+}).catch(()=>{$('meta').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});
+</script></body></html>
