@@ -29,6 +29,7 @@ li a{color:var(--ink)}.fs{font-style:normal;font-size:11px;color:var(--no);borde
 </style></head><body><main>
 <h1>Outfits on sale</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
+<p class="sub"><a href="quiz.html">Take the style quiz</a> to fill in the words below for you.</p>
 <details id="setup" open><summary>Your sizes, budget and taste</summary>
 <div class="grid">
 <label>Top size(s)<input id="tops" placeholder="M, L"></label>
@@ -54,6 +55,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
 const re=w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
 const hit=(t,ws)=>ws.filter(w=>re(w).test(t)).length;
+const txt=i=>i.title.toLowerCase()+' '+(i.colors||[]).join(' ');
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 let CAT=[],SAVED=false;
@@ -69,8 +71,8 @@ function cb(parts){const f=new Set(parts.flatMap(x=>x.colors||[]));if(!f.size)re
   if([...f].every(c=>DARK.includes(c)))b-=2.5;if([...f].some(c=>!DARK.includes(c)))b+=1.5;if(f.size>=4)b-=3;if(f.has('bright'))b-=2;return b}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
-  const ok=items.filter(i=>i.price_cad<=p.budget&&sizeOk(i,p)&&hit(i.title.toLowerCase(),avoidW)===0);
-  ok.forEach(i=>{i._s=i.off_pct/10+2*hit(i.title.toLowerCase(),likeW)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
+  const ok=items.filter(i=>i.price_cad<=p.budget&&sizeOk(i,p)&&hit(txt(i),avoidW)===0);
+  ok.forEach(i=>{i._s=i.off_pct/10+2*hit(txt(i),likeW)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
   const pick=(k,n)=>ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).slice(0,n);
   const tops=pick('top',30),bots=pick('bottom',20),shoes=pick('shoes',20),lay=pick('outerwear',15),combos=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){

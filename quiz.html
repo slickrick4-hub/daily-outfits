@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Style quiz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#e9ebe7;--card:#fbfbf9;--ink:#14181b;--mut:#687068;--line:#cfd3cc;--yes:#2b6a4d;--no:#8e2f2f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}}
+:root[data-theme="dark"]{--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px}h2{font-size:22px;margin:6px 0}
+.sub{color:var(--mut);margin:0 0 12px;font-size:15px}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:14px}.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{font:inherit;color:var(--ink);text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;cursor:pointer}
+.pick img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;background:var(--line);display:block}
+.pick span{display:block;font-size:13px;margin-top:6px;min-height:2.6em}.pick:hover{border-color:var(--ink)}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.act{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{font:inherit;cursor:pointer;border-radius:999px;padding:10px 20px;font-weight:600;border:1px solid var(--ink);background:var(--ink);color:var(--bg);text-decoration:none}.btn.o{background:transparent;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}.chips b{border-radius:999px;padding:4px 12px;font-weight:600;font-size:14px;border:1px solid}
+.l b{color:var(--yes);border-color:var(--yes)}.a b{color:var(--no);border-color:var(--no)}
+</style></head><body><main>
+<h1>Style quiz</h1>
+<p class="sub" id="sub">Pick the one you’d rather wear. It uses what’s on sale right now.</p>
+<div class="bar"><i id="pg"></i></div>
+<section id="pair" class="pair"></section>
+<div class="act" id="acts"><button class="btn o" id="skip">Neither</button></div>
+<section id="res" hidden></section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
+const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
+const SEQ=['top','bottom','top','shoes','top','bottom','outerwear','shoes'],ROUNDS=16;
+let CAT=[],FREQ={},used=new Set(),score={},count={},r=0,cur=null;
+const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)&&FREQ[x]>=4));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
+function nextPair(){for(let k=0;k<SEQ.length;k++){const kind=SEQ[(r+k)%SEQ.length];
+  const pool=CAT.filter(i=>i.kind===kind&&i.image&&!used.has(i.url));if(pool.length<2)continue;
+  const a=pool[Math.floor(Math.random()*pool.length)],ta=new Set(tok(a));let best=null,bd=-1;
+  for(let n=0;n<10;n++){const b=pool[Math.floor(Math.random()*pool.length)];if(b===a)continue;const d=tok(b).filter(x=>!ta.has(x)).length;if(d>bd){bd=d;best=b}}
+  if(best)return[a,best]}return null}
+function draw(){$('pg').style.width=(r/ROUNDS*100)+'%';if(r>=ROUNDS)return finish();
+  cur=nextPair();if(!cur)return finish();cur.forEach(i=>used.add(i.url));
+  $('pair').innerHTML=cur.map((i,n)=>'<button class="pick" data-n="'+n+'"><img src="'+esc(i.image)+'" alt=""><span>'+esc(nice(i.title))+'</span></button>').join('');
+  document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>choose(+b.dataset.n))}
+function choose(n){tok(cur[n]).forEach(t=>{score[t]=(score[t]||0)+1;count[t]=(count[t]||0)+1});
+  tok(cur[1-n]).forEach(t=>{score[t]=(score[t]||0)-1;count[t]=(count[t]||0)+1});r++;draw()}
+function finish(){$('pair').hidden=true;$('acts').hidden=true;$('pg').style.width='100%';
+  const ks=Object.keys(score);
+  const like=ks.filter(t=>score[t]>=2).sort((a,b)=>score[b]-score[a]).slice(0,12);
+  const avoid=ks.filter(t=>score[t]<=-2&&count[t]>=3).sort((a,b)=>score[a]-score[b]).slice(0,8);
+  $('sub').textContent='';
+  $('res').hidden=false;
+  $('res').innerHTML='<h2>Your style</h2><p class="sub">Built from your '+r+' choices. You can edit these words on the outfits page.</p>'+
+   '<p class="sub">You gravitate toward</p><div class="chips l">'+(like.length?like.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing stood out yet. Try again with more choices.</span>')+'</div>'+
+   '<p class="sub">You tend to skip</p><div class="chips a">'+(avoid.length?avoid.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing strong.</span>')+'</div>'+
+   '<div class="act"><button class="btn" id="use">Use this style</button><button class="btn o" id="again">Retake</button></div>';
+  $('use').onclick=()=>{let p={};try{p=JSON.parse(localStorage.getItem('profile')||'{}')}catch(e){}
+    p.like=like.join(', ');p.avoid=avoid.join(', ');try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}location.href='outfits.html'};
+  $('again').onclick=()=>location.reload()}
+$('skip').onclick=()=>{r++;draw()};
+fetch('data/catalog.json?'+Date.now()).then(x=>{if(!x.ok)throw 0;return x.json()}).then(c=>{CAT=c.items;
+  CAT.forEach(i=>new Set(i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).forEach(w=>FREQ[w]=(FREQ[w]||0)+1));draw()
+}).catch(()=>{$('sub').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});
+</script></body></html>
