@@ -1,37 +1,48 @@
 {
- "date": "2026-10-28",
+ "date": "2026-10-29",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Frank & Oak",
-   "title": "ENGINEERED STRIPE JOHNNY COLLAR POLO",
-   "url": "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
-   "image": "https://cdn.shopify.com/s/files/1/0553/7100/6130/files/2MKT013FE_CLASSICNAVY_LARGE_1236.jpg?v=1779383293",
-   "price_cad": 68.6,
-   "was_cad": 98.0,
-   "off_pct": 30,
+   "store": "Taylor Stitch",
+   "title": "The Organic Cotton Crew in Burgundy Waffle",
+   "url": "https://taylorstitch.com/products/organic-cotton-waffle-crew-in-burgundy-2410",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/instock_m_q424_The_Organic_Cotton_Waffle_Crew-Burgundy_001.jpg?v=1753287795",
+   "price_cad": 70.38,
+   "was_cad": 117.3,
+   "off_pct": 40,
    "sizes": [
-    "L",
-    "M",
-    "S",
-    "XL",
-    "XS",
-    "XXL"
+    "M - 40",
+    "XL - 44"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
    "store": "Kotn",
-   "title": "Men's Work Trouser in Dark Camel",
-   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
-   "price_cad": 70.0,
-   "was_cad": 148.0,
-   "off_pct": 53,
+   "title": "Antifit Denim in Washed Black",
+   "url": "https://kotn.com/products/unisex-antifit-denim-in-washed-black",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/UNISEX_ANTIFIT_DENIM_WASHEDBLACK_SS2614810.jpg?v=1771353584",
+   "price_cad": 79.0,
+   "was_cad": 138.0,
+   "off_pct": 43,
    "sizes": [
-    "29",
-    "30"
+    "24/32",
+    "25/28",
+    "25/32",
+    "26/28",
+    "26/32",
+    "27/28",
+    "28/28",
+    "28/32",
+    "29/28",
+    "29/32",
+    "30/28",
+    "30/32",
+    "32/28",
+    "34/28",
+    "34/32",
+    "36/28",
+    "38/28"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -64,31 +75,39 @@
  ],
  "alternatives": [
   [
-   "The Pacific Polo in Black Indigo Pique Stripe",
-   "Men's Work Trouser in Dark Camel",
-   "Vasco Oxfords - Men's"
-  ],
-  [
    "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
    "Men's Buma Trouser in Black",
    "Vasco Oxfords - Men's"
   ],
   [
-   "Men's Wool Flannel Shirt in Olive Plaid",
-   "Men's Work Trouser in Dark Camel",
+   "Men's Chambray Shirt in Earth",
+   "Men's Buma Trouser in Black",
+   "Vasco Oxfords - Men's"
+  ],
+  [
+   "Men's Chambray Shirt in Rinse",
+   "Men's Buma Trouser in Black",
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 482.22,
- "was_total_cad": 756.6,
- "saved_cad": 274.38,
- "note": "Colors: brown + navy.",
+ "total_cad": 493.0,
+ "was_total_cad": 765.9,
+ "saved_cad": 272.9,
+ "note": "Colors: black + red.",
  "history": [
   {
    "date": "2026-10-28",
    "urls": [
     "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
     "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "urls": [
+    "https://taylorstitch.com/products/organic-cotton-waffle-crew-in-burgundy-2410",
+    "https://kotn.com/products/unisex-antifit-denim-in-washed-black",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
