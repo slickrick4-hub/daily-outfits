@@ -1,38 +1,34 @@
 {
- "date": "2026-10-29",
+ "date": "2026-10-30",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Frank & Oak",
-   "title": "DROP-NEEDLE KNIT SHIRT",
-   "url": "https://frankandoak.ca/products/mens-knit-t-shirt-trailstone-2mkt012fe-dese",
-   "image": "https://cdn.shopify.com/s/files/1/0553/7100/6130/files/2MKT012FE_TRAILSTONE_LARGE_0822.jpg?v=1779382978",
-   "price_cad": 65.4,
-   "was_cad": 109.0,
-   "off_pct": 40,
+   "store": "Kotn",
+   "title": "Men's Wool Flannel Shirt in Olive Plaid",
+   "url": "https://kotn.com/products/mens-wool-flannel-shirt-in-olive-plaid",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWoolFlannelShirt_OlivePlaid2.jpg?v=1760453108",
+   "price_cad": 80.0,
+   "was_cad": 168.0,
+   "off_pct": 52,
    "sizes": [
-    "L",
     "M",
     "S",
-    "XL",
-    "XS",
-    "XXL"
+    "XS"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
    "store": "Kotn",
-   "title": "Men's Explorer Pant in Otter",
-   "url": "https://kotn.com/products/mens-explorer-pant-in-otter",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sExplorerPant_Otter1.jpg?v=1775690929",
-   "price_cad": 89.0,
-   "was_cad": 178.0,
-   "off_pct": 50,
+   "title": "Men's Work Trouser in Dark Camel",
+   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
+   "price_cad": 70.0,
+   "was_cad": 148.0,
+   "off_pct": 53,
    "sizes": [
-    "28",
     "29",
-    "31"
+    "30"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -70,20 +66,20 @@
    "Vasco Oxfords - Men's"
   ],
   [
-   "Men's Flannel Shirt in Brown Plaid",
+   "Men's Chambray Shirt in Earth",
    "Men's Buma Trouser in Black",
    "Vasco Oxfords - Men's"
   ],
   [
-   "Men's Chambray Shirt in Earth",
+   "Men's Chambray Shirt in Rinse",
    "Men's Buma Trouser in Black",
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 498.02,
- "was_total_cad": 797.6,
- "saved_cad": 299.58,
- "note": "Colors: brown.",
+ "total_cad": 493.62,
+ "was_total_cad": 826.6,
+ "saved_cad": 332.98,
+ "note": "Colors: brown + green.",
  "history": [
   {
    "date": "2026-10-28",
@@ -98,6 +94,14 @@
    "urls": [
     "https://frankandoak.ca/products/mens-knit-t-shirt-trailstone-2mkt012fe-dese",
     "https://kotn.com/products/mens-explorer-pant-in-otter",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "urls": [
+    "https://kotn.com/products/mens-wool-flannel-shirt-in-olive-plaid",
+    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
