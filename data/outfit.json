@@ -3,83 +3,89 @@
  "budget_cad": 500,
  "items": [
   {
-   "store": "Kotn",
-   "title": "Men's Wool Flannel Shirt in Olive Plaid",
-   "url": "https://kotn.com/products/mens-wool-flannel-shirt-in-olive-plaid",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWoolFlannelShirt_OlivePlaid2.jpg?v=1760453108",
-   "price_cad": 80.0,
-   "was_cad": 168.0,
-   "off_pct": 52,
+   "store": "Taylor Stitch",
+   "title": "The Jack in Rinsed Indigo Stripe Chambray",
+   "url": "https://taylorstitch.com/products/jack-in-rinsed-indigo-stripe-chambray-2512",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/jack-in-rinsed-indigo-stripe-chambray-2512_001.jpg?v=1790611695",
+   "price_cad": 130.41,
+   "was_cad": 186.3,
+   "off_pct": 30,
    "sizes": [
-    "M",
-    "S",
-    "XS"
+    "M - 40"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Kotn",
-   "title": "Men's Work Trouser in Dark Camel",
-   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
-   "price_cad": 70.0,
-   "was_cad": 148.0,
-   "off_pct": 53,
+   "store": "Rowing Blazers",
+   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
+   "price_cad": 109.3,
+   "was_cad": 273.24,
+   "off_pct": 60,
    "sizes": [
-    "29",
-    "30"
+    "28",
+    "30",
+    "38"
    ],
    "final_sale": true,
    "kind": "bottom"
   },
   {
-   "store": "Beckett Simonon",
-   "title": "Vasco Oxfords - Men's",
-   "url": "https://beckettsimonon.com/products/vasco-oxfords",
-   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_black_1_vasco_oxfords.jpg?v=1762201016",
-   "price_cad": 343.62,
-   "was_cad": 510.6,
-   "off_pct": 33,
+   "store": "Nisolo",
+   "title": "Rey Everyday Derby Lug Umber Brown Suede",
+   "url": "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+   "image": "https://cdn.shopify.com/s/files/1/0277/9027/files/MF-1925-UBR_PAIR_FRONT_007Medium.jpg?v=1756256524",
+   "price_cad": 136.62,
+   "was_cad": 314.64,
+   "off_pct": 57,
    "sizes": [
-    "10",
-    "10.5",
-    "11",
-    "11.5",
-    "12",
-    "13",
-    "14",
-    "7",
-    "8",
     "8.5",
-    "9",
-    "9.5"
+    "9"
    ],
    "final_sale": false,
    "kind": "shoes"
+  },
+  {
+   "store": "Rowing Blazers",
+   "title": "Cotton Patchwork Vest Multicolor Block",
+   "url": "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/47_MF25S12S01MBK_013.jpg?v=1773775960",
+   "price_cad": 87.22,
+   "was_cad": 218.04,
+   "off_pct": 60,
+   "sizes": [
+    "L"
+   ],
+   "final_sale": true,
+   "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
-   "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
-   "Men's Buma Trouser in Black",
-   "Vasco Oxfords - Men's"
+   "The Pacific Polo in Black Indigo Pique Stripe",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "Rey Everyday Derby Lug Umber Brown Suede",
+   "Mina Vest in Black"
   ],
   [
-   "Men's Chambray Shirt in Earth",
-   "Men's Buma Trouser in Black",
-   "Vasco Oxfords - Men's"
+   "Cashmere Striped Sweater Navy and Cream Stripe",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "Rey Everyday Derby Lug Umber Brown Suede",
+   "Cotton Patchwork Vest Multicolor Block"
   ],
   [
-   "Men's Chambray Shirt in Rinse",
-   "Men's Buma Trouser in Black",
-   "Vasco Oxfords - Men's"
+   "The Merino Polo in Heather Black",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "Rey Everyday Derby Lug Umber Brown Suede",
+   "Mina Vest in Black"
   ]
  ],
- "total_cad": 493.62,
- "was_total_cad": 826.6,
- "saved_cad": 332.98,
- "note": "Colors: brown + green.",
+ "total_cad": 463.55,
+ "was_total_cad": 992.22,
+ "saved_cad": 528.67,
+ "note": "Colors: blue + brown + navy.",
  "history": [
   {
    "date": "2026-10-28",
@@ -100,9 +106,10 @@
   {
    "date": "2026-10-30",
    "urls": [
-    "https://kotn.com/products/mens-wool-flannel-shirt-in-olive-plaid",
-    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-    "https://beckettsimonon.com/products/vasco-oxfords"
+    "https://taylorstitch.com/products/jack-in-rinsed-indigo-stripe-chambray-2512",
+    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
    ]
   }
  ]
