@@ -38,9 +38,18 @@ def best_sale(product):
     return best
 
 
+def shop_currency(base, fallback):
+    """Shopify stores publish their currency at /meta.json; use it when available."""
+    try:
+        return fetch(base + "/meta.json").get("currency") or fallback
+    except Exception:
+        return fallback
+
+
 def collect(store):
     items = []
     base = "https://" + store["domain"]
+    currency = shop_currency(base, store.get("currency"))
     for page in range(1, MAX_PAGES + 1):
         sep = "&" if "?" in store["path"] else "?"
         data = fetch(f"{base}{store['path']}{sep}limit=250&page={page}")
@@ -62,7 +71,7 @@ def collect(store):
                 "price": sale[0],
                 "was": sale[1],
                 "off_pct": round(sale[2] * 100),
-                "currency": store.get("currency"),
+                "currency": currency,
                 "sizes": size_names(p),
             })
         time.sleep(1.5)
@@ -75,7 +84,7 @@ def main():
     for s in stores:
         try:
             got = collect(s)
-            print(f"{s['name']}: {len(got)} items on sale")
+            print(f"{s['name']}: {len(got)} items on sale" + (f" ({got[0]['currency']})" if got else ""))
             all_items += got
         except Exception as e:
             print(f"{s['name']}: skipped ({e})")

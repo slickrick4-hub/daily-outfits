@@ -1,9 +1,188 @@
 [
-  {"name": "Kotn", "domain": "kotn.com", "path": "/products.json", "currency": "CAD"},
-  {"name": "Taylor Stitch", "domain": "taylorstitch.com", "path": "/products.json", "currency": "USD"},
-  {"name": "Frank & Oak", "domain": "frankandoak.ca", "path": "/products.json", "currency": "CAD"},
-  {"name": "Beckett Simonon", "domain": "beckettsimonon.com", "path": "/products.json", "currency": "USD"},
-  {"name": "Thursday Boot Co.", "domain": "thursdayboots.com", "path": "/products.json", "currency": "USD"},
-  {"name": "Naked & Famous", "domain": "nakedandfamousdenim.com", "path": "/products.json", "currency": "CAD"},
-  {"name": "Wings + Horns", "domain": "wingsandhorns.com", "path": "/products.json", "currency": "CAD"}
+ {
+  "name": "Kotn",
+  "domain": "kotn.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Taylor Stitch",
+  "domain": "taylorstitch.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Frank & Oak",
+  "domain": "frankandoak.ca",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Beckett Simonon",
+  "domain": "beckettsimonon.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Thursday Boot Co.",
+  "domain": "thursdayboots.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Naked & Famous",
+  "domain": "nakedandfamousdenim.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Wings + Horns",
+  "domain": "wingsandhorns.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Marine Layer",
+  "domain": "marinelayer.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Vuori",
+  "domain": "vuoriclothing.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Reigning Champ",
+  "domain": "reigningchamp.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Outerknown",
+  "domain": "outerknown.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Flint and Tinder",
+  "domain": "flintandtinder.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Jachs NY",
+  "domain": "jachsny.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Mack Weldon",
+  "domain": "mackweldon.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Ten Thousand",
+  "domain": "tenthousand.cc",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Public Rec",
+  "domain": "publicrec.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Mizzen+Main",
+  "domain": "mizzenandmain.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Ledbury",
+  "domain": "ledbury.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Gustin",
+  "domain": "shopgustin.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Spier & Mackay",
+  "domain": "spierandmackay.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Saturdays NYC",
+  "domain": "saturdaysnyc.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Rowing Blazers",
+  "domain": "rowingblazers.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Oliver Cabell",
+  "domain": "olivercabell.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Greats",
+  "domain": "greats.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Taft",
+  "domain": "taftclothing.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Nisolo",
+  "domain": "nisolo.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Duer",
+  "domain": "shopduer.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Province of Canada",
+  "domain": "provinceofcanada.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Tentree",
+  "domain": "tentree.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Cuts",
+  "domain": "cutsclothing.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Peter Manning NYC",
+  "domain": "petermanningnyc.com",
+  "path": "/products.json",
+  "currency": "USD"
+ }
 ]

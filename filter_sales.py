@@ -11,10 +11,10 @@ SKIP_REGEX = r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glove
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
-BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo", "selvedge", "selvage"]
+BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo", "selvedge", "selvage", "slack", "corduroy"]
 TOP = ["shirt", "sweater", "polo", "crew", "henley", "hood", "sweatshirt", "pullover", "cardigan",
        "knit", "zip", "rugby", "longsleeve", "long sleeve", "popover", "oxford", "chambray",
-       "flannel", "jack in", "mock"]
+       "flannel", "jack in", "mock", "fleece", "terry", "thermal", "jersey", "knitwear", "tops"]
 
 
 def tag_list(item):

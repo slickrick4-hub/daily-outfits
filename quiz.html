@@ -35,7 +35,7 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
 const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
-const SEQ=['top','bottom','top','shoes','top','bottom','outerwear','shoes'],ROUNDS=16;
+const SEQ=['top','bottom','top','shoes','top','bottom','outerwear','shoes'];let ROUNDS=16;
 let CAT=[],FREQ={},used=new Set(),score={},count={},r=0,cur=null;
 const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)&&FREQ[x]>=4));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
 function nextPair(){for(let k=0;k<SEQ.length;k++){const kind=SEQ[(r+k)%SEQ.length];
@@ -58,9 +58,10 @@ function finish(){$('pair').hidden=true;$('acts').hidden=true;$('pg').style.widt
   $('res').innerHTML='<h2>Your style</h2><p class="sub">Built from your '+r+' choices. You can edit these words on the outfits page.</p>'+
    '<p class="sub">You gravitate toward</p><div class="chips l">'+(like.length?like.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing stood out yet. Try again with more choices.</span>')+'</div>'+
    '<p class="sub">You tend to skip</p><div class="chips a">'+(avoid.length?avoid.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing strong.</span>')+'</div>'+
-   '<div class="act"><button class="btn" id="use">Use this style</button><button class="btn o" id="again">Retake</button></div>';
+   '<div class="act"><button class="btn" id="use">Use this style</button><button class="btn o" id="keep">Keep going (8 more)</button><button class="btn o" id="again">Retake</button></div>';
   $('use').onclick=()=>{let p={};try{p=JSON.parse(localStorage.getItem('profile')||'{}')}catch(e){}
-    p.like=like.join(', ');p.avoid=avoid.join(', ');try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}location.href='outfits.html'};
+    p.like=like.join(', ');p.avoid=avoid.join(', ');const w={};ks.forEach(t=>{if(count[t]>=2&&score[t]!==0)w[t]=Math.max(-3,Math.min(3,score[t]*.5))});p.weights=w;try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}location.href='outfits.html'};
+  $('keep').onclick=()=>{ROUNDS+=8;$('res').hidden=true;$('pair').hidden=false;$('acts').hidden=false;$('sub').textContent='Pick the one you’d rather wear.';draw()};
   $('again').onclick=()=>location.reload()}
 $('skip').onclick=()=>{r++;draw()};
 fetch('data/catalog.json?'+Date.now()).then(x=>{if(!x.ok)throw 0;return x.json()}).then(c=>{CAT=c.items;
