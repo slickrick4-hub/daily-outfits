@@ -48,12 +48,6 @@
   "currency": "USD"
  },
  {
-  "name": "Vuori",
-  "domain": "vuoriclothing.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Reigning Champ",
   "domain": "reigningchamp.com",
   "path": "/products.json",
@@ -62,12 +56,6 @@
  {
   "name": "Outerknown",
   "domain": "outerknown.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Flint and Tinder",
-  "domain": "flintandtinder.com",
   "path": "/products.json",
   "currency": "USD"
  },
@@ -90,12 +78,6 @@
   "currency": "USD"
  },
  {
-  "name": "Public Rec",
-  "domain": "publicrec.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Mizzen+Main",
   "domain": "mizzenandmain.com",
   "path": "/products.json",
@@ -106,18 +88,6 @@
   "domain": "ledbury.com",
   "path": "/products.json",
   "currency": "USD"
- },
- {
-  "name": "Gustin",
-  "domain": "shopgustin.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Spier & Mackay",
-  "domain": "spierandmackay.com",
-  "path": "/products.json",
-  "currency": "CAD"
  },
  {
   "name": "Saturdays NYC",

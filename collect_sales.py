@@ -1,15 +1,28 @@
 """Reads each store's public product list and saves what is on sale to data/sales.json."""
-import json, os, time, urllib.request
+import json, os, time, urllib.error, urllib.request
 from datetime import datetime, timezone
 
 HEADERS = {"User-Agent": "personal-outfit-project/0.1 (personal use, runs once a day)"}
 MAX_PAGES = 8  # 250 products per page
 
 
-def fetch(url):
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+def fetch(url, tries=3):
+    """Fetch JSON, retrying politely when a store says 'slow down' or drops the connection."""
+    for n in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503, 504) and n < tries - 1:
+                time.sleep(10 * (n + 1))
+                continue
+            raise
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
+            if n < tries - 1:
+                time.sleep(5 * (n + 1))
+                continue
+            raise
 
 
 def size_names(product):
