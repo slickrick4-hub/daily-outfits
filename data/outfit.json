@@ -1,33 +1,34 @@
 {
- "date": "2026-10-30",
+ "date": "2026-10-31",
  "budget_cad": 500,
  "items": [
   {
    "store": "Taylor Stitch",
-   "title": "The Jack in Rinsed Indigo Stripe Chambray",
-   "url": "https://taylorstitch.com/products/jack-in-rinsed-indigo-stripe-chambray-2512",
-   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/jack-in-rinsed-indigo-stripe-chambray-2512_001.jpg?v=1790611695",
-   "price_cad": 130.41,
-   "was_cad": 186.3,
-   "off_pct": 30,
+   "title": "The Pacific Polo in Black Indigo Pique Stripe",
+   "url": "https://taylorstitch.com/products/pacific-polo-in-black-indigo-pique-stripe-2604",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/pacific-polo-in-black-indigo-pique-stripe-2604_001.jpg?v=1790612009",
+   "price_cad": 81.14,
+   "was_cad": 135.24,
+   "off_pct": 40,
    "sizes": [
-    "M - 40"
+    "M - 40",
+    "S - 38",
+    "XS - 36"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
    "store": "Rowing Blazers",
-   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
+   "title": "Men's Classic Twill Trouser Navy '32 Inseam",
+   "url": "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-09SEP24-PANT-2-NAVY-FRONT_2135a4a3-2d77-4ec8-aae4-28af2aba2d56.jpg?v=1773876026",
    "price_cad": 109.3,
    "was_cad": 273.24,
    "off_pct": 60,
    "sizes": [
     "28",
-    "30",
-    "38"
+    "30"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -48,15 +49,17 @@
    "kind": "shoes"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Cotton Patchwork Vest Multicolor Block",
-   "url": "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/47_MF25S12S01MBK_013.jpg?v=1773775960",
-   "price_cad": 87.22,
-   "was_cad": 218.04,
-   "off_pct": 60,
+   "store": "Kotn",
+   "title": "Mina Vest in Black",
+   "url": "https://kotn.com/products/mens-mina-vest-in-black",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
+   "price_cad": 40.0,
+   "was_cad": 108.0,
+   "off_pct": 63,
    "sizes": [
-    "L"
+    "M",
+    "XS",
+    "XXS"
    ],
    "final_sale": true,
    "kind": "outerwear"
@@ -64,28 +67,28 @@
  ],
  "alternatives": [
   [
-   "The Pacific Polo in Black Indigo Pique Stripe",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "Cashmere Striped Sweater Navy and Cream Stripe",
+   "Men's Classic Twill Trouser Navy '32 Inseam",
+   "Rey Everyday Derby Lug Umber Brown Suede",
+   "Men's Nima Vest in Yakimo"
+  ],
+  [
+   "The Merino Polo in Heather Black",
+   "Men's Classic Twill Trouser Navy '32 Inseam",
    "Rey Everyday Derby Lug Umber Brown Suede",
    "Mina Vest in Black"
   ],
   [
-   "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "Rey Everyday Derby Lug Umber Brown Suede",
-   "Cotton Patchwork Vest Multicolor Block"
-  ],
-  [
-   "The Merino Polo in Heather Black",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "Tonal Striped Sweater Blue Black Tonal Stripe",
+   "Men's Fun Stripe Trouser Classic Fun Stripe",
    "Rey Everyday Derby Lug Umber Brown Suede",
    "Mina Vest in Black"
   ]
  ],
- "total_cad": 463.55,
- "was_total_cad": 992.22,
- "saved_cad": 528.67,
- "note": "Colors: blue + brown + navy.",
+ "total_cad": 367.06,
+ "was_total_cad": 831.12,
+ "saved_cad": 464.06,
+ "note": "Colors: black + brown + navy.",
  "history": [
   {
    "date": "2026-10-28",
@@ -110,6 +113,15 @@
     "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
+   ]
+  },
+  {
+   "date": "2026-10-31",
+   "urls": [
+    "https://taylorstitch.com/products/pacific-polo-in-black-indigo-pique-stripe-2604",
+    "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://kotn.com/products/mens-mina-vest-in-black"
    ]
   }
  ]
