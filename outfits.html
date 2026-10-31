@@ -29,6 +29,7 @@ li a{color:var(--ink)}.fs{font-style:normal;font-size:11px;color:var(--no);borde
 .chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font:inherit;font-size:13px;border-radius:999px;padding:4px 12px;border:1px solid var(--line);background:transparent;color:var(--mut);cursor:pointer}.chip.on{border-color:var(--ink);color:var(--ink);font-weight:600}
 .fb{display:flex;gap:8px;margin:10px 4px 2px}.fb button{padding:6px 14px;font-size:13px}
 li em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mut)}
+.vibe{font-weight:600;margin:4px 6px 8px;text-transform:capitalize}
 </style></head><body><main>
 <h1>Outfits on sale</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
@@ -78,26 +79,42 @@ const DARK=['black','navy','grey'];
 function cb(parts){const f=new Set(parts.flatMap(x=>x.colors||[]));if(!f.size)return 0;let b=0;
   if([...f].every(c=>DARK.includes(c)))b-=2.5;if([...f].some(c=>!DARK.includes(c)))b+=1.5;if(f.size>=4)b-=3;if(f.has('bright'))b-=2;return b}
 const wsum=i=>Math.max(-6,Math.min(8,tok(i).reduce((a,t)=>a+(W[t]||0),0)));
+const mean=a=>a.reduce((n,x)=>n+x,0)/a.length;
+const FAM=i=>i.title.toLowerCase().split(/ in | - /)[0].trim();
+const PAT=/stripe|plaid|check|gingham|houndstooth|camo|floral|print|paisley/;
+function formal(i){const t=i.title.toLowerCase(),k=i.kind;
+  if(k==='shoes')return /loafer|derby|derbies|oxfords|brogue|monk|wingtip/.test(t)?4:/boot|chelsea/.test(t)?3:/sneaker|trainer|slip.on|driver|moc/.test(t)?2:3;
+  if(k==='bottom')return /trouser|slack|wool/.test(t)?4:/chino/.test(t)?3:/denim|jean|selvedge|selvage/.test(t)?2:/cargo|jogger|sweatpant|track|short/.test(t)?1:3;
+  if(k==='outerwear')return /blazer|sportcoat|suit/.test(t)?5:/coat|trench|wool/.test(t)?4:/overshirt|vest|shacket/.test(t)?3:/hood/.test(t)?1:2.5;
+  return /\btee\b|hoodie|sweatshirt|henley|tank/.test(t)?1:/oxford|button|chambray|poplin|dress shirt/.test(t)?3.5:/polo/.test(t)?3:2.5}
+function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
+function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
+  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s}
+function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(x=>x.colors||[]))].slice(0,3).join(' + ');
+  return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
   const ok=items.filter(i=>!OFF.has(i.store)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0);
-  ok.forEach(i=>{i._s=i.off_pct/10+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
+  ok.forEach(i=>{i._s=i.off_pct/20+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
   const pick=(k,n)=>ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).slice(0,n);
   const tops=pick('top',60),bots=pick('bottom',40),shoes=pick('shoes',30),lay=pick('outerwear',20),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
-    const sc=sum(parts,'_s');base.push([sc+cb(parts),parts,cost,sc])}
+    base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts),parts,cost])}
   base.sort((a,b)=>b[0]-a[0]);
-  const combos=base.slice();
-  for(const[,parts,cost,sc]of base.slice(0,500))for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([sc+.5*o._s+cb(f),f])}
+  const combos=base.map(x=>[x[0],x[1]]);
+  for(const[,parts,cost]of base.slice(0,500)){if(!layerable(parts[0]))continue;
+    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
-  const out=[],uT={},uB={},uS={},seen={};
-  for(const[,parts]of combos){const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),key=t.url+b.url+(s?s.url:'');
-    if(seen[key]||(uT[t.url]||0)>=2||(uB[b.url]||0)>=6||(s&&(uS[s.url]||0)>=10))continue;
-    seen[key]=1;uT[t.url]=(uT[t.url]||0)+1;uB[b.url]=(uB[b.url]||0)+1;if(s)uS[s.url]=(uS[s.url]||0)+1;out.push(parts);if(out.length===60)break}
+  const out=[],uT={},uB={},uS={},uL={},seen={};let nl=0;
+  for(const[,parts]of combos){const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear');
+    const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs;
+    if(seen[key]||uT[ft]||(uB[fb]||0)>=3||(s&&(uS[fs]||0)>=5)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))continue;
+    seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
+    out.push({parts,label:label(parts)});if(out.length===60)break}
   return out}
-function card(parts,n){const tot=sum(parts,'price_cad'),was=sum(parts,'was_cad'),cols=parts.length===4?2:parts.length;
-  return '<article class="outfit"><div class="flat" style="grid-template-columns:repeat('+cols+',1fr)">'+
+function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad'),cols=parts.length===4?2:parts.length;
+  return '<article class="outfit"><p class="vibe">'+esc(o.label)+'</p><div class="flat" style="grid-template-columns:repeat('+cols+',1fr)">'+
     parts.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>').join('')+'</div><ul>'+
     parts.map(x=>'<li><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+(x.final_sale?'<i class="fs">final sale</i>':'')+'</a><b>'+money(x.price_cad)+'</b><em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em></li>').join('')+
     '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="fb"><button class="o fbb" data-i="'+n+'" data-v="1">♥ More like this</button><button class="o fbb" data-i="'+n+'" data-v="-1">✕ Not for me</button></div></article>'}
@@ -110,7 +127,7 @@ function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;
 function chips(){const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
   $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+esc(s)+' ('+n[s]+')</button>').join('')}
 $('stores').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=b.dataset.s;OFF.has(s)?OFF.delete(s):OFF.add(s);b.classList.toggle('on');save()};
-$('feed').onclick=e=>{const b=e.target.closest('.fbb');if(!b)return;const parts=OUT[+b.dataset.i],v=+b.dataset.v;
+$('feed').onclick=e=>{const b=e.target.closest('.fbb');if(!b)return;const parts=OUT[+b.dataset.i].parts,v=+b.dataset.v;
   new Set(parts.flatMap(tok)).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+v*.5))});save();
   if(v<0)b.closest('.outfit').style.display='none';else b.textContent='Liked ✓'};
 $('go').onclick=()=>run(false);$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
