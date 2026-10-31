@@ -30,10 +30,11 @@ li a{color:var(--ink)}.fs{font-style:normal;font-size:11px;color:var(--no);borde
 .fb{display:flex;gap:8px;margin:10px 4px 2px}.fb button{padding:6px 14px;font-size:13px}
 li em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mut)}
 .vibe{font-weight:600;margin:4px 6px 8px;text-transform:capitalize}
+.pc{grid-column:1/-1;display:flex;gap:8px;margin-top:4px}.pb{padding:4px 12px;font-size:12px;background:transparent;color:var(--ink);border-color:var(--line)}.pb.on{border-color:var(--yes);color:var(--yes)}
 </style></head><body><main>
 <h1>Outfits on sale</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
-<p class="sub"><a href="quiz.html">Take the style quiz</a> to teach it your taste. Use the ♥ and ✕ buttons on outfits to keep tuning it.</p>
+<p class="sub"><a href="quiz.html">Take the style quiz</a> to teach it your taste. Love or swap individual pieces to keep tuning it.</p>
 <details id="setup" open><summary>Your sizes, budget, taste and stores</summary>
 <div class="grid">
 <label>Top size(s)<input id="tops" placeholder="M, L"></label>
@@ -44,7 +45,7 @@ li em{grid-column:1/-1;font-style:normal;font-size:12px;color:var(--mut)}
 <label class="wide">Words to avoid<input id="avoid"></label>
 <label class="wide">Stores to include (tap to turn off)<div class="chips" id="stores"></div></label>
 </div>
-<div class="act"><button id="go">Show my outfits</button><button id="reset" class="o">Reset</button></div>
+<div class="act"><button id="go">Show my outfits</button><button id="reset" class="o">Reset</button><button id="unban" class="o" hidden>Bring back removed pieces</button></div>
 </details>
 <p class="sub" id="count"></p>
 <section id="feed"></section>
@@ -66,10 +67,10 @@ const txt=i=>i.title.toLowerCase()+' '+(i.colors||[]).join(' ');
 const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
-let CAT=[],SAVED=false,W={},OFF=new Set(),OUT=[],SH=0,CUR=DEF;
-function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;W=q.weights||{};OFF=new Set(q.off||[])}}catch(e){}return p}
+let CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
+function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;W=q.weights||{};OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
 function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid}
-function read(){return{tops:$('tops').value,waist:+$('waist').value||DEF.waist,shoe:+$('shoe').value||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF]}}
+function read(){return{tops:$('tops').value,waist:+$('waist').value||DEF.waist,shoe:+$('shoe').value||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED]}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 function mySizes(i,p){const ss=(i.sizes||[]).map(String);
   if(i.kind==='shoes')return ss.filter(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&Math.abs(+m[1]-p.shoe)<.01});
@@ -94,8 +95,8 @@ function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMa
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
-  const ok=items.filter(i=>!OFF.has(i.store)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0);
-  ok.forEach(i=>{i._s=i.off_pct/20+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(shuffle?Math.random()*4:0)});
+  const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0);
+  ok.forEach(i=>{i._s=i.off_pct/20+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)});POOL=ok;
   const pick=(k,n)=>ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).slice(0,n);
   const tops=pick('top',60),bots=pick('bottom',40),shoes=pick('shoes',30),lay=pick('outerwear',20),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
@@ -113,11 +114,28 @@ function build(items,p,shuffle){
     seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
     out.push({parts,label:label(parts)});if(out.length===60)break}
   return out}
+const KO={top:0,bottom:1,shoes:2,outerwear:3};
 function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad'),cols=parts.length===4?2:parts.length;
-  return '<article class="outfit"><p class="vibe">'+esc(o.label)+'</p><div class="flat" style="grid-template-columns:repeat('+cols+',1fr)">'+
+  return '<article class="outfit" data-n="'+n+'"><p class="vibe">'+esc(o.label)+'</p><div class="flat" style="grid-template-columns:repeat('+cols+',1fr)">'+
     parts.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>').join('')+'</div><ul>'+
-    parts.map(x=>'<li><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+(x.final_sale?'<i class="fs">final sale</i>':'')+'</a><b>'+money(x.price_cad)+'</b><em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em></li>').join('')+
-    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="fb"><button class="o fbb" data-i="'+n+'" data-v="1">♥ More like this</button><button class="o fbb" data-i="'+n+'" data-v="-1">✕ Not for me</button></div></article>'}
+    parts.map((x,k)=>'<li><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+(x.final_sale?'<i class="fs">final sale</i>':'')+'</a><b>'+money(x.price_cad)+'</b><em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em>'+
+      '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Swap this piece</button></div></li>').join('')+
+    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p></article>'}
+function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}
+function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==k),hasLayer=rest.some(x=>x.kind==='outerwear');
+  const used=new Set(OUT.flatMap(q=>q.parts.map(x=>x.url))),fams=new Set(OUT.flatMap(q=>q.parts.filter(x=>x.kind===old.kind).map(FAM))),base=sum(rest,'price_cad');
+  const find=strict=>{let best=null,bs=-1e9;
+    for(const c of POOL){if(c.kind!==old.kind||BANNED.has(c.url)||base+c.price_cad>CUR.budget)continue;
+      if(strict&&(used.has(c.url)||fams.has(FAM(c))))continue;
+      if(old.kind==='top'&&hasLayer&&!layerable(c))continue;
+      const f=rest.concat([c]),s=mean(f.map(x=>x._s))+coh(f)+cb(f);if(s>bs){bs=s;best=c}}
+    return best};
+  const best=find(true)||find(false);
+  if(best)o.parts=rest.concat([best]).sort((a,b)=>KO[a.kind]-KO[b.kind]);
+  else if(old.kind==='outerwear')o.parts=rest;
+  else{const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.style.display='none';return}
+  o.label=label(o.parts);redraw(n)}
+function updBan(){$('unban').hidden=!BANNED.size;$('unban').textContent='Bring back '+BANNED.size+' removed pieces'}
 function showMore(){const next=OUT.slice(SH,SH+12);$('feed').insertAdjacentHTML('beforeend',next.map((o,k)=>card(o,SH+k)).join(''));SH+=next.length;
   $('count').textContent='Showing '+SH+' of '+OUT.length+' outfits';$('more2').hidden=SH>=OUT.length}
 function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;$('feed').innerHTML='';
@@ -127,12 +145,14 @@ function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;
 function chips(){const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
   $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+esc(s)+' ('+n[s]+')</button>').join('')}
 $('stores').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=b.dataset.s;OFF.has(s)?OFF.delete(s):OFF.add(s);b.classList.toggle('on');save()};
-$('feed').onclick=e=>{const b=e.target.closest('.fbb');if(!b)return;const parts=OUT[+b.dataset.i].parts,v=+b.dataset.v;
-  new Set(parts.flatMap(tok)).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+v*.5))});save();
-  if(v<0)b.closest('.outfit').style.display='none';else b.textContent='Liked ✓'};
+$('feed').onclick=e=>{const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
+  const bump=(it,d)=>tok(it).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+d))});
+  if(v>0){if(LIKED.has(x.url)){LIKED.delete(x.url);bump(x,-1)}else{LIKED.add(x.url);bump(x,1)}save();redraw(n);return}
+  BANNED.add(x.url);LIKED.delete(x.url);bump(x,-1.5);save();updBan();swap(n,k)};
 $('go').onclick=()=>run(false);$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
-$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};OFF=new Set();show(DEF);chips()};
-show(load());
+$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan()};
+$('unban').onclick=()=>{BANNED=new Set();save();updBan();run(false)};
+show(load());updBan();
 fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;chips();
   $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
   if(SAVED){$('setup').open=false;run(false)}
