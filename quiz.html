@@ -2,32 +2,16 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Style quiz</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
-<style>
-:root{--bg:#e9ebe7;--card:#fbfbf9;--ink:#14181b;--mut:#687068;--line:#cfd3cc;--yes:#2b6a4d;--no:#8e2f2f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}}
-:root[data-theme="dark"]{--bg:#101412;--card:#1b211e;--ink:#eef1ec;--mut:#9aa39a;--line:#2d352f;--yes:#6fcf9f;--no:#e88a8a}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.45 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:560px;margin:0 auto;padding:16px 16px 40px}
-h1{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px}h2{font-size:22px;margin:6px 0}
-.sub{color:var(--mut);margin:0 0 12px;font-size:15px}
-.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:14px}.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pick{font:inherit;color:var(--ink);text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;cursor:pointer}
-.pick img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;background:var(--line);display:block}
-.pick span{display:block;font-size:13px;margin-top:6px;min-height:2.6em}.pick:hover{border-color:var(--ink)}
-button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.act{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.btn{font:inherit;cursor:pointer;border-radius:999px;padding:10px 20px;font-weight:600;border:1px solid var(--ink);background:var(--ink);color:var(--bg);text-decoration:none}.btn.o{background:transparent;color:var(--ink)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}.chips b{border-radius:999px;padding:4px 12px;font-weight:600;font-size:14px;border:1px solid}
-.l b{color:var(--yes);border-color:var(--yes)}.a b{color:var(--no);border-color:var(--no)}
-</style></head><body><main>
-<h1>Style quiz</h1>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600&family=Fraunces:ital,wght@0,500;0,700;1,500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="top"><a class="brand" href="outfits.html">Outfits on sale</a><nav><a href="outfits.html">Outfits</a><a href="quiz.html" class="on">Style quiz</a></nav></header>
+<main>
+<h1>Find your style</h1>
 <p class="sub" id="sub">Pick the one you’d rather wear. It uses what’s on sale right now.</p>
 <div class="bar"><i id="pg"></i></div>
 <section id="pair" class="pair"></section>
-<div class="act" id="acts"><button class="btn o" id="skip">Neither</button></div>
+<div class="act" id="acts"><button class="o" id="skip">Neither</button></div>
 <section id="res" hidden></section>
 </main>
 <script>
@@ -56,9 +40,9 @@ function finish(){$('pair').hidden=true;$('acts').hidden=true;$('pg').style.widt
   $('sub').textContent='';
   $('res').hidden=false;
   $('res').innerHTML='<h2>Your style</h2><p class="sub">Built from your '+r+' choices. You can edit these words on the outfits page.</p>'+
-   '<p class="sub">You gravitate toward</p><div class="chips l">'+(like.length?like.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing stood out yet. Try again with more choices.</span>')+'</div>'+
-   '<p class="sub">You tend to skip</p><div class="chips a">'+(avoid.length?avoid.map(t=>'<b>'+esc(t)+'</b>').join(''):'<span class="sub">Nothing strong.</span>')+'</div>'+
-   '<div class="act"><button class="btn" id="use">Use this style</button><button class="btn o" id="keep">Keep going (8 more)</button><button class="btn o" id="again">Retake</button></div>';
+   '<p class="sub">You gravitate toward</p><div class="chips l">'+(like.length?like.map(t=>'<b class="tag">'+esc(t)+'</b>').join(''):'<span class="sub">Nothing stood out yet. Try again with more choices.</span>')+'</div>'+
+   '<p class="sub">You tend to skip</p><div class="chips a">'+(avoid.length?avoid.map(t=>'<b class="tag">'+esc(t)+'</b>').join(''):'<span class="sub">Nothing strong.</span>')+'</div>'+
+   '<div class="act"><button id="use">Use this style</button><button class="o" id="keep">Keep going (8 more)</button><button class="o" id="again">Retake</button></div>';
   $('use').onclick=()=>{let p={};try{p=JSON.parse(localStorage.getItem('profile')||'{}')}catch(e){}
     p.like=like.join(', ');p.avoid=avoid.join(', ');const w={};ks.forEach(t=>{if(count[t]>=2&&score[t]!==0)w[t]=Math.max(-3,Math.min(3,score[t]*.5))});p.weights=w;try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}location.href='outfits.html'};
   $('keep').onclick=()=>{ROUNDS+=8;$('res').hidden=true;$('pair').hidden=false;$('acts').hidden=false;$('sub').textContent='Pick the one you’d rather wear.';draw()};
