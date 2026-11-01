@@ -1,33 +1,35 @@
 {
- "date": "2026-10-31",
+ "date": "2026-11-01",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Taylor Stitch",
-   "title": "The Pacific Polo in Black Indigo Pique Stripe",
-   "url": "https://taylorstitch.com/products/pacific-polo-in-black-indigo-pique-stripe-2604",
-   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/pacific-polo-in-black-indigo-pique-stripe-2604_001.jpg?v=1790612009",
-   "price_cad": 81.14,
-   "was_cad": 135.24,
-   "off_pct": 40,
+   "store": "Rowing Blazers",
+   "title": "Tonal Striped Sweater Blue Black Tonal Stripe",
+   "url": "https://rowingblazers.com/products/mens-tonal-striped-sweater-blue-black-tonal-stripe",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB0-5MAY25_KNIT_LS_BLUE_TAN_FRONT.jpg?v=1777664358",
+   "price_cad": 115.92,
+   "was_cad": 231.84,
+   "off_pct": 50,
    "sizes": [
-    "M - 40",
-    "S - 38",
-    "XS - 36"
+    "L",
+    "M",
+    "S",
+    "XL",
+    "XS",
+    "XXL"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
    "store": "Rowing Blazers",
-   "title": "Men's Classic Twill Trouser Navy '32 Inseam",
-   "url": "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-09SEP24-PANT-2-NAVY-FRONT_2135a4a3-2d77-4ec8-aae4-28af2aba2d56.jpg?v=1773876026",
-   "price_cad": 109.3,
-   "was_cad": 273.24,
-   "off_pct": 60,
+   "title": "Men's Fun Stripe Trouser Classic Fun Stripe",
+   "url": "https://rowingblazers.com/products/mens-fun-stripe-trouser-classic-fun-stripe",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-01JAN25-PANTS-1-MULTI-COLOR-FRONT.jpg?v=1777665103",
+   "price_cad": 157.32,
+   "was_cad": 314.64,
+   "off_pct": 50,
    "sizes": [
-    "28",
     "30"
    ],
    "final_sale": true,
@@ -50,16 +52,16 @@
   },
   {
    "store": "Kotn",
-   "title": "Mina Vest in Black",
-   "url": "https://kotn.com/products/mens-mina-vest-in-black",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
-   "price_cad": 40.0,
+   "title": "Men's Nima Vest in Yakimo",
+   "url": "https://kotn.com/products/mens-nima-vest-in-yakimo",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_NIMA_VEST_YAKIMO_02.jpg?v=1774294369",
+   "price_cad": 49.0,
    "was_cad": 108.0,
-   "off_pct": 63,
+   "off_pct": 55,
    "sizes": [
+    "L",
     "M",
-    "XS",
-    "XXS"
+    "S"
    ],
    "final_sale": true,
    "kind": "outerwear"
@@ -68,27 +70,27 @@
  "alternatives": [
   [
    "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Classic Twill Trouser Navy '32 Inseam",
+   "Men's Fun Stripe Trouser Classic Fun Stripe",
    "Rey Everyday Derby Lug Umber Brown Suede",
    "Men's Nima Vest in Yakimo"
   ],
   [
    "The Merino Polo in Heather Black",
-   "Men's Classic Twill Trouser Navy '32 Inseam",
-   "Rey Everyday Derby Lug Umber Brown Suede",
-   "Mina Vest in Black"
-  ],
-  [
-   "Tonal Striped Sweater Blue Black Tonal Stripe",
    "Men's Fun Stripe Trouser Classic Fun Stripe",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Mina Vest in Black"
+   "Men's Nima Vest in Yakimo"
+  ],
+  [
+   "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
+   "Men's Fun Stripe Trouser Classic Fun Stripe",
+   "Rey Everyday Derby Lug Umber Brown Suede",
+   "Men's Nima Vest in Yakimo"
   ]
  ],
- "total_cad": 367.06,
- "was_total_cad": 831.12,
- "saved_cad": 464.06,
- "note": "Colors: black + brown + navy.",
+ "total_cad": 458.86,
+ "was_total_cad": 969.12,
+ "saved_cad": 510.26,
+ "note": "Colors: black + blue + brown.",
  "history": [
   {
    "date": "2026-10-28",
@@ -122,6 +124,15 @@
     "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://kotn.com/products/mens-mina-vest-in-black"
+   ]
+  },
+  {
+   "date": "2026-11-01",
+   "urls": [
+    "https://rowingblazers.com/products/mens-tonal-striped-sweater-blue-black-tonal-stripe",
+    "https://rowingblazers.com/products/mens-fun-stripe-trouser-classic-fun-stripe",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://kotn.com/products/mens-nima-vest-in-yakimo"
    ]
   }
  ]
