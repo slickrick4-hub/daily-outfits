@@ -1,4 +1,4 @@
-:root{--bg:#f5f2ec;--card:#fffdf9;--ink:#1d1c1a;--mut:#6f6a60;--line:#e0d9cc;--accent:#4f5d2f;--yes:#3f6b4a;--no:#9a3b2e;--board:#ece5d8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#e2dacb;--card:#fffdf9;--ink:#1d1c1a;--mut:#6f6a60;--line:#d6cdbb;--accent:#4f5d2f;--yes:#3f6b4a;--no:#9a3b2e;--board:#ebe4d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151412;--card:#201e1b;--ink:#f1ede4;--mut:#a59f92;--line:#34302a;--accent:#b9c88a;--yes:#8fcf9b;--no:#ee9a8a}}
 :root[data-theme="dark"]{--bg:#151412;--card:#201e1b;--ink:#f1ede4;--mut:#a59f92;--line:#34302a;--accent:#b9c88a;--yes:#8fcf9b;--no:#ee9a8a}
 *,*::before,*::after{box-sizing:inherit}
@@ -23,8 +23,9 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
 details.adv{border:0;padding:0;margin:4px 0;background:transparent}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{font:inherit;font-size:13px;border-radius:999px;padding:4px 12px;border:1px solid var(--line);background:transparent;color:var(--mut);cursor:pointer;font-weight:400}.chip.on{border-color:var(--ink);color:var(--ink);font-weight:600}
-#feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;align-items:start}
-.outfit{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px}
+#feed{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;align-items:start}
+@media (max-width:680px){#feed{grid-template-columns:1fr}}
+.outfit{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 1px 2px rgba(60,45,20,.06),0 10px 28px rgba(60,45,20,.10)}
 .vibe{font:italic 500 19px/1.2 Fraunces,Georgia,serif;margin:2px 4px 10px;text-transform:capitalize}
 .board{position:relative;aspect-ratio:4/5;background:var(--board);border-radius:14px;overflow:hidden}
 .slot{position:absolute;display:block;transition:transform .15s}.slot:hover{z-index:3}

@@ -99,7 +99,7 @@ function flat(parts){const S=SLOT[parts.length]||SLOT[3];
   return '<div class="board">'+parts.map(x=>{const s=S[x.kind]||[0,0,50,50,0];
     return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
 function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad');
-  return '<article class="outfit" data-n="'+n+'"><p class="vibe">'+esc(o.label)+'</p>'+flat(parts)+'<ul>'+
+  return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
     parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em></div><b>'+money(x.price_cad)+'</b>'+
       '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Swap this piece</button></div></li>').join('')+
     '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p></article>'}
