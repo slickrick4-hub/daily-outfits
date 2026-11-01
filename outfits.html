@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600&family=Fraunces:ital,wght@0,500;0,700;1,500&display=swap">
 <link rel="stylesheet" href="style.css">
 </head><body>
-<header class="top"><a class="brand" href="outfits.html">Outfits on sale</a><nav><a href="outfits.html" class="on">Outfits</a><a href="quiz.html">Style quiz</a></nav></header>
+<header class="top"><a class="brand" href="outfits.html">Outfits on sale</a><nav><a href="outfits.html" class="on">Outfits</a><a href="quiz.html">Style quiz</a><a href="saved.html">Saved</a></nav></header>
 <main>
 <h1>Looks on sale today</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
@@ -91,6 +91,10 @@ function build(items,p,shuffle){
     seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
     out.push({parts,label:label(parts)});if(out.length===60)break}
   return out}
+const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
+const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
+const snap=x=>({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
+const okey=parts=>parts.map(x=>x.url).sort().join('|');
 const KO={top:0,bottom:1,shoes:2,outerwear:3};
 const SLOT={2:{top:[4,4,44,92,-2],bottom:[52,4,44,92,2]},
 3:{top:[3,2,52,46,-3],bottom:[38,32,58,64,2],shoes:[3,54,40,42,-2]},
@@ -102,7 +106,7 @@ function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,
   return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
     parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em></div><b>'+money(x.price_cad)+'</b>'+
       '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Swap this piece</button></div></li>').join('')+
-    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p></article>'}
+    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
 function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}
 function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==k),hasLayer=rest.some(x=>x.kind==='outerwear');
   const used=new Set(OUT.flatMap(q=>q.parts.map(x=>x.url))),fams=new Set(OUT.flatMap(q=>q.parts.filter(x=>x.kind===old.kind).map(FAM))),base=sum(rest,'price_cad');
@@ -127,9 +131,11 @@ function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;
 function chips(){const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
   $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+esc(s)+' ('+n[s]+')</button>').join('')}
 $('stores').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=b.dataset.s;OFF.has(s)?OFF.delete(s):OFF.add(s);b.classList.toggle('on');save()};
-$('feed').onclick=e=>{const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
+$('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.dataset.n,parts=OUT[n].parts,key=okey(parts);let L=getSaved();const i=L.findIndex(s=>s.key===key);
+  if(i>=0)L.splice(i,1);else L.unshift({key,t:Date.now(),parts:parts.map(snap)});try{localStorage.setItem('saved',JSON.stringify(L.slice(0,100)))}catch(err){}redraw(n);return}
+  const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
   const bump=(it,d)=>tok(it).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+d))});
-  if(v>0){if(LIKED.has(x.url)){LIKED.delete(x.url);bump(x,-1)}else{LIKED.add(x.url);bump(x,1)}save();redraw(n);return}
+  if(v>0){const P=getPieces();if(LIKED.has(x.url)){LIKED.delete(x.url);bump(x,-1);delete P[x.url]}else{LIKED.add(x.url);bump(x,1);P[x.url]=snap(x)}try{localStorage.setItem('pieces',JSON.stringify(P))}catch(err){}save();redraw(n);return}
   BANNED.add(x.url);LIKED.delete(x.url);bump(x,-1.5);save();updBan();swap(n,k)};
 $('go').onclick=()=>run(false);$('quizgo').onclick=()=>{save();location.href='quiz.html'};$('share').onclick=()=>{const u=location.origin+location.pathname;try{navigator.clipboard.writeText(u);$('share').textContent='Link copied'}catch(e){prompt('Copy this link',u)}};$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
 $('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan()};

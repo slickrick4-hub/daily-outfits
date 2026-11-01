@@ -81,6 +81,7 @@ def collect(store):
                 "tags": p.get("tags"),
                 "url": f"{base}/products/{p.get('handle')}",
                 "image": images[0]["src"] if images else None,
+                "images": [i["src"] for i in images[:4]],
                 "price": sale[0],
                 "was": sale[1],
                 "off_pct": round(sale[2] * 100),

@@ -15,12 +15,13 @@ def main():
         if not F.is_mens(it):          # women's items can be added later
             continue
         kind = F.kind_of(it)
-        if not kind or it["off_pct"] < F.S["min_off_pct"]:
+        if not kind or it["off_pct"] < F.S.get("catalog_min_off_pct", 10):
             continue
         r = rate if it.get("currency") == "USD" else 1
         tags = F.tag_list(it)
         items.append({
             "store": it["store"], "title": it["title"], "url": it["url"], "image": it["image"],
+            "images": it.get("images") or ([it["image"]] if it.get("image") else []),
             "price_cad": round(it["price"] * r, 2), "was_cad": round(it["was"] * r, 2),
             "off_pct": it["off_pct"], "sizes": it.get("sizes") or [], "kind": kind,
             "final_sale": "final-sale" in tags, "colors": sorted(B.colors_of(it)),
