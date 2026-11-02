@@ -13,8 +13,8 @@
 <p class="sub" id="intro" hidden style="margin-top:10px">New here? Enter your sizes and budget, then take the one-minute style quiz so the looks fit your taste.</p>
 <div class="grid">
 <label>Top size(s)<input id="tops" placeholder="M, L"></label>
-<label>Waist (inches)<input id="waist" type="number" min="24" max="50"></label>
-<label>Shoe size (US)<input id="shoe" type="number" step="0.5" min="5" max="16"></label>
+<label>Waist size(s), inches<input id="waist" placeholder="30, 31, 32"></label>
+<label>Shoe size(s), US<input id="shoe" placeholder="9, 9.5"></label>
 <label>Budget per outfit (CAD)<input id="budget" type="number" min="50"></label>
 </div>
 <details class="adv"><summary>Advanced: words and stores</summary><div class="grid">
@@ -30,7 +30,7 @@
 </main>
 <script>
 const $=id=>document.getElementById(id);
-const DEF={tops:'M, L',waist:31,shoe:9,budget:500,
+const DEF={tops:'M, L',waist:'30, 31, 32',shoe:'9',budget:500,
  like:'oxford, chambray, flannel, stripe, merino, polo, trouser, indigo, black, olive, brown, navy, charcoal, grey, cream, khaki, loafer, derby',
  avoid:'henley, tee, hoodie, jacket, white, sneaker, trainer, boot, sandal, slipper'};
 const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
@@ -45,13 +45,14 @@ const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).fi
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 let CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
-function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;W=q.weights||{};OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
+function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
 function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid}
-function read(){return{tops:$('tops').value,waist:+$('waist').value||DEF.waist,shoe:+$('shoe').value||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED]}}
+function read(){return{tops:$('tops').value,waist:$('waist').value.trim()||DEF.waist,shoe:$('shoe').value.trim()||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED]}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
+const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
 function mySizes(i,p){const ss=(i.sizes||[]).map(String);
-  if(i.kind==='shoes')return ss.filter(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&Math.abs(+m[1]-p.shoe)<.01});
-  if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&Math.abs(+m[1]-p.waist)<=1});
+  if(i.kind==='shoes')return ss.filter(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&nums(p.shoe).some(v=>Math.abs(+m[1]-v)<.01)});
+  if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&nums(p.waist).includes(+m[1])});
   const want=list(p.tops).map(x=>x.toUpperCase());return ss.filter(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
 const DARK=['black','navy','grey'];
 function cb(parts){const f=new Set(parts.flatMap(x=>x.colors||[]));if(!f.size)return 0;let b=0;
