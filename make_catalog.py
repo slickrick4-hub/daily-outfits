@@ -17,7 +17,9 @@ def main():
         kind = F.kind_of(it)
         if not kind or it["off_pct"] < F.S.get("catalog_min_off_pct", 10):
             continue
-        r = rate if it.get("currency") == "USD" else 1
+        r = F.RATES.get(it.get("currency"))
+        if r is None:
+            continue
         tags = F.tag_list(it)
         items.append({
             "store": it["store"], "title": it["title"], "url": it["url"], "image": it["image"],

@@ -154,5 +154,233 @@
   "domain": "petermanningnyc.com",
   "path": "/products.json",
   "currency": "USD"
+ },
+ {
+  "name": "Ministry of Supply",
+  "domain": "ministryofsupply.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Entireworld",
+  "domain": "entireworld.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Richer Poorer",
+  "domain": "richerpoorer.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Alex Mill",
+  "domain": "alexmill.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Corridor",
+  "domain": "corridornyc.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Noah",
+  "domain": "noahny.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Fresh Clean Threads",
+  "domain": "freshcleanthreads.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Bluffworks",
+  "domain": "bluffworks.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Southern Tide",
+  "domain": "southerntide.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Muttonhead",
+  "domain": "muttonheadstore.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Peace Collective",
+  "domain": "peacecollective.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Rudsak",
+  "domain": "rudsak.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Organic Basics",
+  "domain": "organicbasics.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Asket",
+  "domain": "asket.com",
+  "path": "/products.json",
+  "currency": "EUR"
+ },
+ {
+  "name": "Colorful Standard",
+  "domain": "colorfulstandard.com",
+  "path": "/products.json",
+  "currency": "EUR"
+ },
+ {
+  "name": "Pact",
+  "domain": "wearpact.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Todd Snyder",
+  "domain": "toddsnyder.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Everlane",
+  "domain": "everlane.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Huckberry",
+  "domain": "huckberry.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Proper Cloth",
+  "domain": "propercloth.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Mugsy Jeans",
+  "domain": "mugsyjeans.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Tellason",
+  "domain": "tellason.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "3sixteen",
+  "domain": "3sixteen.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Unbranded Brand",
+  "domain": "unbrandedbrand.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Rogue Territory",
+  "domain": "rogueterritory.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Raleigh Denim",
+  "domain": "raleighdenimworkshop.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Gustin",
+  "domain": "gustin.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Left Field NYC",
+  "domain": "leftfieldnyc.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Koio",
+  "domain": "koio.co",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Grant Stone",
+  "domain": "grantstone.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Meermin",
+  "domain": "meermin.com",
+  "path": "/products.json",
+  "currency": "EUR"
+ },
+ {
+  "name": "Rancourt & Co",
+  "domain": "rancourtandcompany.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Oak Street Bootmakers",
+  "domain": "oakstreetbootmakers.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Allbirds",
+  "domain": "allbirds.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Cariuma",
+  "domain": "cariuma.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Vessi",
+  "domain": "vessi.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Tecovas",
+  "domain": "tecovas.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Rhodes Footwear",
+  "domain": "rhodesfootwear.com",
+  "path": "/products.json",
+  "currency": "USD"
  }
 ]

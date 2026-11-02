@@ -3,6 +3,9 @@ import json, re
 from datetime import datetime, timezone
 
 S = json.load(open("config.json"))
+# approximate conversion to CAD; stores in a currency not listed here are skipped, not guessed
+RATES = {"CAD": 1.0, "USD": S["usd_to_cad"], "GBP": 1.80, "EUR": 1.55, "AUD": 0.90, "NZD": 0.82}
+RATES.update(S.get("rates", {}))
 
 # Words that remove an item (summer pieces, accessories, lounge wear, internal notes).
 SKIP_WORDS = ["short", "tank", "dress", "skirt", "swim", "linen", "seersucker", "camp shirt",
@@ -76,7 +79,9 @@ def main():
         kind = kind_of(it)
         if not kind or not size_ok(it, kind):
             continue
-        rate = S["usd_to_cad"] if it.get("currency") == "USD" else 1
+        rate = RATES.get(it.get("currency"))
+        if rate is None:
+            continue
         price, was = round(it["price"] * rate, 2), round(it["was"] * rate, 2)
         cap = S["max_shoe_cad"] if kind == "shoes" else S["max_item_cad"]
         if it["off_pct"] < S["min_off_pct"] or price > cap:
