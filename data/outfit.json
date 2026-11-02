@@ -1,36 +1,37 @@
 {
- "date": "2026-11-01",
+ "date": "2026-11-02",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Rowing Blazers",
-   "title": "Tonal Striped Sweater Blue Black Tonal Stripe",
-   "url": "https://rowingblazers.com/products/mens-tonal-striped-sweater-blue-black-tonal-stripe",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB0-5MAY25_KNIT_LS_BLUE_TAN_FRONT.jpg?v=1777664358",
-   "price_cad": 115.92,
-   "was_cad": 231.84,
-   "off_pct": 50,
+   "store": "Southern Tide",
+   "title": "Harborview Charleston Oxford Stripe Sport Shirt",
+   "url": "https://southerntide.com/products/harborview-charleston-oxford-stripe-sport-shirt",
+   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/harborview-charleston-oxford-stripe-sport-shirt-ocean-channel-lifestyle-12222.jpg?v=1768511301",
+   "price_cad": 57.68,
+   "was_cad": 204.24,
+   "off_pct": 72,
    "sizes": [
     "L",
-    "M",
     "S",
-    "XL",
-    "XS",
     "XXL"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
    "store": "Rowing Blazers",
-   "title": "Men's Fun Stripe Trouser Classic Fun Stripe",
-   "url": "https://rowingblazers.com/products/mens-fun-stripe-trouser-classic-fun-stripe",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-01JAN25-PANTS-1-MULTI-COLOR-FRONT.jpg?v=1777665103",
-   "price_cad": 157.32,
-   "was_cad": 314.64,
+   "title": "Men's Indigo Jacquard Denim Pant Navy",
+   "url": "https://rowingblazers.com/products/mens-indigo-jacquard-denim-pant-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_PANTS_DENIM.jpg?v=1773875798",
+   "price_cad": 136.62,
+   "was_cad": 273.24,
    "off_pct": 50,
    "sizes": [
-    "30"
+    "28",
+    "30",
+    "32",
+    "34",
+    "38"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -52,16 +53,14 @@
   },
   {
    "store": "Kotn",
-   "title": "Men's Nima Vest in Yakimo",
-   "url": "https://kotn.com/products/mens-nima-vest-in-yakimo",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_NIMA_VEST_YAKIMO_02.jpg?v=1774294369",
-   "price_cad": 49.0,
-   "was_cad": 108.0,
-   "off_pct": 55,
+   "title": "Men's Denim Overshirt in Raw",
+   "url": "https://kotn.com/products/mens-denim-overshirt-in-raw",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sDenimOvershirt_Raw2.jpg?v=1761339392",
+   "price_cad": 99.0,
+   "was_cad": 198.0,
+   "off_pct": 50,
    "sizes": [
-    "L",
-    "M",
-    "S"
+    "L"
    ],
    "final_sale": true,
    "kind": "outerwear"
@@ -70,27 +69,27 @@
  "alternatives": [
   [
    "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Fun Stripe Trouser Classic Fun Stripe",
+   "Men's Indigo Jacquard Denim Pant Navy",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Men's Nima Vest in Yakimo"
+   "HEMP HERRINGBONE OVERSHIRT"
   ],
   [
-   "The Merino Polo in Heather Black",
-   "Men's Fun Stripe Trouser Classic Fun Stripe",
+   "Beachside Charleston Oxford Stripe Sport Shirt",
+   "Men's Indigo Jacquard Denim Pant Navy",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Men's Nima Vest in Yakimo"
+   "Men's Denim Overshirt in Raw"
   ],
   [
-   "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
-   "Men's Fun Stripe Trouser Classic Fun Stripe",
+   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
+   "Men's Indigo Jacquard Denim Pant Navy",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Men's Nima Vest in Yakimo"
+   "Men's Denim Overshirt in Raw"
   ]
  ],
- "total_cad": 458.86,
- "was_total_cad": 969.12,
- "saved_cad": 510.26,
- "note": "Colors: black + blue + brown.",
+ "total_cad": 429.92,
+ "was_total_cad": 990.12,
+ "saved_cad": 560.2,
+ "note": "Colors: blue + brown + navy.",
  "history": [
   {
    "date": "2026-10-28",
@@ -133,6 +132,15 @@
     "https://rowingblazers.com/products/mens-fun-stripe-trouser-classic-fun-stripe",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://kotn.com/products/mens-nima-vest-in-yakimo"
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "urls": [
+    "https://southerntide.com/products/harborview-charleston-oxford-stripe-sport-shirt",
+    "https://rowingblazers.com/products/mens-indigo-jacquard-denim-pant-navy",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://kotn.com/products/mens-denim-overshirt-in-raw"
    ]
   }
  ]
