@@ -1,37 +1,37 @@
 {
- "date": "2026-11-02",
+ "date": "2026-11-03",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Southern Tide",
-   "title": "Harborview Charleston Oxford Stripe Sport Shirt",
-   "url": "https://southerntide.com/products/harborview-charleston-oxford-stripe-sport-shirt",
-   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/harborview-charleston-oxford-stripe-sport-shirt-ocean-channel-lifestyle-12222.jpg?v=1768511301",
-   "price_cad": 57.68,
-   "was_cad": 204.24,
-   "off_pct": 72,
+   "store": "Kotn",
+   "title": "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
+   "url": "https://kotn.com/products/mens-lightweight-crewneck-sweater-in-otter-marshmallow",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sLightweightCrewneckSweater_Otter-MarshmallowStripe2_a17fc7fd-3f5a-4055-aca5-abd1f6fa06cb.jpg?v=1760458376",
+   "price_cad": 50.0,
+   "was_cad": 98.0,
+   "off_pct": 49,
    "sizes": [
     "L",
+    "M",
     "S",
-    "XXL"
+    "XL",
+    "XS"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Men's Indigo Jacquard Denim Pant Navy",
-   "url": "https://rowingblazers.com/products/mens-indigo-jacquard-denim-pant-navy",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_PANTS_DENIM.jpg?v=1773875798",
-   "price_cad": 136.62,
-   "was_cad": 273.24,
-   "off_pct": 50,
+   "store": "Kotn",
+   "title": "Men's Slouchy Buma Trouser in Marshmallow",
+   "url": "https://kotn.com/products/mens-slouchy-buma-trouser-in-marshmallow",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_SLOUCHY_BUMA_TROUSER_MARSHMALLOW_01_f75ace7c-46bc-4a2f-84d7-113f4990e8d6.jpg?v=1773932108",
+   "price_cad": 99.0,
+   "was_cad": 158.0,
+   "off_pct": 37,
    "sizes": [
-    "28",
     "30",
-    "32",
-    "34",
-    "38"
+    "31",
+    "32"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -45,6 +45,8 @@
    "was_cad": 314.64,
    "off_pct": 57,
    "sizes": [
+    "10",
+    "11.5",
     "8.5",
     "9"
    ],
@@ -52,53 +54,49 @@
    "kind": "shoes"
   },
   {
-   "store": "Kotn",
-   "title": "Men's Denim Overshirt in Raw",
-   "url": "https://kotn.com/products/mens-denim-overshirt-in-raw",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sDenimOvershirt_Raw2.jpg?v=1761339392",
-   "price_cad": 99.0,
-   "was_cad": 198.0,
-   "off_pct": 50,
+   "store": "Taylor Stitch",
+   "title": "The Squall Anorak in Navy Twill",
+   "url": "https://taylorstitch.com/products/squall-anorak-in-navy-twill-2605",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/squall-anorak-in-navy-twill-2605_001.jpg?v=1790612250",
+   "price_cad": 181.61,
+   "was_cad": 259.44,
+   "off_pct": 30,
    "sizes": [
-    "L"
+    "L - 42",
+    "M - 40",
+    "S - 38",
+    "XL - 44",
+    "XS - 36"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
    "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Indigo Jacquard Denim Pant Navy",
+   "Men's Slouchy Buma Trouser in Marshmallow",
    "Rey Everyday Derby Lug Umber Brown Suede",
    "HEMP HERRINGBONE OVERSHIRT"
   ],
   [
    "Beachside Charleston Oxford Stripe Sport Shirt",
-   "Men's Indigo Jacquard Denim Pant Navy",
+   "Navy Stretch Tech Pant",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Men's Denim Overshirt in Raw"
+   "The Squall Anorak in Navy Twill"
   ],
   [
    "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
-   "Men's Indigo Jacquard Denim Pant Navy",
+   "Navy Stretch Tech Pant",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "Men's Denim Overshirt in Raw"
+   "The Squall Anorak in Navy Twill"
   ]
  ],
- "total_cad": 429.92,
- "was_total_cad": 990.12,
- "saved_cad": 560.2,
- "note": "Colors: blue + brown + navy.",
+ "total_cad": 467.23,
+ "was_total_cad": 830.08,
+ "saved_cad": 362.85,
+ "note": "Colors: brown + navy + white.",
  "history": [
-  {
-   "date": "2026-10-28",
-   "urls": [
-    "https://frankandoak.ca/products/mens-knit-t-shirt-classic-navy-2mkt013fe-dcnavy",
-    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-    "https://beckettsimonon.com/products/vasco-oxfords"
-   ]
-  },
   {
    "date": "2026-10-29",
    "urls": [
@@ -141,6 +139,15 @@
     "https://rowingblazers.com/products/mens-indigo-jacquard-denim-pant-navy",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://kotn.com/products/mens-denim-overshirt-in-raw"
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "urls": [
+    "https://kotn.com/products/mens-lightweight-crewneck-sweater-in-otter-marshmallow",
+    "https://kotn.com/products/mens-slouchy-buma-trouser-in-marshmallow",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://taylorstitch.com/products/squall-anorak-in-navy-twill-2605"
    ]
   }
  ]
