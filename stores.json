@@ -36,12 +36,6 @@
   "currency": "CAD"
  },
  {
-  "name": "Wings + Horns",
-  "domain": "wingsandhorns.com",
-  "path": "/products.json",
-  "currency": "CAD"
- },
- {
   "name": "Marine Layer",
   "domain": "marinelayer.com",
   "path": "/products.json",
@@ -74,12 +68,6 @@
  {
   "name": "Ten Thousand",
   "domain": "tenthousand.cc",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Mizzen+Main",
-  "domain": "mizzenandmain.com",
   "path": "/products.json",
   "currency": "USD"
  },
@@ -162,18 +150,6 @@
   "currency": "USD"
  },
  {
-  "name": "Entireworld",
-  "domain": "entireworld.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Richer Poorer",
-  "domain": "richerpoorer.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Alex Mill",
   "domain": "alexmill.com",
   "path": "/products.json",
@@ -216,12 +192,6 @@
   "currency": "CAD"
  },
  {
-  "name": "Peace Collective",
-  "domain": "peacecollective.com",
-  "path": "/products.json",
-  "currency": "CAD"
- },
- {
   "name": "Rudsak",
   "domain": "rudsak.com",
   "path": "/products.json",
@@ -234,22 +204,10 @@
   "currency": "USD"
  },
  {
-  "name": "Asket",
-  "domain": "asket.com",
-  "path": "/products.json",
-  "currency": "EUR"
- },
- {
   "name": "Colorful Standard",
   "domain": "colorfulstandard.com",
   "path": "/products.json",
   "currency": "EUR"
- },
- {
-  "name": "Pact",
-  "domain": "wearpact.com",
-  "path": "/products.json",
-  "currency": "USD"
  },
  {
   "name": "Todd Snyder",
@@ -264,38 +222,14 @@
   "currency": "USD"
  },
  {
-  "name": "Huckberry",
-  "domain": "huckberry.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Proper Cloth",
-  "domain": "propercloth.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Mugsy Jeans",
   "domain": "mugsyjeans.com",
   "path": "/products.json",
   "currency": "USD"
  },
  {
-  "name": "Tellason",
-  "domain": "tellason.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "3sixteen",
   "domain": "3sixteen.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Unbranded Brand",
-  "domain": "unbrandedbrand.com",
   "path": "/products.json",
   "currency": "USD"
  },
@@ -312,12 +246,6 @@
   "currency": "USD"
  },
  {
-  "name": "Gustin",
-  "domain": "gustin.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Left Field NYC",
   "domain": "leftfieldnyc.com",
   "path": "/products.json",
@@ -326,12 +254,6 @@
  {
   "name": "Koio",
   "domain": "koio.co",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Grant Stone",
-  "domain": "grantstone.com",
   "path": "/products.json",
   "currency": "USD"
  },
@@ -348,20 +270,8 @@
   "currency": "USD"
  },
  {
-  "name": "Oak Street Bootmakers",
-  "domain": "oakstreetbootmakers.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
   "name": "Allbirds",
   "domain": "allbirds.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Cariuma",
-  "domain": "cariuma.com",
   "path": "/products.json",
   "currency": "USD"
  },
@@ -374,12 +284,6 @@
  {
   "name": "Tecovas",
   "domain": "tecovas.com",
-  "path": "/products.json",
-  "currency": "USD"
- },
- {
-  "name": "Rhodes Footwear",
-  "domain": "rhodesfootwear.com",
   "path": "/products.json",
   "currency": "USD"
  }
