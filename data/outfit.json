@@ -1,37 +1,37 @@
 {
- "date": "2026-11-03",
+ "date": "2026-11-04",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Kotn",
-   "title": "Men's Lightweight Crewneck Sweater in Otter/Marshmallow Stripe",
-   "url": "https://kotn.com/products/mens-lightweight-crewneck-sweater-in-otter-marshmallow",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sLightweightCrewneckSweater_Otter-MarshmallowStripe2_a17fc7fd-3f5a-4055-aca5-abd1f6fa06cb.jpg?v=1760458376",
-   "price_cad": 50.0,
-   "was_cad": 98.0,
-   "off_pct": 49,
+   "store": "Taylor Stitch",
+   "title": "The Merino Polo in Heather Black",
+   "url": "https://taylorstitch.com/products/merino-polo-in-heather-black-2407",
+   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/merino-polo-in-heather-black-2407_001.jpg?v=1790611853",
+   "price_cad": 97.7,
+   "was_cad": 162.84,
+   "off_pct": 40,
    "sizes": [
-    "L",
-    "M",
-    "S",
-    "XL",
-    "XS"
+    "L - 42",
+    "M - 40",
+    "S - 38",
+    "XL - 44",
+    "XS - 36"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Kotn",
-   "title": "Men's Slouchy Buma Trouser in Marshmallow",
-   "url": "https://kotn.com/products/mens-slouchy-buma-trouser-in-marshmallow",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_SLOUCHY_BUMA_TROUSER_MARSHMALLOW_01_f75ace7c-46bc-4a2f-84d7-113f4990e8d6.jpg?v=1773932108",
-   "price_cad": 99.0,
-   "was_cad": 158.0,
-   "off_pct": 37,
+   "store": "Rowing Blazers",
+   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
+   "price_cad": 109.3,
+   "was_cad": 273.24,
+   "off_pct": 60,
    "sizes": [
+    "28",
     "30",
-    "31",
-    "32"
+    "38"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -54,57 +54,45 @@
    "kind": "shoes"
   },
   {
-   "store": "Taylor Stitch",
-   "title": "The Squall Anorak in Navy Twill",
-   "url": "https://taylorstitch.com/products/squall-anorak-in-navy-twill-2605",
-   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/squall-anorak-in-navy-twill-2605_001.jpg?v=1790612250",
-   "price_cad": 181.61,
-   "was_cad": 259.44,
-   "off_pct": 30,
+   "store": "Rowing Blazers",
+   "title": "Cotton Patchwork Vest Multicolor Block",
+   "url": "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/47_MF25S12S01MBK_013.jpg?v=1773775960",
+   "price_cad": 87.22,
+   "was_cad": 218.04,
+   "off_pct": 60,
    "sizes": [
-    "L - 42",
-    "M - 40",
-    "S - 38",
-    "XL - 44",
-    "XS - 36"
+    "L"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
    "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Slouchy Buma Trouser in Marshmallow",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "HEMP HERRINGBONE OVERSHIRT"
+   "Cotton Patchwork Vest Multicolor Block"
   ],
   [
    "Beachside Charleston Oxford Stripe Sport Shirt",
-   "Navy Stretch Tech Pant",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "The Squall Anorak in Navy Twill"
+   "Cotton Patchwork Vest Multicolor Block"
   ],
   [
    "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
-   "Navy Stretch Tech Pant",
+   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
    "Rey Everyday Derby Lug Umber Brown Suede",
-   "The Squall Anorak in Navy Twill"
+   "Cotton Patchwork Vest Multicolor Block"
   ]
  ],
- "total_cad": 467.23,
- "was_total_cad": 830.08,
- "saved_cad": 362.85,
- "note": "Colors: brown + navy + white.",
+ "total_cad": 430.84,
+ "was_total_cad": 968.76,
+ "saved_cad": 537.92,
+ "note": "Colors: black + brown + navy.",
  "history": [
-  {
-   "date": "2026-10-29",
-   "urls": [
-    "https://frankandoak.ca/products/mens-knit-t-shirt-trailstone-2mkt012fe-dese",
-    "https://kotn.com/products/mens-explorer-pant-in-otter",
-    "https://beckettsimonon.com/products/vasco-oxfords"
-   ]
-  },
   {
    "date": "2026-10-30",
    "urls": [
@@ -148,6 +136,15 @@
     "https://kotn.com/products/mens-slouchy-buma-trouser-in-marshmallow",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://taylorstitch.com/products/squall-anorak-in-navy-twill-2605"
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "urls": [
+    "https://taylorstitch.com/products/merino-polo-in-heather-black-2407",
+    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
+    "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
    ]
   }
  ]
