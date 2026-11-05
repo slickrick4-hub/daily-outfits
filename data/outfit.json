@@ -1,68 +1,76 @@
 {
- "date": "2026-11-04",
+ "date": "2026-11-05",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Taylor Stitch",
-   "title": "The Merino Polo in Heather Black",
-   "url": "https://taylorstitch.com/products/merino-polo-in-heather-black-2407",
-   "image": "https://cdn.shopify.com/s/files/1/0070/1922/files/merino-polo-in-heather-black-2407_001.jpg?v=1790611853",
-   "price_cad": 97.7,
-   "was_cad": 162.84,
-   "off_pct": 40,
+   "store": "Tecovas",
+   "title": "Men's Polo Pearl Snap SS",
+   "url": "https://tecovas.com/products/mens-polo-pearl-snap-ss-white-cotton",
+   "image": "https://cdn.shopify.com/s/files/1/0991/0824/files/1deb00470d40a9b5e5d3ff022165d3ac40366d63-2000x2500.png?v=1753132943",
+   "price_cad": 40.02,
+   "was_cad": 89.7,
+   "off_pct": 55,
    "sizes": [
-    "L - 42",
-    "M - 40",
-    "S - 38",
-    "XL - 44",
-    "XS - 36"
+    "M",
+    "S",
+    "XXL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
-   "price_cad": 109.3,
-   "was_cad": 273.24,
-   "off_pct": 60,
+   "store": "Fresh Clean Threads",
+   "title": "Cloud Grey Stretch Tech Pant",
+   "url": "https://freshcleanthreads.com/products/cloud-grey-stretch-tech-pant",
+   "image": "https://cdn.shopify.com/s/files/1/2988/4106/files/CLOUD-GREY-TECH-PANT-STUDIO-FRONT-min.jpg?v=1714148802",
+   "price_cad": 59.34,
+   "was_cad": 109.02,
+   "off_pct": 46,
    "sizes": [
-    "28",
     "30",
-    "38"
+    "40",
+    "42"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "bottom"
   },
   {
-   "store": "Nisolo",
-   "title": "Rey Everyday Derby Lug Umber Brown Suede",
-   "url": "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-   "image": "https://cdn.shopify.com/s/files/1/0277/9027/files/MF-1925-UBR_PAIR_FRONT_007Medium.jpg?v=1756256524",
-   "price_cad": 136.62,
-   "was_cad": 314.64,
-   "off_pct": 57,
+   "store": "Beckett Simonon",
+   "title": "Vasco Oxfords - Men's",
+   "url": "https://beckettsimonon.com/products/vasco-oxfords",
+   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_black_1_vasco_oxfords.jpg?v=1762201016",
+   "price_cad": 343.62,
+   "was_cad": 510.6,
+   "off_pct": 33,
    "sizes": [
     "10",
+    "10.5",
+    "11",
     "11.5",
+    "12",
+    "13",
+    "14",
+    "7",
+    "8",
     "8.5",
-    "9"
+    "9",
+    "9.5"
    ],
    "final_sale": false,
    "kind": "shoes"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Cotton Patchwork Vest Multicolor Block",
-   "url": "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/47_MF25S12S01MBK_013.jpg?v=1773775960",
-   "price_cad": 87.22,
-   "was_cad": 218.04,
-   "off_pct": 60,
+   "store": "Kotn",
+   "title": "Mina Vest in Black",
+   "url": "https://kotn.com/products/mens-mina-vest-in-black",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
+   "price_cad": 40.0,
+   "was_cad": 108.0,
+   "off_pct": 63,
    "sizes": [
-    "L"
+    "M",
+    "XS",
+    "XXS"
    ],
    "final_sale": true,
    "kind": "outerwear"
@@ -70,38 +78,29 @@
  ],
  "alternatives": [
   [
-   "Cashmere Striped Sweater Navy and Cream Stripe",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "Rey Everyday Derby Lug Umber Brown Suede",
-   "Cotton Patchwork Vest Multicolor Block"
+   "Ultrasoft Button-Down Sweater | Heather Mid Charcoal",
+   "Khaki Stretch Tech Pant",
+   "Vasco Oxfords - Men's",
+   "Mina Vest in Black"
   ],
   [
-   "Beachside Charleston Oxford Stripe Sport Shirt",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "Rey Everyday Derby Lug Umber Brown Suede",
-   "Cotton Patchwork Vest Multicolor Block"
+   "Cobblestone Plaid Beach Flannel Sport Shirt",
+   "Black Stretch Tech Pant",
+   "Vasco Oxfords - Men's",
+   "Mina Vest in Black"
   ],
   [
-   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
-   "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "Rey Everyday Derby Lug Umber Brown Suede",
-   "Cotton Patchwork Vest Multicolor Block"
+   "Belfair Long Sleeve Performance Polo",
+   "Black Stretch Tech Pant",
+   "Vasco Oxfords - Men's",
+   "Mina Vest in Black"
   ]
  ],
- "total_cad": 430.84,
- "was_total_cad": 968.76,
- "saved_cad": 537.92,
- "note": "Colors: black + brown + navy.",
+ "total_cad": 482.98,
+ "was_total_cad": 817.32,
+ "saved_cad": 334.34,
+ "note": "Colors: black + grey + white.",
  "history": [
-  {
-   "date": "2026-10-30",
-   "urls": [
-    "https://taylorstitch.com/products/jack-in-rinsed-indigo-stripe-chambray-2512",
-    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
-   ]
-  },
   {
    "date": "2026-10-31",
    "urls": [
@@ -145,6 +144,15 @@
     "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
     "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
     "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "urls": [
+    "https://tecovas.com/products/mens-polo-pearl-snap-ss-white-cotton",
+    "https://freshcleanthreads.com/products/cloud-grey-stretch-tech-pant",
+    "https://beckettsimonon.com/products/vasco-oxfords",
+    "https://kotn.com/products/mens-mina-vest-in-black"
    ]
   }
  ]
