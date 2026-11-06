@@ -1,37 +1,41 @@
 {
- "date": "2026-11-05",
+ "date": "2026-11-06",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Tecovas",
-   "title": "Men's Polo Pearl Snap SS",
-   "url": "https://tecovas.com/products/mens-polo-pearl-snap-ss-white-cotton",
-   "image": "https://cdn.shopify.com/s/files/1/0991/0824/files/1deb00470d40a9b5e5d3ff022165d3ac40366d63-2000x2500.png?v=1753132943",
-   "price_cad": 40.02,
-   "was_cad": 89.7,
-   "off_pct": 55,
+   "store": "Southern Tide",
+   "title": "The Seaport Kinston Stripe Polo",
+   "url": "https://southerntide.com/products/the-seaport-kinston-stripe-polo",
+   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/the-seaport-kinston-stripe-polo-orchid-pink-front-12350.jpg?v=1772050074",
+   "price_cad": 40.57,
+   "was_cad": 135.24,
+   "off_pct": 70,
    "sizes": [
+    "L",
     "M",
     "S",
+    "XL",
     "XXL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Fresh Clean Threads",
-   "title": "Cloud Grey Stretch Tech Pant",
-   "url": "https://freshcleanthreads.com/products/cloud-grey-stretch-tech-pant",
-   "image": "https://cdn.shopify.com/s/files/1/2988/4106/files/CLOUD-GREY-TECH-PANT-STUDIO-FRONT-min.jpg?v=1714148802",
-   "price_cad": 59.34,
-   "was_cad": 109.02,
-   "off_pct": 46,
+   "store": "Rowing Blazers",
+   "title": "Men's Canvas Printed Workwear Pant RB All Over",
+   "url": "https://rowingblazers.com/products/mens-canvas-printed-workwear-pant-geo-floral-copy",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-02FEB25-PANTS-YELLOW-PATTERN-ALLOVER-FRONT.jpg?v=1777664740",
+   "price_cad": 81.97,
+   "was_cad": 273.24,
+   "off_pct": 70,
    "sizes": [
+    "28",
     "30",
-    "40",
-    "42"
+    "32",
+    "34",
+    "36"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "bottom"
   },
   {
@@ -58,58 +62,30 @@
    ],
    "final_sale": false,
    "kind": "shoes"
-  },
-  {
-   "store": "Kotn",
-   "title": "Mina Vest in Black",
-   "url": "https://kotn.com/products/mens-mina-vest-in-black",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sMinaVest_Black2.jpg?v=1759446232",
-   "price_cad": 40.0,
-   "was_cad": 108.0,
-   "off_pct": 63,
-   "sizes": [
-    "M",
-    "XS",
-    "XXS"
-   ],
-   "final_sale": true,
-   "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
-   "Ultrasoft Button-Down Sweater | Heather Mid Charcoal",
-   "Khaki Stretch Tech Pant",
-   "Vasco Oxfords - Men's",
-   "Mina Vest in Black"
+   "The Pacific Polo in Black Indigo Pique Stripe",
+   "Men's Work Trouser in Dark Camel",
+   "Vasco Oxfords - Men's"
   ],
   [
-   "Cobblestone Plaid Beach Flannel Sport Shirt",
-   "Black Stretch Tech Pant",
-   "Vasco Oxfords - Men's",
-   "Mina Vest in Black"
+   "Beachside Charleston Oxford Stripe Sport Shirt",
+   "Men's Work Trouser in Dark Camel",
+   "Vasco Oxfords - Men's"
   ],
   [
-   "Belfair Long Sleeve Performance Polo",
-   "Black Stretch Tech Pant",
-   "Vasco Oxfords - Men's",
-   "Mina Vest in Black"
+   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
+   "Men's Work Trouser in Dark Camel",
+   "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 482.98,
- "was_total_cad": 817.32,
- "saved_cad": 334.34,
- "note": "Colors: black + grey + white.",
+ "total_cad": 466.16,
+ "was_total_cad": 919.08,
+ "saved_cad": 452.92,
+ "note": "Colors: blue + bright + green.",
  "history": [
-  {
-   "date": "2026-10-31",
-   "urls": [
-    "https://taylorstitch.com/products/pacific-polo-in-black-indigo-pique-stripe-2604",
-    "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://kotn.com/products/mens-mina-vest-in-black"
-   ]
-  },
   {
    "date": "2026-11-01",
    "urls": [
@@ -153,6 +129,14 @@
     "https://freshcleanthreads.com/products/cloud-grey-stretch-tech-pant",
     "https://beckettsimonon.com/products/vasco-oxfords",
     "https://kotn.com/products/mens-mina-vest-in-black"
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "urls": [
+    "https://southerntide.com/products/the-seaport-kinston-stripe-polo",
+    "https://rowingblazers.com/products/mens-canvas-printed-workwear-pant-geo-floral-copy",
+    "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
  ]
