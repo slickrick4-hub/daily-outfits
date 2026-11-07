@@ -1,39 +1,36 @@
 {
- "date": "2026-11-06",
+ "date": "2026-11-07",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Southern Tide",
-   "title": "The Seaport Kinston Stripe Polo",
-   "url": "https://southerntide.com/products/the-seaport-kinston-stripe-polo",
-   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/the-seaport-kinston-stripe-polo-orchid-pink-front-12350.jpg?v=1772050074",
-   "price_cad": 40.57,
-   "was_cad": 135.24,
-   "off_pct": 70,
+   "store": "Rowing Blazers",
+   "title": "Men's Cotton Pooh Superlative T-Shirt Cream",
+   "url": "https://rowingblazers.com/products/mens-cotton-pooh-superlative-t-shirt-cream",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_TEE_POOH_CREAM.jpg?v=1777661052",
+   "price_cad": 40.02,
+   "was_cad": 80.04,
+   "off_pct": 50,
    "sizes": [
     "L",
     "M",
-    "S",
     "XL",
+    "XS",
     "XXL"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
    "store": "Rowing Blazers",
-   "title": "Men's Canvas Printed Workwear Pant RB All Over",
-   "url": "https://rowingblazers.com/products/mens-canvas-printed-workwear-pant-geo-floral-copy",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-02FEB25-PANTS-YELLOW-PATTERN-ALLOVER-FRONT.jpg?v=1777664740",
-   "price_cad": 81.97,
+   "title": "Men's Classic Twill Trouser Navy '32 Inseam",
+   "url": "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-09SEP24-PANT-2-NAVY-FRONT_2135a4a3-2d77-4ec8-aae4-28af2aba2d56.jpg?v=1773876026",
+   "price_cad": 109.3,
    "was_cad": 273.24,
-   "off_pct": 70,
+   "off_pct": 60,
    "sizes": [
     "28",
-    "30",
-    "32",
-    "34",
-    "36"
+    "30"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -76,25 +73,16 @@
    "Vasco Oxfords - Men's"
   ],
   [
-   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
+   "Harborview Charleston Oxford Stripe Sport Shirt",
    "Men's Work Trouser in Dark Camel",
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 466.16,
- "was_total_cad": 919.08,
- "saved_cad": 452.92,
- "note": "Colors: blue + bright + green.",
+ "total_cad": 492.94,
+ "was_total_cad": 863.88,
+ "saved_cad": 370.94,
+ "note": "Colors: navy + white.",
  "history": [
-  {
-   "date": "2026-11-01",
-   "urls": [
-    "https://rowingblazers.com/products/mens-tonal-striped-sweater-blue-black-tonal-stripe",
-    "https://rowingblazers.com/products/mens-fun-stripe-trouser-classic-fun-stripe",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://kotn.com/products/mens-nima-vest-in-yakimo"
-   ]
-  },
   {
    "date": "2026-11-02",
    "urls": [
@@ -136,6 +124,14 @@
    "urls": [
     "https://southerntide.com/products/the-seaport-kinston-stripe-polo",
     "https://rowingblazers.com/products/mens-canvas-printed-workwear-pant-geo-floral-copy",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "urls": [
+    "https://rowingblazers.com/products/mens-cotton-pooh-superlative-t-shirt-cream",
+    "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
