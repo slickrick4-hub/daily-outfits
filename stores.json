@@ -286,5 +286,137 @@
   "domain": "tecovas.com",
   "path": "/products.json",
   "currency": "USD"
+ },
+ {
+  "name": "Mott & Bow",
+  "domain": "mottandbow.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Black Lapel",
+  "domain": "blacklapel.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Brooklyn Tailors",
+  "domain": "brooklyntailors.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Stag Provisions",
+  "domain": "stagprovisions.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Roark",
+  "domain": "roark.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Howler Brothers",
+  "domain": "howlerbros.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Todd Shelton",
+  "domain": "toddshelton.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Gitman Vintage",
+  "domain": "gitmanvintage.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Viberg",
+  "domain": "viberg.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Alden of Carmel",
+  "domain": "aldenofcarmel.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Clae",
+  "domain": "clae.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Ace Marks",
+  "domain": "acemarks.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Moose Knuckles",
+  "domain": "mooseknucklescanada.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Nobis",
+  "domain": "nobis.ca",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Barbell Apparel",
+  "domain": "barbellapparel.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "Stanfield's",
+  "domain": "stanfields.com",
+  "path": "/products.json",
+  "currency": "CAD"
+ },
+ {
+  "name": "American Giant",
+  "domain": "american-giant.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Velva Sheen",
+  "domain": "velvasheen.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Peter Millar",
+  "domain": "petermillar.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Johnnie-O",
+  "domain": "johnnie-o.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Southern Marsh",
+  "domain": "southernmarsh.com",
+  "path": "/products.json",
+  "currency": "USD"
+ },
+ {
+  "name": "Tommy John",
+  "domain": "tommyjohn.com",
+  "path": "/products.json",
+  "currency": "USD"
  }
 ]

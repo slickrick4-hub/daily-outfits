@@ -25,9 +25,9 @@ const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||d)}catch(e){return JSON.parse(d)}};
 let CAT={};
-const SLOT={2:{top:[4,4,44,92,-2],bottom:[52,4,44,92,2]},
-3:{top:[3,2,52,46,-3],bottom:[38,32,58,64,2],shoes:[3,54,40,42,-2]},
-4:{top:[2,2,46,40,-3],outerwear:[52,2,46,40,3],bottom:[36,38,60,60,1],shoes:[2,52,38,44,-2]}};
+const SLOT={2:{top:[2,2,47,96,0],bottom:[51,2,47,96,0]},
+3:{top:[2,2,47,60,0],shoes:[2,64,47,34,0],outerwear:[2,64,47,34,0],bottom:[51,2,47,96,0]},
+4:{outerwear:[2,2,47,31,0],top:[2,35,47,36,0],shoes:[2,73,47,25,0],bottom:[51,2,47,96,0]}};
 function flat(parts){const S=SLOT[parts.length]||SLOT[3];
   return '<div class="board">'+parts.map(x=>{const s=S[x.kind]||[0,0,50,50,0];
     return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(img(x))+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
