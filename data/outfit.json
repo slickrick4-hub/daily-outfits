@@ -1,35 +1,34 @@
 {
- "date": "2026-11-07",
+ "date": "2026-11-08",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Rowing Blazers",
-   "title": "Men's Cotton Pooh Superlative T-Shirt Cream",
-   "url": "https://rowingblazers.com/products/mens-cotton-pooh-superlative-t-shirt-cream",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_TEE_POOH_CREAM.jpg?v=1777661052",
-   "price_cad": 40.02,
-   "was_cad": 80.04,
-   "off_pct": 50,
+   "store": "Southern Tide",
+   "title": "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Garden Grove",
+   "url": "https://southerntide.com/products/brrr-eeze-meadowbrook-stripe-polo-garden-grove",
+   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/brrr-eeze-meadowbrook-stripe-polo-garden-grove-garden-grove-front-10617.jpg?v=1781536508",
+   "price_cad": 82.11,
+   "was_cad": 149.04,
+   "off_pct": 45,
    "sizes": [
     "L",
     "M",
     "XL",
-    "XS",
     "XXL"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Men's Classic Twill Trouser Navy '32 Inseam",
-   "url": "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-09SEP24-PANT-2-NAVY-FRONT_2135a4a3-2d77-4ec8-aae4-28af2aba2d56.jpg?v=1773876026",
-   "price_cad": 109.3,
-   "was_cad": 273.24,
-   "off_pct": 60,
+   "store": "Kotn",
+   "title": "Men's Work Trouser in Dark Camel",
+   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
+   "price_cad": 70.0,
+   "was_cad": 148.0,
+   "off_pct": 53,
    "sizes": [
-    "28",
+    "29",
     "30"
    ],
    "final_sale": true,
@@ -73,25 +72,16 @@
    "Vasco Oxfords - Men's"
   ],
   [
-   "Harborview Charleston Oxford Stripe Sport Shirt",
+   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
    "Men's Work Trouser in Dark Camel",
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 492.94,
- "was_total_cad": 863.88,
- "saved_cad": 370.94,
- "note": "Colors: navy + white.",
+ "total_cad": 495.73,
+ "was_total_cad": 807.64,
+ "saved_cad": 311.91,
+ "note": "Colors: brown + green.",
  "history": [
-  {
-   "date": "2026-11-02",
-   "urls": [
-    "https://southerntide.com/products/harborview-charleston-oxford-stripe-sport-shirt",
-    "https://rowingblazers.com/products/mens-indigo-jacquard-denim-pant-navy",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://kotn.com/products/mens-denim-overshirt-in-raw"
-   ]
-  },
   {
    "date": "2026-11-03",
    "urls": [
@@ -132,6 +122,14 @@
    "urls": [
     "https://rowingblazers.com/products/mens-cotton-pooh-superlative-t-shirt-cream",
     "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "urls": [
+    "https://southerntide.com/products/brrr-eeze-meadowbrook-stripe-polo-garden-grove",
+    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
