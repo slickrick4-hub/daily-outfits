@@ -31,7 +31,17 @@ def families(text):
     return {f for f, ws in COLORS.items() if any(re.search(r"\b" + w + r"s?\b", text) for w in ws)}
 
 
+_COLOR_CACHE = {}
+
+
 def colors_of(item):
+    key = item.get("url") or id(item)
+    if key not in _COLOR_CACHE:
+        _COLOR_CACHE[key] = _colors_of(item)
+    return _COLOR_CACHE[key]
+
+
+def _colors_of(item):
     found = families((item.get("title") or "").lower())
     if not found:  # many titles have no color, so fall back to short color-like tags
         for t in item.get("tags") or []:
@@ -95,10 +105,14 @@ def main():
     # drop anything that matches a word you said you avoid
     items = [i for i in items if hits((i.get("title") or "").lower(), STYLE["avoid_words"]) == 0]
     items = [i for i in items if i["kind"] != "shoes" or hits((i.get("title") or "").lower(), SHOE_KEEP) > 0]
-    tops = [i for i in items if i["kind"] == "top"]
-    bottoms = [i for i in items if i["kind"] == "bottom"]
-    shoes = [i for i in items if i["kind"] == "shoes"] or [None]
-    layers = [i for i in items if i["kind"] == "outerwear"]
+    # score every piece once, then only combine the best few of each kind (trying every
+    # combination of ~1,700 items took minutes and gave the same answer)
+    sc_of = {id(i): score(i) for i in items}
+    def best(kind, n):
+        return sorted((i for i in items if i["kind"] == kind), key=lambda i: -sc_of[id(i)])[:n]
+    tops, bottoms = best("top", 40), best("bottom", 30)
+    shoes = best("shoes", 15) or [None]
+    layers = best("outerwear", 15)
     combos = []
     for t in tops:
         for b in bottoms:
@@ -107,12 +121,12 @@ def main():
                 base = sum(p["price_cad"] for p in parts)
                 if base > BUDGET:
                     continue
-                sc = sum(score(p) for p in parts)
+                sc = sum(sc_of[id(p)] for p in parts)
                 combos.append((sc + color_bonus(parts)[0], parts))
                 for o in layers:
                     if base + o["price_cad"] <= BUDGET:
                         full = parts + [o]
-                        combos.append((sc + 0.5 * score(o) + color_bonus(full)[0], full))
+                        combos.append((sc + 0.5 * sc_of[id(o)] + color_bonus(full)[0], full))
     combos.sort(key=lambda c: -c[0])
     picks, seen = [], set()
     for sc, parts in combos:  # keep the best outfit for each different top, up to 10

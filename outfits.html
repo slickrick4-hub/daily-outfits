@@ -77,7 +77,8 @@ function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
   const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0);
   ok.forEach(i=>{i._s=i.off_pct/20+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)});POOL=ok;
-  const pick=(k,n)=>ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).slice(0,n);
+  // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
+  const pick=(k,n)=>{const all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s);return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
   const tops=pick('top',60),bots=pick('bottom',40),shoes=pick('shoes',30),lay=pick('outerwear',20),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
@@ -88,11 +89,21 @@ function build(items,p,shuffle){
     for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
   const out=[],uT={},uB={},uS={},uL={},seen={};let nl=0;
-  for(const[,parts]of combos){const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear');
+  const add=parts=>{const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear');
     const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs;
-    if(seen[key]||uT[ft]||(uB[fb]||0)>=3||(s&&(uS[fs]||0)>=5)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))continue;
+    if(seen[key]||uT[ft]||(uB[fb]||0)>=3||(s&&(uS[fs]||0)>=5)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))return false;
     seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
-    out.push({parts,label:label(parts)});if(out.length===60)break}
+    out.push({parts,label:label(parts)});return true};
+  // every 4th outfit includes a big-retailer piece when one fits; otherwise it's simply the best outfit
+  const big=combos.filter(c=>c[1].some(x=>x.sizes_unknown)),rest=combos;
+  let ib=0,ir=0;
+  const next=(L,i)=>{while(i<L.length&&!add(L[i][1]))i++;return i<L.length?i+1:-1};
+  while(out.length<60){
+    const wantBig=out.length%4===3&&ib>=0;
+    if(wantBig){ib=next(big,ib);if(ib>=0)continue}
+    if(ir>=0){ir=next(rest,ir);if(ir>=0)continue}
+    if(ib>=0){ib=next(big,ib);if(ib>=0)continue}
+    break}
   return out}
 const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
