@@ -1,0 +1,138 @@
+{
+ "needsupply.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "hickorees.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "rivetandhide.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "havenshop.com": {
+  "reason": "Shopify feed has fewer than 5 products | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "tombolo.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-09"
+ },
+ "peterblair.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "bylt.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-09"
+ },
+ "tracksmith.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "engineeredgarments.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "cultivatorco.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "stevensonoverall.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "baldwindenim.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "nudiejeans.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "oldbluecosf.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "danner.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "parabootusa.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "atoms.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "veja-store.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "grenson.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "theloaferco.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "tilleys.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "nau.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "topo-designs.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "spierandmackay.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "buckmason.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "percivalclothing.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "lucafaloni.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-09"
+ },
+ "sidmashburn.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-09"
+ },
+ "wytheny.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "outclassattire.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "debonnefacture.com": {
+  "reason": "Shopify: URLError | WooCommerce: URLError",
+  "date": "2026-11-09"
+ },
+ "morjas.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ },
+ "carminashoemaker.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-09"
+ },
+ "yuketen.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-09"
+ }
+}

@@ -418,5 +418,341 @@
   "domain": "tommyjohn.com",
   "path": "/products.json",
   "currency": "USD"
+ },
+ {
+  "name": "Standard & Strange",
+  "domain": "standardandstrange.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Trunk Clothiers",
+  "domain": "trunkclothiers.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Sportique",
+  "domain": "sportique.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Grayers  ",
+  "domain": "grayers.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Haspel",
+  "domain": "haspel.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "State and Liberty Clothing Company",
+  "domain": "stateandliberty.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Outdoor Voices",
+  "domain": "outdoorvoices.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "orslow.us",
+  "domain": "orslow.us",
+  "path": "",
+  "currency": "USD",
+  "platform": "woocommerce"
+ },
+ {
+  "name": "Freenote Cloth",
+  "domain": "freenotecloth.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "IRON HEART GERMANY",
+  "domain": "ironheartgermany.com",
+  "path": "/products.json",
+  "currency": "EUR",
+  "platform": "shopify"
+ },
+ {
+  "name": "MOMOTARO JEANS",
+  "domain": "momotarojeans.com",
+  "path": "/products.json",
+  "currency": "JPY",
+  "platform": "shopify"
+ },
+ {
+  "name": "Railcar Fine Goods",
+  "domain": "railcarfinegoods.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Gordon Rush",
+  "domain": "gordonrush.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Diemme Footwear",
+  "domain": "diemme.com",
+  "path": "/products.json",
+  "currency": "EUR",
+  "platform": "shopify"
+ },
+ {
+  "name": "Rothy's",
+  "domain": "rothys.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Tropicfeel",
+  "domain": "tropicfeel.com",
+  "path": "/products.json",
+  "currency": "EUR",
+  "platform": "shopify"
+ },
+ {
+  "name": "Crockett & Jones UK",
+  "domain": "crockettandjones.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Baffin - Born in the North '79",
+  "domain": "baffin.com",
+  "path": "/products.json",
+  "currency": "CAD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Kamik 1898-QC.CA",
+  "domain": "kamik.com",
+  "path": "/products.json",
+  "currency": "CAD",
+  "platform": "shopify"
+ },
+ {
+  "name": "MACKAGE\u00ae US OFFICIAL",
+  "domain": "mackage.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Canada Weather Gear",
+  "domain": "canadaweathergear.com",
+  "path": "/products.json",
+  "currency": "CAD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Fair Harbor",
+  "domain": "fairharborclothing.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Faherty Brand",
+  "domain": "fahertybrand.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Billy Reid",
+  "domain": "billyreid.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Universal Works",
+  "domain": "universalworks.co.uk",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Folk",
+  "domain": "folkclothing.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Oliver Spencer",
+  "domain": "oliverspencer.co.uk",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Wax London",
+  "domain": "waxlondon.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "J. PRESS",
+  "domain": "jpressonline.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Drakes",
+  "domain": "drakes.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "PrivateWhite V.C.",
+  "domain": "privatewhitevc.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Knickerbocker",
+  "domain": "knickerbocker.nyc",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "imogene + willie",
+  "domain": "imogeneandwillie.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Portuguese Flannel",
+  "domain": "portugueseflannel.com",
+  "path": "/products.json",
+  "currency": "EUR",
+  "platform": "shopify"
+ },
+ {
+  "name": "Hamilton Shirts",
+  "domain": "hamiltonshirts.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Kamakura Shirts Global Online Store",
+  "domain": "kamakurashirts.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "UNTUCKit",
+  "domain": "untuckit.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Holderness & Bourne",
+  "domain": "holdernessandbourne.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Norse Projects",
+  "domain": "norseprojects.com",
+  "path": "/products.json",
+  "currency": "DKK",
+  "platform": "shopify"
+ },
+ {
+  "name": "Sunspel",
+  "domain": "sunspel.com",
+  "path": "/products.json",
+  "currency": "GBP",
+  "platform": "shopify"
+ },
+ {
+  "name": "Velasca (US)",
+  "domain": "velasca.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "NAADAM",
+  "domain": "naadam.co",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Unbound Merino",
+  "domain": "unboundmerino.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Wool&Prince",
+  "domain": "woolandprince.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "IBEX",
+  "domain": "ibex.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Grant Stone ",
+  "domain": "grantstoneshoes.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "G.H.BASS",
+  "domain": "ghbass.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Paul Evans",
+  "domain": "paulevansny.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
  }
 ]
