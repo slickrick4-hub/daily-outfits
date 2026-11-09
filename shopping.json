@@ -1,0 +1,28 @@
+{
+ "country": "ca",
+ "language": "en",
+ "google_domain": "google.ca",
+ "currency": "CAD",
+ "queries_per_run": 8,
+ "keep_days": 14,
+ "retailers": [
+  "Uniqlo",
+  "Abercrombie & Fitch",
+  "Lululemon",
+  "J.Crew",
+  "Banana Republic",
+  "Gap",
+  "Levi's",
+  "Nordstrom",
+  "Roots",
+  "Hudson's Bay"
+ ],
+ "categories": [
+  "sweater",
+  "button-down shirt",
+  "jeans",
+  "pants",
+  "jacket",
+  "shoes"
+ ]
+}

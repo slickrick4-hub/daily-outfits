@@ -47,3 +47,5 @@ li em{font-style:normal;font-size:12px;color:var(--mut);display:block}
 .l .tag{color:var(--yes);border-color:var(--yes)}.a .tag{color:var(--no);border-color:var(--no)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 .pieces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;font-size:14px}.pcard img{width:100%;aspect-ratio:4/5;object-fit:contain;background:var(--board);border-radius:10px;display:block}.pcard p{margin:8px 2px 2px}.gone{color:var(--no)}
+.foot{margin:34px 0 0;font-size:14px;color:var(--mut)}.foot a{color:var(--mut)}
+main p{max-width:68ch}

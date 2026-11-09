@@ -52,7 +52,7 @@ function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value
 function read(){return{tops:$('tops').value,waist:$('waist').value.trim()||DEF.waist,shoe:$('shoe').value.trim()||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED]}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
-function mySizes(i,p){const ss=(i.sizes||[]).map(String);
+function mySizes(i,p){if(i.sizes_unknown)return['?'];const ss=(i.sizes||[]).map(String);
   if(i.kind==='shoes')return ss.filter(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&nums(p.shoe).some(v=>Math.abs(+m[1]-v)<.01)});
   if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&nums(p.waist).includes(+m[1])});
   const want=list(p.tops).map(x=>x.toUpperCase());return ss.filter(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
@@ -98,6 +98,7 @@ const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}c
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
 const snap=x=>({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
 const okey=parts=>parts.map(x=>x.url).sort().join('|');
+const sizeNote=x=>x.sizes_unknown?'Sizes not listed here: check the retailer’s page':(x.sizes_verified===false?'Your size is listed (stock not confirmed): ':'Your size in stock: ')+mySizes(x,CUR).join(', ');
 const KO={top:0,bottom:1,shoes:2,outerwear:3};
 const SLOT={2:{top:[2,2,47,96,0],bottom:[51,2,47,96,0]},
 3:{top:[2,2,47,60,0],shoes:[2,64,47,34,0],outerwear:[2,64,47,34,0],bottom:[51,2,47,96,0]},
@@ -107,7 +108,7 @@ function flat(parts){const S=SLOT[parts.length]||SLOT[3];
     return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
 function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad');
   return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
-    parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>Your size in stock: '+esc(mySizes(x,CUR).join(', '))+'</em></div><b>'+money(x.price_cad)+'</b>'+
+    parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em></div><b>'+money(x.price_cad)+'</b>'+
       '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Swap this piece</button></div></li>').join('')+
     '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
 function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}

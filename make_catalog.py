@@ -26,7 +26,7 @@ def main():
             "images": it.get("images") or ([it["image"]] if it.get("image") else []),
             "price_cad": round(it["price"] * r, 2), "was_cad": round(it["was"] * r, 2),
             "off_pct": it["off_pct"], "sizes": it.get("sizes") or [], "kind": kind,
-            "final_sale": "final-sale" in tags, "colors": sorted(B.colors_of(it)),
+            "final_sale": "final-sale" in tags, "sizes_verified": it.get("sizes_verified", True), "sizes_unknown": bool(it.get("sizes_unknown")), "colors": sorted(B.colors_of(it)),
             "gender": "unisex" if ("unisex" in it["title"].lower() or "unisex" in tags) else "men",
         })
     out = {"generated_at": datetime.now(timezone.utc).isoformat(), "items": items}

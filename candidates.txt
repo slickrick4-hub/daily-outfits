@@ -1,0 +1,64 @@
+# One store web address per line. Lines starting with # are ignored.
+# Paste new ones anywhere, then run the "Find new stores" workflow from the Actions tab.
+# Multi-brand shops (many brands in one store)
+needsupply.com
+standardandstrange.com
+hickorees.com
+trunkclothiers.com
+rivetandhide.com
+sportique.com
+bdgastore.com
+kith.com
+undefeated.com
+stussy.com
+palaceskateboards.com
+# Menswear and basics
+grayers.com
+tombolo.com
+haspel.com
+peterblair.com
+stateandliberty.com
+bylt.com
+tracksmith.com
+outdoorvoices.com
+fearofgod.com
+rhude.com
+orslow.us
+engineeredgarments.com
+thehundreds.com
+cultivatorco.com
+# Denim and workwear
+freenotecloth.com
+stevensonoverall.com
+ironheartgermany.com
+momotarojeans.com
+railcarfinegoods.com
+baldwindenim.com
+nudiejeans.com
+oldbluecosf.com
+# Shoes
+gordonrush.com
+danner.com
+diemme.com
+parabootusa.com
+rothys.com
+tropicfeel.com
+atoms.com
+veja-store.com
+crockettandjones.com
+grenson.com
+baffin.com
+kamik.com
+theloaferco.com
+# Canadian
+tilleys.com
+barbellapparel.com
+mackage.com
+canadaweathergear.com
+# Outerwear and outdoors
+howlerbros.com
+roark.com
+fairharborclothing.com
+nau.com
+topo-designs.com
+
