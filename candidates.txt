@@ -7,11 +7,7 @@ hickorees.com
 trunkclothiers.com
 rivetandhide.com
 sportique.com
-bdgastore.com
-kith.com
-undefeated.com
-stussy.com
-palaceskateboards.com
+havenshop.com
 # Menswear and basics
 grayers.com
 tombolo.com
@@ -21,11 +17,8 @@ stateandliberty.com
 bylt.com
 tracksmith.com
 outdoorvoices.com
-fearofgod.com
-rhude.com
 orslow.us
 engineeredgarments.com
-thehundreds.com
 cultivatorco.com
 # Denim and workwear
 freenotecloth.com
@@ -62,3 +55,55 @@ fairharborclothing.com
 nau.com
 topo-designs.com
 
+# Added 2026-11-09: smart-casual brands that match the owner's taste
+# (oxfords, chambray, flannel, merino, trousers, loafers, earthy colors)
+# Shirts, knitwear and trousers
+spierandmackay.com
+buckmason.com
+fahertybrand.com
+billyreid.com
+percivalclothing.com
+universalworks.co.uk
+folkclothing.com
+oliverspencer.co.uk
+waxlondon.com
+lucafaloni.com
+sidmashburn.com
+jpressonline.com
+drakes.com
+privatewhitevc.com
+wytheny.com
+knickerbocker.nyc
+imogeneandwillie.com
+portugueseflannel.com
+hamiltonshirts.com
+kamakurashirts.com
+untuckit.com
+holdernessandbourne.com
+outclassattire.com
+norseprojects.com
+debonnefacture.com
+sunspel.com
+velasca.com
+# Merino and cashmere
+naadam.co
+unboundmerino.com
+woolandprince.com
+ibex.com
+# Loafers and dress shoes
+grantstoneshoes.com
+morjas.com
+ghbass.com
+carminashoemaker.com
+paulevansny.com
+yuketen.com
+
+# Parked: streetwear, off-style for now (remove the # to test them)
+# bdgastore.com
+# kith.com
+# undefeated.com
+# stussy.com
+# palaceskateboards.com
+# fearofgod.com
+# rhude.com
+# thehundreds.com
