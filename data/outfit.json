@@ -20,38 +20,29 @@
    "kind": "top"
   },
   {
-   "store": "Faherty Brand",
-   "title": "Beach Chino Pant - Abyss Navy",
-   "url": "https://fahertybrand.com/products/beach-chino-pant-abyss-navy",
-   "image": "https://cdn.shopify.com/s/files/1/0359/8357/files/MBU2605-YVY_027_Web.jpg?v=1776096940",
-   "price_cad": 95.22,
-   "was_cad": 245.64,
-   "off_pct": 61,
+   "store": "Universal Works",
+   "title": "Brown Kennedy Stripe Hi Water Trouser",
+   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
+   "price_cad": 117.0,
+   "was_cad": 288.0,
+   "off_pct": 59,
    "sizes": [
     "28",
-    "29",
-    "30",
-    "31",
     "32",
-    "33",
-    "34",
-    "35",
-    "36",
-    "38",
-    "40",
-    "42"
+    "36"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "bottom"
   },
   {
    "store": "Beckett Simonon",
-   "title": "Vasco Oxfords - Men's",
-   "url": "https://beckettsimonon.com/products/vasco-oxfords",
-   "image": "https://cdn.shopify.com/s/files/1/0175/8496/products/color_black_1_vasco_oxfords.jpg?v=1762201016",
-   "price_cad": 343.62,
-   "was_cad": 510.6,
-   "off_pct": 33,
+   "title": "Asher Oxfords - Suede - Men\u00b4s",
+   "url": "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
+   "image": "https://cdn.shopify.com/s/files/1/0175/8496/files/color_brown_1_asher_oxfords_suede.jpg?v=1782419621",
+   "price_cad": 302.22,
+   "was_cad": 483.0,
+   "off_pct": 37,
    "sizes": [
     "10",
     "10.5",
@@ -71,16 +62,18 @@
   },
   {
    "store": "Canada Weather Gear",
-   "title": "Puffer Vest - Olive",
-   "url": "https://canadaweathergear.com/products/303-4642-83",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_acafa1a7-ac0d-4d7e-9347-3061b7266d95.jpg?v=1784185087",
+   "title": "Puffer Vest - Black",
+   "url": "https://canadaweathergear.com/products/303-4642-04",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_0395b5a9-dd16-460b-91ce-88802bce0910.jpg?v=1782834298",
    "price_cad": 29.99,
    "was_cad": 100.0,
    "off_pct": 70,
    "sizes": [
+    "L",
     "M",
     "S",
-    "XL"
+    "XL",
+    "XXL"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -89,27 +82,27 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Black",
-   "Beach Chino Pant - Abyss Navy",
-   "Vasco Oxfords - Men's",
-   "Puffer Vest - Olive"
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "Asher Oxfords - Suede - Men\u00b4s",
+   "Puffer Vest - Black"
   ],
   [
    "Striped Sports Polo Shirt - Blue",
-   "Beach Chino Pant - Abyss Navy",
-   "Vasco Oxfords - Men's",
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "Asher Oxfords - Suede - Men\u00b4s",
    "Puffer Vest - Black"
   ],
   [
    "Striped Polo Shirt - Green",
-   "Beach Chino Pant - Abyss Navy",
-   "Vasco Oxfords - Men's",
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "Asher Oxfords - Suede - Men\u00b4s",
    "Puffer Vest - Black"
   ]
  ],
- "total_cad": 478.83,
- "was_total_cad": 906.24,
- "saved_cad": 427.41,
- "note": "Colors: green + grey + navy.",
+ "total_cad": 459.21,
+ "was_total_cad": 921.0,
+ "saved_cad": 461.79,
+ "note": "Colors: black + brown + grey.",
  "history": [
   {
    "date": "2026-11-04",
@@ -157,9 +150,9 @@
    "date": "2026-11-09",
    "urls": [
     "https://canadaweathergear.com/products/627-8240-10",
-    "https://fahertybrand.com/products/beach-chino-pant-abyss-navy",
-    "https://beckettsimonon.com/products/vasco-oxfords",
-    "https://canadaweathergear.com/products/303-4642-83"
+    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+    "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
+    "https://canadaweathergear.com/products/303-4642-04"
    ]
   }
  ]
