@@ -1,35 +1,35 @@
 {
- "date": "2026-11-08",
+ "date": "2026-11-09",
  "budget_cad": 500,
  "items": [
   {
    "store": "Southern Tide",
-   "title": "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Garden Grove",
-   "url": "https://southerntide.com/products/brrr-eeze-meadowbrook-stripe-polo-garden-grove",
-   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/brrr-eeze-meadowbrook-stripe-polo-garden-grove-garden-grove-front-10617.jpg?v=1781536508",
-   "price_cad": 82.11,
-   "was_cad": 149.04,
-   "off_pct": 45,
+   "title": "App State Mountaineers Tailgate Time T-Shirt",
+   "url": "https://southerntide.com/products/app-state-mountaineers-tailgate-time-t-shirt",
+   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/app-state-mountaineers-tailgate-time-t-shirt-classic-white-back-10438.jpg?v=1783975015",
+   "price_cad": 33.81,
+   "was_cad": 75.9,
+   "off_pct": 55,
    "sizes": [
-    "L",
     "M",
-    "XL",
-    "XXL"
+    "S",
+    "XS"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Kotn",
-   "title": "Men's Work Trouser in Dark Camel",
-   "url": "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/Men_sWorkTrouser_DarkCamel1_9be66b30-f5c2-46e0-bcfa-992e017e916e.jpg?v=1762276293",
-   "price_cad": 70.0,
-   "was_cad": 148.0,
-   "off_pct": 53,
+   "store": "Rowing Blazers",
+   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
+   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
+   "price_cad": 109.3,
+   "was_cad": 273.24,
+   "off_pct": 60,
    "sizes": [
-    "29",
-    "30"
+    "28",
+    "30",
+    "38"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -62,35 +62,26 @@
  ],
  "alternatives": [
   [
-   "The Pacific Polo in Black Indigo Pique Stripe",
-   "Men's Work Trouser in Dark Camel",
-   "Vasco Oxfords - Men's"
-  ],
-  [
    "Beachside Charleston Oxford Stripe Sport Shirt",
-   "Men's Work Trouser in Dark Camel",
+   "Men's Explorer Pant in Olive",
    "Vasco Oxfords - Men's"
   ],
   [
-   "brrr\u00b0\u00ae-eeze Meadowbrook Stripe Polo - Caviar Black",
-   "Men's Work Trouser in Dark Camel",
+   "The Pacific Polo in Black Indigo Pique Stripe",
+   "Khaki Stretch Tech Pant",
+   "Vasco Oxfords - Men's"
+  ],
+  [
+   "Ultrasoft Button-Down Sweater | Heather Mid Charcoal",
+   "Men's Slouchy Buma Trouser in Marshmallow",
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 495.73,
- "was_total_cad": 807.64,
- "saved_cad": 311.91,
- "note": "Colors: brown + green.",
+ "total_cad": 486.73,
+ "was_total_cad": 859.74,
+ "saved_cad": 373.01,
+ "note": "Colors: navy + white.",
  "history": [
-  {
-   "date": "2026-11-03",
-   "urls": [
-    "https://kotn.com/products/mens-lightweight-crewneck-sweater-in-otter-marshmallow",
-    "https://kotn.com/products/mens-slouchy-buma-trouser-in-marshmallow",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://taylorstitch.com/products/squall-anorak-in-navy-twill-2605"
-   ]
-  },
   {
    "date": "2026-11-04",
    "urls": [
@@ -130,6 +121,14 @@
    "urls": [
     "https://southerntide.com/products/brrr-eeze-meadowbrook-stripe-polo-garden-grove",
     "https://kotn.com/products/mens-work-trouser-in-dark-camel",
+    "https://beckettsimonon.com/products/vasco-oxfords"
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "urls": [
+    "https://southerntide.com/products/app-state-mountaineers-tailgate-time-t-shirt",
+    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
