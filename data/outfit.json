@@ -3,13 +3,13 @@
  "budget_cad": 500,
  "items": [
   {
-   "store": "Naked & Famous",
-   "title": "Vintage Doubleface - Charcoal",
-   "url": "https://nakedandfamousdenim.com/products/slim-crew-vintage-doubleface-charcoal",
-   "image": "https://cdn.shopify.com/s/files/1/0322/0537/files/nfd-media-rename-52426807771501.jpg?v=1786483425",
-   "price_cad": 59.34,
-   "was_cad": 149.04,
-   "off_pct": 60,
+   "store": "Canada Weather Gear",
+   "title": "Lightweight Polo - Grey",
+   "url": "https://canadaweathergear.com/products/627-8240-10",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_11ee44f1-b06d-45ed-8281-2a3166914817.jpg?v=1787339227",
+   "price_cad": 10.0,
+   "was_cad": 50.0,
+   "off_pct": 80,
    "sizes": [
     "L",
     "M",
@@ -20,18 +20,26 @@
    "kind": "top"
   },
   {
-   "store": "Kotn",
-   "title": "Men's Explorer Pant in Olive",
-   "url": "https://kotn.com/products/mens-explorer-pant-in-olive",
-   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_EXPLORER_PANT_OLIVE_01.jpg?v=1777481646",
-   "price_cad": 89.0,
-   "was_cad": 178.0,
-   "off_pct": 50,
+   "store": "Faherty Brand",
+   "title": "Beach Chino Pant - Abyss Navy",
+   "url": "https://fahertybrand.com/products/beach-chino-pant-abyss-navy",
+   "image": "https://cdn.shopify.com/s/files/1/0359/8357/files/MBU2605-YVY_027_Web.jpg?v=1776096940",
+   "price_cad": 95.22,
+   "was_cad": 245.64,
+   "off_pct": 61,
    "sizes": [
-    "26",
     "28",
     "29",
-    "30"
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "38",
+    "40",
+    "42"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -60,29 +68,48 @@
    ],
    "final_sale": false,
    "kind": "shoes"
+  },
+  {
+   "store": "Canada Weather Gear",
+   "title": "Puffer Vest - Olive",
+   "url": "https://canadaweathergear.com/products/303-4642-83",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_acafa1a7-ac0d-4d7e-9347-3061b7266d95.jpg?v=1784185087",
+   "price_cad": 29.99,
+   "was_cad": 100.0,
+   "off_pct": 70,
+   "sizes": [
+    "M",
+    "S",
+    "XL"
+   ],
+   "final_sale": false,
+   "kind": "outerwear"
   }
  ],
  "alternatives": [
   [
-   "Beachside Charleston Oxford Stripe Sport Shirt",
-   "Men's Explorer Pant in Olive",
-   "Vasco Oxfords - Men's"
+   "Striped Sports Polo Shirt - Black",
+   "Beach Chino Pant - Abyss Navy",
+   "Vasco Oxfords - Men's",
+   "Puffer Vest - Olive"
   ],
   [
-   "The Pacific Polo in Black Indigo Pique Stripe",
-   "Khaki Stretch Tech Pant",
-   "Vasco Oxfords - Men's"
+   "Striped Sports Polo Shirt - Blue",
+   "Beach Chino Pant - Abyss Navy",
+   "Vasco Oxfords - Men's",
+   "Puffer Vest - Black"
   ],
   [
-   "Ultrasoft Button-Down Sweater | Heather Mid Charcoal",
-   "Men's Slouchy Buma Trouser in Marshmallow",
-   "Vasco Oxfords - Men's"
+   "Striped Polo Shirt - Green",
+   "Beach Chino Pant - Abyss Navy",
+   "Vasco Oxfords - Men's",
+   "Puffer Vest - Black"
   ]
  ],
- "total_cad": 491.96,
- "was_total_cad": 837.64,
- "saved_cad": 345.68,
- "note": "Colors: green + grey.",
+ "total_cad": 478.83,
+ "was_total_cad": 906.24,
+ "saved_cad": 427.41,
+ "note": "Colors: green + grey + navy.",
  "history": [
   {
    "date": "2026-11-04",
@@ -129,9 +156,10 @@
   {
    "date": "2026-11-09",
    "urls": [
-    "https://nakedandfamousdenim.com/products/slim-crew-vintage-doubleface-charcoal",
-    "https://kotn.com/products/mens-explorer-pant-in-olive",
-    "https://beckettsimonon.com/products/vasco-oxfords"
+    "https://canadaweathergear.com/products/627-8240-10",
+    "https://fahertybrand.com/products/beach-chino-pant-abyss-navy",
+    "https://beckettsimonon.com/products/vasco-oxfords",
+    "https://canadaweathergear.com/products/303-4642-83"
    ]
   }
  ]
