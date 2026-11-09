@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 
 S = json.load(open("config.json"))
 # approximate conversion to CAD; stores in a currency not listed here are skipped, not guessed
-RATES = {"CAD": 1.0, "USD": S["usd_to_cad"], "GBP": 1.80, "EUR": 1.55, "AUD": 0.90, "NZD": 0.82}
+RATES = {"CAD": 1.0, "USD": S["usd_to_cad"], "GBP": 1.80, "EUR": 1.55, "AUD": 0.90, "NZD": 0.82,
+         "DKK": 0.21, "JPY": 0.0092}
 RATES.update(S.get("rates", {}))
 
 # Words that remove an item (summer pieces, accessories, lounge wear, internal notes).
