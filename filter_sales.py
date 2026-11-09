@@ -28,13 +28,22 @@ def tag_list(item):
     return [str(t).strip().lower() for t in tags]
 
 
+try:   # stores marked "mens_only" in stores.json sell (almost) only menswear and rarely label gender
+    MENS_ONLY = {st["name"] for st in json.load(open("stores.json")) if st.get("mens_only")}
+except Exception:
+    MENS_ONLY = set()
+WOMEN_RX = re.compile(r"\b(wom[ae]n|wom[ae]ns|wom[ae]n's|wom[ae]n\u2019s|female|ladies|girls?)\b")
+MEN_RX = re.compile(r"\b(men|mens|men's|men\u2019s|male|menswear|unisex)\b")
+
+
 def is_mens(item):
     title = (item.get("title") or "").lower()
-    if "women" in title:
+    labels = " | ".join(tag_list(item) + [(item.get("type") or "").lower()])
+    if "women" in title or WOMEN_RX.search(labels):
         return False
-    if "unisex" in title or "men's" in title or "men\u2019s" in title:
+    if MEN_RX.search(title) or MEN_RX.search(labels):
         return True
-    return any(t in ("men", "mens", "mens-sale", "unisex") for t in tag_list(item))
+    return item.get("store") in MENS_ONLY
 
 
 def kind_of(item):
