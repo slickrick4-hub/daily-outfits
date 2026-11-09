@@ -3,33 +3,35 @@
  "budget_cad": 500,
  "items": [
   {
-   "store": "Southern Tide",
-   "title": "App State Mountaineers Tailgate Time T-Shirt",
-   "url": "https://southerntide.com/products/app-state-mountaineers-tailgate-time-t-shirt",
-   "image": "https://cdn.shopify.com/s/files/1/2294/8559/files/app-state-mountaineers-tailgate-time-t-shirt-classic-white-back-10438.jpg?v=1783975015",
-   "price_cad": 33.81,
-   "was_cad": 75.9,
-   "off_pct": 55,
+   "store": "Naked & Famous",
+   "title": "Vintage Doubleface - Charcoal",
+   "url": "https://nakedandfamousdenim.com/products/slim-crew-vintage-doubleface-charcoal",
+   "image": "https://cdn.shopify.com/s/files/1/0322/0537/files/nfd-media-rename-52426807771501.jpg?v=1786483425",
+   "price_cad": 59.34,
+   "was_cad": 149.04,
+   "off_pct": 60,
    "sizes": [
+    "L",
     "M",
     "S",
-    "XS"
+    "XL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Rowing Blazers",
-   "title": "Men's Pleated Relaxed Trouser Navy '32 Inseam",
-   "url": "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/Navy-relaxed-Trousers.jpg?v=1773875937",
-   "price_cad": 109.3,
-   "was_cad": 273.24,
-   "off_pct": 60,
+   "store": "Kotn",
+   "title": "Men's Explorer Pant in Olive",
+   "url": "https://kotn.com/products/mens-explorer-pant-in-olive",
+   "image": "https://cdn.shopify.com/s/files/1/0932/1356/files/MENS_EXPLORER_PANT_OLIVE_01.jpg?v=1777481646",
+   "price_cad": 89.0,
+   "was_cad": 178.0,
+   "off_pct": 50,
    "sizes": [
+    "26",
     "28",
-    "30",
-    "38"
+    "29",
+    "30"
    ],
    "final_sale": true,
    "kind": "bottom"
@@ -77,10 +79,10 @@
    "Vasco Oxfords - Men's"
   ]
  ],
- "total_cad": 486.73,
- "was_total_cad": 859.74,
- "saved_cad": 373.01,
- "note": "Colors: navy + white.",
+ "total_cad": 491.96,
+ "was_total_cad": 837.64,
+ "saved_cad": 345.68,
+ "note": "Colors: green + grey.",
  "history": [
   {
    "date": "2026-11-04",
@@ -127,8 +129,8 @@
   {
    "date": "2026-11-09",
    "urls": [
-    "https://southerntide.com/products/app-state-mountaineers-tailgate-time-t-shirt",
-    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
+    "https://nakedandfamousdenim.com/products/slim-crew-vintage-doubleface-charcoal",
+    "https://kotn.com/products/mens-explorer-pant-in-olive",
     "https://beckettsimonon.com/products/vasco-oxfords"
    ]
   }
