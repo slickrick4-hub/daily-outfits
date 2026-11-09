@@ -5,52 +5,132 @@
 <title>Style quiz</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600&family=Fraunces:ital,wght@0,500;0,700;1,500&display=swap">
 <link rel="stylesheet" href="style.css">
+<style>
+.step h2{margin-bottom:4px}
+.looks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:720px}
+.look{font:inherit;color:var(--ink);text-align:left;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:10px;font-weight:600}
+.look.on,.opt.on{border-color:var(--ink)}
+.mini{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:1;background:var(--board);border-radius:12px;overflow:hidden;margin-bottom:8px}
+.mini img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;display:block}.mini img:first-child{grid-row:1/3}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.opt{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 16px;font-weight:600;text-align:left}
+.opt small{display:block;font-weight:400;color:var(--mut);font-size:13px}
+.row{margin:4px 0 12px}.row b{display:block;font-size:14px;margin-bottom:2px}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;max-width:640px}
+.swb{font:inherit;font-size:13px;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:14px;padding:8px;font-weight:600}
+.swb i{display:block;height:34px;border-radius:9px;margin-bottom:6px;border:1px solid var(--line)}
+.swb em{display:block;font-style:normal;font-weight:400;font-size:12px;color:var(--mut)}
+.swb.love{border-color:var(--yes)}.swb.love em{color:var(--yes)}.swb.never{border-color:var(--no)}.swb.never em{color:var(--no)}
+#bsearch{max-width:320px;margin-bottom:10px}
+.brands{max-height:340px;overflow:auto;padding:2px}
+@media (max-width:520px){.looks{grid-template-columns:1fr 1fr;gap:8px}.look{padding:6px;font-size:14px}}
+</style>
 </head><body>
 <header class="top"><a class="brand" href="outfits.html">Outfits on sale</a><nav><a href="outfits.html">Outfits</a><a href="quiz.html" class="on">Style quiz</a><a href="saved.html">Saved</a></nav></header>
 <main>
 <h1>Find your style</h1>
-<p class="sub" id="sub">Pick the one you’d rather wear. It uses what’s on sale right now.</p>
+<p class="sub" id="sub">A few quick taps, then a short round of “this or that”. Everything stays on this device.</p>
 <div class="bar"><i id="pg"></i></div>
-<section id="pair" class="pair"></section>
-<div class="act" id="acts"><button class="o" id="skip">Neither</button></div>
-<section id="res" hidden></section>
+<section id="step" class="step"></section>
+<section id="pair" class="pair" hidden></section>
+<div class="act" id="acts"><button id="next">Next</button><button class="o" id="back">Back</button></div>
 <p class="foot"><a href="about.html">About and disclosure</a></p>
 </main>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
-const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
-const SEQ=['top','bottom','top','shoes','top','bottom','outerwear','shoes'];let ROUNDS=16;
-let CAT=[],FREQ={},used=new Set(),score={},count={},r=0,cur=null;
-const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)&&FREQ[x]>=4));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
-function nextPair(){for(let k=0;k<SEQ.length;k++){const kind=SEQ[(r+k)%SEQ.length];
-  const pool=CAT.filter(i=>i.kind===kind&&i.image&&!used.has(i.url));if(pool.length<2)continue;
-  const a=pool[Math.floor(Math.random()*pool.length)],ta=new Set(tok(a));let best=null,bd=-1;
-  for(let n=0;n<10;n++){const b=pool[Math.floor(Math.random()*pool.length)];if(b===a)continue;const d=tok(b).filter(x=>!ta.has(x)).length;if(d>bd){bd=d;best=b}}
-  if(best)return[a,best]}return null}
-function draw(){$('pg').style.width=(r/ROUNDS*100)+'%';if(r>=ROUNDS)return finish();
-  cur=nextPair();if(!cur)return finish();cur.forEach(i=>used.add(i.url));
-  $('pair').innerHTML=cur.map((i,n)=>'<button class="pick" data-n="'+n+'"><img src="'+esc(i.image)+'" alt=""><span>'+esc(nice(i.title))+'</span></button>').join('');
-  document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>choose(+b.dataset.n))}
-function choose(n){tok(cur[n]).forEach(t=>{score[t]=(score[t]||0)+1;count[t]=(count[t]||0)+1});
-  tok(cur[1-n]).forEach(t=>{score[t]=(score[t]||0)-1;count[t]=(count[t]||0)+1});r++;draw()}
-function finish(){$('pair').hidden=true;$('acts').hidden=true;$('pg').style.width='100%';
-  const ks=Object.keys(score);
-  const like=ks.filter(t=>score[t]>=2).sort((a,b)=>score[b]-score[a]).slice(0,12);
-  const avoid=ks.filter(t=>score[t]<=-2&&count[t]>=3).sort((a,b)=>score[a]-score[b]).slice(0,8);
-  $('sub').textContent='';
-  $('res').hidden=false;
-  $('res').innerHTML='<h2>Your style</h2><p class="sub">Built from your '+r+' choices. You can edit these words on the outfits page.</p>'+
-   '<p class="sub">You gravitate toward</p><div class="chips l">'+(like.length?like.map(t=>'<b class="tag">'+esc(t)+'</b>').join(''):'<span class="sub">Nothing stood out yet. Try again with more choices.</span>')+'</div>'+
-   '<p class="sub">You tend to skip</p><div class="chips a">'+(avoid.length?avoid.map(t=>'<b class="tag">'+esc(t)+'</b>').join(''):'<span class="sub">Nothing strong.</span>')+'</div>'+
-   '<div class="act"><button id="use">Use this style</button><button class="o" id="keep">Keep going (8 more)</button><button class="o" id="again">Retake</button></div>';
-  $('use').onclick=()=>{let p={};try{p=JSON.parse(localStorage.getItem('profile')||'{}')}catch(e){}
-    p.like=like.join(', ');p.avoid=avoid.join(', ');const w={};ks.forEach(t=>{if(count[t]>=2&&score[t]!==0)w[t]=Math.max(-3,Math.min(3,score[t]*.5))});p.weights=w;try{localStorage.setItem('profile',JSON.stringify(p))}catch(e){}location.href='outfits.html'};
-  $('keep').onclick=()=>{ROUNDS+=8;$('res').hidden=true;$('pair').hidden=false;$('acts').hidden=false;$('sub').textContent='Pick the one you’d rather wear.';draw()};
-  $('again').onclick=()=>location.reload()}
-$('skip').onclick=()=>{r++;draw()};
-fetch('data/catalog.json?'+Date.now()).then(x=>{if(!x.ok)throw 0;return x.json()}).then(c=>{CAT=c.items;
-  CAT.forEach(i=>new Set(i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).forEach(w=>FREQ[w]=(FREQ[w]||0)+1));draw()
-}).catch(()=>{$('sub').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});
+const VIBES=[['classic','Classic & tailored','Oxfords, chinos, merino, loafers'],['rugged','Rugged & workwear','Denim, flannel, boots, canvas'],
+  ['minimal','Clean & minimal','Plain knits, crews, simple lines'],['casual','Relaxed & casual','Tees, sweats, sneakers']];
+const OCCS=[['work','Work','Office or smart casual'],['weekend','Weekends','Errands, coffee, hanging out'],['out','Going out','Dinners, dates, events'],['travel','Travel','Comfortable but put together']];
+const FITS=[['slim','Slim'],['regular','Regular'],['relaxed','Relaxed'],['any','No preference']];
+const COLORS=[['black','#222'],['navy','#1f2a44'],['grey','#8a8d91'],['white','#f4f1ea'],['blue','#4a78b5'],['brown','#6b4a32'],
+  ['tan','#c8b08a'],['green','#5f6f45'],['red','#8e2f2f'],['bright','linear-gradient(90deg,#e8b730,#e0663a,#c2457e)']];
+const PATS=[['none','Solids only','No stripes, checks or prints'],['some','A little','One patterned piece is fine'],['love','Love them','Stripes, plaids, the works']];
+const ROUNDS=10;
+
+let CAT=[],P={},ST={vibes:[],occasions:[],fit:{top:'any',bottom:'any'},love:[],never:[],patterns:'some',brands:[]};
+try{P=JSON.parse(localStorage.getItem('profile')||'{}');if(P.style)ST=Object.assign(ST,JSON.parse(JSON.stringify(P.style)))}catch(e){}
+let step=0,round=0,cur=null,used=new Set(),axisN=0;
+const vote={vibe:{},color:{},pat:0};
+const toggle=(arr,v,max)=>{const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else{arr.push(v);if(max&&arr.length>max)arr.shift()}};
+const pickOne=a=>a[Math.floor(Math.random()*a.length)];
+
+// ---- step screens ----
+function lookCard(v){const imgs=['top','bottom','shoes'].map(k=>{const pool=CAT.filter(i=>i.kind===k&&i.image&&(i.vibes||[]).includes(v[0]));
+    return pool.length?pool.sort((a,b)=>b.off_pct-a.off_pct)[Math.floor(Math.random()*Math.min(8,pool.length))]:null}).filter(Boolean);
+  return '<button type="button" class="look'+(ST.vibes.includes(v[0])?' on':'')+'" data-v="'+v[0]+'"><div class="mini">'+imgs.map(i=>'<img src="'+esc(i.image)+'" alt="" loading="lazy">').join('')+'</div>'+esc(v[1])+'<small class="sub" style="display:block;font-weight:400;margin:2px 0 0">'+esc(v[2])+'</small></button>'}
+const opt=(on,attr,val,label,small)=>'<button type="button" class="opt'+(on?' on':'')+'" data-'+attr+'="'+val+'">'+esc(label)+(small?'<small>'+esc(small)+'</small>':'')+'</button>';
+const STEPS=[
+ {t:'Which looks feel most like you?',s:'Pick one or two. The photos are real pieces on sale today.',
+  html:()=>'<div class="looks">'+VIBES.map(lookCard).join('')+'</div>',
+  click:e=>{const b=e.target.closest('.look');if(b){toggle(ST.vibes,b.dataset.v,2);return true}}},
+ {t:'What are the outfits for?',s:'Pick any. This sets how dressed up your outfits are.',
+  html:()=>'<div class="opts">'+OCCS.map(o=>opt(ST.occasions.includes(o[0]),'o',o[0],o[1],o[2])).join('')+'</div>',
+  click:e=>{const b=e.target.closest('[data-o]');if(b){toggle(ST.occasions,b.dataset.o);return true}}},
+ {t:'How do you like things to fit?',s:'Only some stores say how a piece fits, so this nudges rather than filters.',
+  html:()=>[['top','Tops'],['bottom','Trousers']].map(([k,l])=>'<div class="row"><b>'+l+'</b><div class="opts">'+FITS.map(f=>opt(ST.fit[k]===f[0],'f',k+':'+f[0],f[1])).join('')+'</div></div>').join(''),
+  click:e=>{const b=e.target.closest('[data-f]');if(b){const[k,v]=b.dataset.f.split(':');ST.fit[k]=v;return true}}},
+ {t:'Colours',s:'Tap once for “love”, twice for “never”, three times to reset. Anything you mark “never” won’t be shown.',
+  html:()=>'<div class="sw">'+COLORS.map(([c,h])=>{const st=ST.love.includes(c)?'love':ST.never.includes(c)?'never':'';
+    return '<button type="button" class="swb '+st+'" data-c="'+c+'"><i style="background:'+h+'"></i>'+c+'<em>'+(st==='love'?'♥ love':st==='never'?'✕ never':'fine')+'</em></button>'}).join('')+'</div>',
+  click:e=>{const b=e.target.closest('[data-c]');if(!b)return;const c=b.dataset.c;
+    if(ST.love.includes(c)){toggle(ST.love,c);ST.never.push(c)}else if(ST.never.includes(c))toggle(ST.never,c);else ST.love.push(c);return true}},
+ {t:'Patterns',s:'How much pattern do you like in an outfit?',
+  html:()=>'<div class="opts">'+PATS.map(p=>opt(ST.patterns===p[0],'p',p[0],p[1],p[2])).join('')+'</div>',
+  click:e=>{const b=e.target.closest('[data-p]');if(b){ST.patterns=b.dataset.p;return true}}},
+ {t:'Brands you already like',s:'Optional. Their pieces get a boost and a ★ on the outfits page.',
+  html:()=>{const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
+    return '<input id="bsearch" placeholder="Search brands" autocomplete="off"><div class="chips brands">'+Object.keys(n).sort((a,b)=>a.localeCompare(b)).map(s=>'<button type="button" class="chip'+(ST.brands.includes(s)?' on':'')+'" data-b="'+esc(s)+'">'+esc(s)+'</button>').join('')+'</div>'},
+  after:()=>{$('bsearch').oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('[data-b]').forEach(b=>b.hidden=!b.dataset.b.toLowerCase().includes(q))}},
+  click:e=>{const b=e.target.closest('[data-b]');if(b){toggle(ST.brands,b.dataset.b);b.classList.toggle('on')}return false}},
+];
+const TOTAL=STEPS.length+ROUNDS;
+function drawStep(){const S=STEPS[step];$('pg').style.width=(step/TOTAL*100)+'%';$('pair').hidden=true;$('step').hidden=false;
+  $('step').innerHTML='<h2>'+S.t+'</h2><p class="sub">'+S.s+'</p>'+S.html();if(S.after)S.after();
+  $('back').hidden=step===0;$('next').textContent='Next'}
+$('step').onclick=e=>{const S=STEPS[step];if(S&&S.click&&S.click(e))drawStep()};
+
+// ---- "this or that": each pair differs in one thing (look, colour or pattern) ----
+const one=(i,k)=>(i[k]||[]).length===1?i[k][0]:null;
+function makePair(){const axes=['vibe','color','vibe','color','pattern'];
+  for(let t=0;t<20;t++){const axis=axes[(axisN+t)%axes.length],kind=pickOne(['top','top','bottom','outerwear','shoes']);
+    const pool=CAT.filter(i=>i.kind===kind&&i.image&&!used.has(i.url)&&!(ST.never||[]).some(c=>(i.colors||[]).includes(c)));
+    let A,B;
+    if(axis==='pattern'){A=pool.filter(i=>i.pattern);B=pool.filter(i=>!i.pattern&&(i.colors||[]).length)}
+    else{const key=axis==='vibe'?'vibes':'colors',with1=pool.filter(i=>one(i,key));if(with1.length<2)continue;
+      const a=pickOne(with1);A=[a];B=with1.filter(i=>one(i,key)!==one(a,key))}
+    if(!A.length||!B.length)continue;axisN++;return{axis,items:Math.random()<.5?[pickOne(A),pickOne(B)]:[pickOne(B),pickOne(A)]}}
+  return null}
+function drawPair(){$('pg').style.width=((STEPS.length+round)/TOTAL*100)+'%';
+  if(round>=ROUNDS)return finish();cur=makePair();if(!cur)return finish();cur.items.forEach(i=>used.add(i.url));
+  $('step').innerHTML='<h2>This or that?</h2><p class="sub">Round '+(round+1)+' of '+ROUNDS+'. Pick the one you’d rather wear.</p>';
+  $('pair').hidden=false;$('pair').innerHTML=cur.items.map((i,n)=>'<button class="pick" data-n="'+n+'"><img src="'+esc(i.image)+'" alt=""><span>'+esc(nice(i.title))+'</span></button>').join('');
+  $('next').textContent='Neither';$('back').hidden=false;$('back').textContent='Finish now'}
+$('pair').onclick=e=>{const b=e.target.closest('.pick');if(!b)return;const win=cur.items[+b.dataset.n],lose=cur.items[1-b.dataset.n];
+  if(cur.axis==='vibe'){vote.vibe[one(win,'vibes')]=(vote.vibe[one(win,'vibes')]||0)+1;vote.vibe[one(lose,'vibes')]=(vote.vibe[one(lose,'vibes')]||0)-1}
+  else if(cur.axis==='color'){vote.color[one(win,'colors')]=(vote.color[one(win,'colors')]||0)+1;vote.color[one(lose,'colors')]=(vote.color[one(lose,'colors')]||0)-1}
+  else vote.pat+=win.pattern?1:-1;
+  round++;drawPair()};
+
+// ---- result ----
+function finish(){$('pg').style.width='100%';$('pair').hidden=true;
+  for(const[v,n]of Object.entries(vote.vibe))if(n>=2&&!ST.vibes.includes(v)&&ST.vibes.length<2)ST.vibes.push(v);
+  for(const[c,n]of Object.entries(vote.color))if(n>=2&&!ST.love.includes(c)&&!ST.never.includes(c))ST.love.push(c);
+  if(vote.pat>=2&&ST.patterns==='some')ST.patterns='love';if(vote.pat<=-2&&ST.patterns==='some')ST.patterns='none';
+  P.style=ST;try{localStorage.setItem('profile',JSON.stringify(P))}catch(e){}
+  const V=Object.fromEntries(VIBES.map(v=>[v[0],v[1]])),O=Object.fromEntries(OCCS.map(o=>[o[0],o[1].toLowerCase()]));
+  const line=(l,x)=>x?'<p><b>'+l+':</b> '+esc(x)+'</p>':'';
+  $('step').hidden=false;$('step').innerHTML='<h2>Your style</h2><p class="sub">Saved on this device. You can retake the quiz any time to adjust it.</p>'+
+    line('Looks',ST.vibes.map(v=>V[v]).join(' + ')||'no preference')+line('For',ST.occasions.map(o=>O[o]).join(', ')||'anything')+
+    line('Fit',(ST.fit.top==='any'?'any':ST.fit.top)+' tops, '+(ST.fit.bottom==='any'?'any':ST.fit.bottom)+' trousers')+
+    line('Colours you love',ST.love.join(', '))+line('Never',ST.never.join(', '))+
+    line('Patterns',{none:'solids only',some:'a little',love:'love them'}[ST.patterns])+line('Favourite brands',ST.brands.join(', '));
+  $('next').textContent='See my outfits';$('next').onclick=()=>location.href='outfits.html';
+  $('back').hidden=false;$('back').textContent='Retake';$('back').onclick=()=>location.reload()}
+
+$('next').onclick=()=>{if(step<STEPS.length){step++;step<STEPS.length?drawStep():drawPair()}else{round++;drawPair()}};
+$('back').onclick=()=>{if(step>=STEPS.length)return finish();if(step>0){step--;drawStep()}};
+fetch('data/catalog.json?'+Date.now()).then(x=>{if(!x.ok)throw 0;return x.json()}).then(c=>{CAT=c.items;drawStep()})
+ .catch(()=>{$('sub').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});
 </script></body></html>

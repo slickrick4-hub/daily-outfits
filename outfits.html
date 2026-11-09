@@ -11,6 +11,7 @@
 <h1>Looks on sale today</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
 <details id="setup" open><summary>Your sizes, budget and taste</summary>
+<p class="sub" id="mystyle" hidden style="margin-top:10px"></p>
 <p class="sub" id="intro" hidden style="margin-top:10px">New here? Enter your sizes and budget, then take the one-minute style quiz so the looks fit your taste.</p>
 <div class="grid">
 <label>Top size(s)<input id="tops" placeholder="M, L"></label>
@@ -46,10 +47,10 @@ const txt=i=>i.title.toLowerCase()+' '+(i.colors||[]).join(' ');
 const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
-let CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
-function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
+let ST=null,CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
+function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};ST=q.style||null;OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
 function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid}
-function read(){return{tops:$('tops').value,waist:$('waist').value.trim()||DEF.waist,shoe:$('shoe').value.trim()||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED]}}
+function read(){return{tops:$('tops').value,waist:$('waist').value.trim()||DEF.waist,shoe:$('shoe').value.trim()||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
 function mySizes(i,p){if(i.sizes_unknown)return['?'];const ss=(i.sizes||[]).map(String);
@@ -73,25 +74,48 @@ function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);
   const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s}
 function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(x=>x.colors||[]))].slice(0,3).join(' + ');
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
+// ---- style profile from the quiz (ST): looks, occasions, fit, colors, patterns, favourite brands ----
+const OCC={work:3.6,weekend:2.2,out:3.1,travel:2.6};
+const VIBE_NAME={classic:'Classic & tailored',rugged:'Rugged & workwear',minimal:'Clean & minimal',casual:'Relaxed & casual'};
+const OCC_NAME={work:'work',weekend:'weekends',out:'going out',travel:'travel'};
+const never=i=>!!(ST&&((ST.never&&(i.colors||[]).some(c=>ST.never.includes(c)))||(ST.patterns==='none'&&i.pattern)));  // hard filters
+function sty(i){if(!ST)return 0;let s=0;const v=i.vibes||[];
+  if(ST.vibes&&ST.vibes.length){if(v.some(x=>ST.vibes.includes(x)))s+=1.5;else if(v.length)s-=.75}
+  if(ST.love)s+=.75*(i.colors||[]).filter(c=>ST.love.includes(c)).length;
+  const fp=ST.fit&&ST.fit[i.kind==='bottom'?'bottom':'top'];if(fp&&fp!=='any'&&i.fit&&i.kind!=='shoes')s+=i.fit===fp?1:-1.5;
+  if(i.pattern&&ST.patterns==='love')s+=1;
+  if(ST.brands&&ST.brands.includes(i.store))s+=2;return s}
+function target(){const o=(ST&&ST.occasions)||[];return o.length?mean(o.map(x=>OCC[x]||2.8)):null}
+function fz(parts){const t=target();if(t===null)return 0;return -1.2*Math.max(0,Math.abs(mean(parts.map(formal))-t)-.4)}
+function summary(){if(!ST)return '';const b=[];
+  if(ST.vibes&&ST.vibes.length)b.push(ST.vibes.map(v=>VIBE_NAME[v]).join(' + '));
+  if(ST.occasions&&ST.occasions.length)b.push('for '+ST.occasions.map(o=>OCC_NAME[o]).join(', '));
+  const f=ST.fit||{};if(f.top&&f.top!=='any')b.push(f.top+' tops');if(f.bottom&&f.bottom!=='any')b.push(f.bottom+' trousers');
+  if(ST.love&&ST.love.length)b.push('loves '+ST.love.join(', '));if(ST.never&&ST.never.length)b.push('never '+ST.never.join(', '));
+  if(ST.patterns==='none')b.push('no patterns');else if(ST.patterns==='love')b.push('likes patterns');
+  if(ST.brands&&ST.brands.length)b.push(ST.brands.length+' favourite brand'+(ST.brands.length>1?'s':''));
+  return b.join(' · ')}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
-  const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0);
-  ok.forEach(i=>{i._s=i.off_pct/20+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)});POOL=ok;
+  const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
+  ok.forEach(i=>{i._s=i.off_pct/20+sty(i)+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)});POOL=ok;
   // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
-  const pick=(k,n)=>{const all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s);return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
+  // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
+  const pick=(k,n)=>{const fam={},all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).filter(i=>{const f=FAM(i);fam[f]=(fam[f]||0)+1;return fam[f]<=2});
+    return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
   const tops=pick('top',60),bots=pick('bottom',40),shoes=pick('shoes',30),lay=pick('outerwear',20),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
-    base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts),parts,cost])}
+    base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts)+fz(parts),parts,cost])}
   base.sort((a,b)=>b[0]-a[0]);
   const combos=base.map(x=>[x[0],x[1]]);
   for(const[,parts,cost]of base.slice(0,500)){if(!layerable(parts[0]))continue;
-    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+.3,f])}}
+    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
-  const out=[],uT={},uB={},uS={},uL={},seen={};let nl=0;
+  const out=[],uT={},uB={},uS={},uL={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
   const add=parts=>{const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear');
     const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs;
-    if(seen[key]||uT[ft]||(uB[fb]||0)>=3||(s&&(uS[fs]||0)>=5)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))return false;
+    if(seen[key]||uT[ft]||(uB[fb]||0)>=CB||(s&&(uS[fs]||0)>=CS)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))return false;
     seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
     out.push({parts,label:label(parts)});return true};
   // every 4th outfit includes a big-retailer piece when one fits; otherwise it's simply the best outfit
@@ -104,6 +128,8 @@ function build(items,p,shuffle){
     if(ir>=0){ir=next(rest,ir);if(ir>=0)continue}
     if(ib>=0){ib=next(big,ib);if(ib>=0)continue}
     break}
+  // too few looks (often a tight budget): let bottoms and shoes repeat a bit more, tops stay unique
+  if(out.length<36){CB=5;CS=9;ir=0;while(out.length<60&&ir>=0)ir=next(rest,ir)}
   return out}
 const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
@@ -129,7 +155,7 @@ function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==
     for(const c of POOL){if(c.kind!==old.kind||BANNED.has(c.url)||base+c.price_cad>CUR.budget)continue;
       if(strict&&(used.has(c.url)||fams.has(FAM(c))))continue;
       if(old.kind==='top'&&hasLayer&&!layerable(c))continue;
-      const f=rest.concat([c]),s=mean(f.map(x=>x._s))+coh(f)+cb(f);if(s>bs){bs=s;best=c}}
+      const f=rest.concat([c]),s=mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f);if(s>bs){bs=s;best=c}}
     return best};
   const best=find(true)||find(false);
   if(best)o.parts=rest.concat([best]).sort((a,b)=>KO[a.kind]-KO[b.kind]);
@@ -144,7 +170,7 @@ function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;
     $('more').hidden=true;$('more2').hidden=true;$('count').textContent='';$('setup').open=true;return}
   showMore();$('more').hidden=false;$('setup').open=false}
 function chips(){const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
-  $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+esc(s)+' ('+n[s]+')</button>').join('')}
+  $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+(ST&&ST.brands&&ST.brands.includes(s)?'★ ':'')+esc(s)+' ('+n[s]+')</button>').join('')}
 $('stores').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=b.dataset.s;OFF.has(s)?OFF.delete(s):OFF.add(s);b.classList.toggle('on');save()};
 $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.dataset.n,parts=OUT[n].parts,key=okey(parts);let L=getSaved();const i=L.findIndex(s=>s.key===key);
   if(i>=0)L.splice(i,1);else L.unshift({key,t:Date.now(),parts:parts.map(snap)});try{localStorage.setItem('saved',JSON.stringify(L.slice(0,100)))}catch(err){}redraw(n);return}
@@ -153,9 +179,10 @@ $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.datase
   if(v>0){const P=getPieces();if(LIKED.has(x.url)){LIKED.delete(x.url);bump(x,-1);delete P[x.url]}else{LIKED.add(x.url);bump(x,1);P[x.url]=snap(x)}try{localStorage.setItem('pieces',JSON.stringify(P))}catch(err){}save();redraw(n);return}
   BANNED.add(x.url);LIKED.delete(x.url);bump(x,-1.5);save();updBan();swap(n,k)};
 $('go').onclick=()=>run(false);$('quizgo').onclick=()=>{save();location.href='quiz.html'};$('share').onclick=()=>{const u=location.origin+location.pathname;try{navigator.clipboard.writeText(u);$('share').textContent='Link copied'}catch(e){prompt('Copy this link',u)}};$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
-$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan()};
+$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};ST=null;$('mystyle').hidden=true;OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan()};
 $('unban').onclick=()=>{BANNED=new Set();save();updBan();run(false)};
 show(load());updBan();
+(()=>{const t=summary(),el=$('mystyle');if(t){el.innerHTML='<b>Your style:</b> '+esc(t)+' · <a href="quiz.html">Edit</a>';el.hidden=false}})();
 fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;chips();
   $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
   if(SAVED){$('setup').open=false;run(false)}else{$('intro').hidden=false}

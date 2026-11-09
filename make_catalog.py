@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 
 import filter_sales as F
 import build_outfit as B
+import style_tags as ST
 
 
 def main():
@@ -28,6 +29,7 @@ def main():
             "off_pct": it["off_pct"], "sizes": it.get("sizes") or [], "kind": kind,
             "final_sale": "final-sale" in tags, "sizes_verified": it.get("sizes_verified", True), "sizes_unknown": bool(it.get("sizes_unknown")), "colors": sorted(B.colors_of(it)),
             "gender": "unisex" if ("unisex" in it["title"].lower() or "unisex" in tags) else "men",
+            **ST.style_of(it),
         })
     out = {"generated_at": datetime.now(timezone.utc).isoformat(), "items": items}
     with open("data/catalog.json", "w") as f:
