@@ -9,13 +9,19 @@ RATES = {"CAD": 1.0, "USD": S["usd_to_cad"], "GBP": 1.80, "EUR": 1.55, "AUD": 0.
 RATES.update(S.get("rates", {}))
 
 # Words that remove an item (summer pieces, accessories, lounge wear, internal notes).
-SKIP_WORDS = ["short", "tank", "dress", "skirt", "swim", "linen", "seersucker", "camp shirt",
+SKIP_WORDS = ["short", "tank", "skirt", "swim", "linen", "seersucker", "camp shirt",
               "resort", "sweatpant", "jogger", "lounge", "check with"]
-SKIP_REGEX = r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glove|bag|pin)s?\b"
+SKIP_REGEX = (r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glove|bag|pin)s?\b"
+              # underwear and sleepwear never belong in an outfit
+              r"|\b(boxer|brief|underwear|undershirt|trunk|pajama|pyjama|sleepwear|robe)s?\b|\bsleep\b"
+              # dresses, but not dress shirts, dress trousers or dress shoes
+              r"|\bdress(es)?\b(?!\s*(shirt|pant|trouser|slack|shoe|boot|sneaker|sock))")
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
-BOTTOM = ["pant", "trouser", "jean", "chino", "denim", "cargo", "selvedge", "selvage", "slack", "corduroy"]
+BOTTOM = ["pant", "trouser", "jean", "chino", "cargo", "slack"]
+# fabric words that usually mean trousers, but only when the title doesn't name a top ("Denim Shirt" is a shirt)
+BOTTOM_FABRIC = ["denim", "selvedge", "selvage", "corduroy"]
 TOP = ["shirt", "sweater", "polo", "crew", "henley", "hood", "sweatshirt", "pullover", "cardigan",
        "knit", "zip", "rugby", "longsleeve", "long sleeve", "popover", "oxford", "chambray",
        "flannel", "jack in", "mock", "fleece", "terry", "thermal", "jersey", "knitwear", "tops"]
@@ -58,6 +64,8 @@ def kind_of(item):
         return "bottom"
     if re.search(r"\btee\b", text) or any(w in text for w in TOP):
         return "top"
+    if any(w in text for w in BOTTOM_FABRIC):
+        return "bottom"
     return None
 
 

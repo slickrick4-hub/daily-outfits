@@ -8,6 +8,29 @@ import build_outfit as B
 import style_tags as ST
 
 
+def cap_per_store(items, cap):
+    """Keep at most `cap` items per store so a few huge stores can't flood the feed. Takes the biggest
+    discounts first, one kind at a time in turn, so a store keeps its shoes and trousers, not just tops."""
+    by_store = {}
+    for it in items:
+        by_store.setdefault(it["store"], []).append(it)
+    kept = []
+    for store_items in by_store.values():
+        if len(store_items) <= cap:
+            kept += store_items
+            continue
+        queues = {}
+        for it in sorted(store_items, key=lambda i: -i["off_pct"]):
+            queues.setdefault(it["kind"], []).append(it)
+        picked = []
+        while len(picked) < cap:
+            for q in queues.values():
+                if q and len(picked) < cap:
+                    picked.append(q.pop(0))
+        kept += picked
+    return kept
+
+
 def main():
     data = json.load(open("data/sales.json"))
     rate = F.S["usd_to_cad"]
@@ -31,6 +54,7 @@ def main():
             "gender": "unisex" if ("unisex" in it["title"].lower() or "unisex" in tags) else "men",
             **ST.style_of(it),
         })
+    items = cap_per_store(items, F.S.get("max_items_per_store", 150))
     out = {"generated_at": datetime.now(timezone.utc).isoformat(), "items": items}
     with open("data/catalog.json", "w") as f:
         json.dump(out, f, separators=(",", ":"))
