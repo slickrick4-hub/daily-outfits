@@ -15,7 +15,13 @@ SKIP_REGEX = (r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glov
               # underwear and sleepwear never belong in an outfit
               r"|\b(boxer|brief|underwear|undershirt|trunk|pajama|pyjama|sleepwear|robe)s?\b|\bsleep\b"
               # dresses, but not dress shirts, dress trousers or dress shoes
-              r"|\bdress(es)?\b(?!\s*(shirt|pant|trouser|slack|shoe|boot|sneaker|sock))")
+              r"|\bdress(es)?\b(?!\s*(shirt|pant|trouser|slack|shoe|boot|sneaker|sock))"
+              # multi-packs ("Crew 6-Pack", "(3-Pack)", "Bundle"): the price and photo cover several pieces
+              r"|\b\d+\s*-?\s*pack\b|\bbundle\b|\bessentials pack\b"
+              # summer-only shirts
+              r"|camp collar|summerweight|hawaiian|\baloha\b")
+# open summer shoes; checked before the shoe words, since "sandal" would otherwise make it a shoe
+SUMMER_SHOES = re.compile(r"sandal|\bslides?\b|flip.?flop|huarache|espadrille|\bclogs?\b|\bthong\b")
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
@@ -39,13 +45,15 @@ try:   # stores marked "mens_only" in stores.json sell (almost) only menswear an
 except Exception:
     MENS_ONLY = set()
 WOMEN_RX = re.compile(r"\b(wom[ae]n|wom[ae]ns|wom[ae]n's|wom[ae]n\u2019s|female|ladies|girls?)\b")
+# kids' sizes ("Boys' chino", "Youth dress shirt"); "Cow Boy" is a shirt name, not a size range
+KIDS_RX = re.compile(r"\b(kids?|(?<!cow )boys?|youth|toddlers?|baby|infants?|junior)\b")
 MEN_RX = re.compile(r"\b(men|mens|men's|men\u2019s|male|menswear|unisex)\b")
 
 
 def is_mens(item):
     title = (item.get("title") or "").lower()
     labels = " | ".join(tag_list(item) + [(item.get("type") or "").lower()])
-    if "women" in title or WOMEN_RX.search(labels):
+    if "women" in title or WOMEN_RX.search(labels) or KIDS_RX.search(title):
         return False
     if MEN_RX.search(title) or MEN_RX.search(labels):
         return True
@@ -54,6 +62,8 @@ def is_mens(item):
 
 def kind_of(item):
     text = ((item.get("title") or "") + " " + (item.get("type") or "")).lower()
+    if SUMMER_SHOES.search((item.get("title") or "").lower()):   # title only: some stores file sneakers under "Sneakers & Sandals"
+        return None
     if any(w in text for w in SHOES):
         return "shoes"
     if any(w in text for w in SKIP_WORDS) or re.search(SKIP_REGEX, text):
