@@ -10,14 +10,23 @@
 <main>
 <h1>Looks on sale today</h1>
 <p class="sub" id="meta">Loading the catalog…</p>
+<p class="sub" id="mystyle" hidden></p>
+<section id="welcome" class="welcome" hidden>
+<h2>Welcome! Let’s fit this to you</h2>
+<p class="sub">Tap your sizes (skip any you don’t care about), set a budget, then take the 1-minute style quiz. Everything stays on this device.</p>
+<div class="wrow"><b>Top sizes</b><div class="chips" id="w_tops"></div></div>
+<div class="wrow"><b>Waist (inches)</b><div class="chips" id="w_waist"></div></div>
+<div class="wrow"><b>Budget per outfit: <span id="w_bval"></span></b><input type="range" id="w_budget" min="100" max="800" step="25"></div>
+<div class="wrow"><label class="tog"><input type="checkbox" id="w_shoes"> Include shoes in outfits</label><div class="chips" id="w_shoe" hidden></div></div>
+<div class="act"><button id="w_quiz">Take the 1-minute style quiz</button><button class="o" id="w_go">Just show me outfits</button></div>
+</section>
 <details id="setup" open><summary>Your sizes, budget and taste</summary>
-<p class="sub" id="mystyle" hidden style="margin-top:10px"></p>
-<p class="sub" id="intro" hidden style="margin-top:10px">New here? Enter your sizes and budget, then take the one-minute style quiz so the looks fit your taste.</p>
 <div class="grid">
 <label>Top size(s)<input id="tops" placeholder="M, L"></label>
 <label>Waist size(s), inches<input id="waist" placeholder="30, 31, 32"></label>
 <label>Shoe size(s), US<input id="shoe" placeholder="9, 9.5"></label>
 <label>Budget per outfit (CAD)<input id="budget" type="number" min="50"></label>
+<label class="tog"><input type="checkbox" id="withshoes"> Include shoes in outfits</label>
 </div>
 <details class="adv"><summary>Advanced: words and stores</summary><div class="grid">
 <label class="wide">Words you like (colors, styles)<input id="like"></label>
@@ -31,11 +40,11 @@
 <div class="act"><button id="more2" hidden>Show more outfits</button><button id="more" class="o" hidden>Shuffle for new ideas</button><button id="share" class="o">Copy link to share</button></div>
 <p class="foot"><a href="about.html">About and disclosure</a></p>
 </main>
+<div id="toast" role="status" aria-live="polite" hidden></div>
 <script>
 const $=id=>document.getElementById(id);
-const DEF={tops:'M, L',waist:'30, 31, 32',shoe:'9',budget:500,
- like:'oxford, chambray, flannel, stripe, merino, polo, trouser, indigo, black, olive, brown, navy, charcoal, grey, cream, khaki, loafer, derby',
- avoid:'henley, tee, hoodie, jacket, white, sneaker, trainer, boot, sandal, slipper'};
+// neutral starting point for new visitors: no sizes means "any size", no words, shoes off
+const DEF={tops:'',waist:'',shoe:'',budget:250,like:'',avoid:'',shoes:false};
 const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
 const list=s=>String(s).split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
 const money=n=>'CAD '+Number(n).toFixed(2);
@@ -49,12 +58,14 @@ const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).fi
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 let ST=null,CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
-function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};ST=q.style||null;OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
-function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid}
-function read(){return{tops:$('tops').value,waist:$('waist').value.trim()||DEF.waist,shoe:$('shoe').value.trim()||DEF.shoe,budget:+$('budget').value||DEF.budget,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
+function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(q.shoes===undefined)p.shoes='tops' in q;/* profiles from before the switch keep shoes */if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};ST=q.style||null;OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
+function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid;$('withshoes').checked=!!p.shoes}
+function read(){return{tops:$('tops').value,waist:$('waist').value.trim(),shoe:$('shoe').value.trim(),budget:+$('budget').value||DEF.budget,shoes:$('withshoes').checked,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
+const hasPref=(i,p)=>i.kind==='shoes'?nums(p.shoe).length>0:i.kind==='bottom'?nums(p.waist).length>0:list(p.tops).length>0;
 function mySizes(i,p){if(i.sizes_unknown)return['?'];const ss=(i.sizes||[]).map(String);
+  if(!hasPref(i,p))return ss;                       // no size given for this kind: any size in stock is fine
   if(i.kind==='shoes')return ss.filter(s=>{const m=/^(?:US\s*)?(\d{1,2}(?:\.\d)?)/i.exec(s);return m&&nums(p.shoe).some(v=>Math.abs(+m[1]-v)<.01)});
   if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&nums(p.waist).includes(+m[1])});
   const want=list(p.tops).map(x=>x.toUpperCase());return ss.filter(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
@@ -80,13 +91,25 @@ const OCC={work:3.6,weekend:2.2,out:3.1,travel:2.6};
 const VIBE_NAME={classic:'Classic & tailored',rugged:'Rugged & workwear',minimal:'Clean & minimal',casual:'Relaxed & casual'};
 const OCC_NAME={work:'work',weekend:'weekends',out:'going out',travel:'travel'};
 const never=i=>!!(ST&&((ST.never&&(i.colors||[]).some(c=>ST.never.includes(c)))||(ST.patterns==='none'&&i.pattern)));  // hard filters
-function sty(i){if(!ST)return 0;let s=0;const v=i.vibes||[];
+// what the site learned from Swap reasons and Love taps (shown in "Your style", undoable)
+const NEWL=()=>({formal:0,color:{},brand:{},fit:{},price:{},lcolor:{},lbrand:{},vibe:{},asked:{}});
+function ensureST(){if(!ST)ST={vibes:[],occasions:[],fit:{top:'any',bottom:'any'},love:[],never:[],patterns:'some',brands:[]};if(!ST.learn)ST.learn=NEWL();return ST.learn}
+const cnt=(o,k,d)=>{o[k]=Math.max(0,Math.min(4,(o[k]||0)+d));if(!o[k])delete o[k]};
+function learned(i){const L=ST&&ST.learn;if(!L)return 0;let s=0;
+  COL(i).forEach(c=>{s-=.8*(L.color[c]||0);s+=.5*(L.lcolor[c]||0)});
+  s-=1.2*(L.brand[i.store]||0);s+=.8*(L.lbrand[i.store]||0);
+  (i.vibes||[]).forEach(v=>s+=.4*(L.vibe[v]||0));
+  const g=i.kind==='bottom'?'bottom':'top';if(i.fit&&L.fit[g])s-=.8*(L.fit[g][i.fit]||0);
+  if(L.price[i.kind])s-=.5*L.price[i.kind]*i.price_cad/100;
+  return s}
+function sty(i){if(!ST)return 0;let s=learned(i);const v=i.vibes||[];
   if(ST.vibes&&ST.vibes.length){if(v.some(x=>ST.vibes.includes(x)))s+=1.5;else if(v.length)s-=.75}
   if(ST.love)s+=.75*COL(i).filter(c=>ST.love.includes(c)).length;
   const fp=ST.fit&&ST.fit[i.kind==='bottom'?'bottom':'top'];if(fp&&fp!=='any'&&i.fit&&i.kind!=='shoes')s+=i.fit===fp?1:-1.5;
   if(i.pattern&&ST.patterns==='love')s+=1;
   if(ST.brands&&ST.brands.includes(i.store))s+=2;return s}
-function target(){const o=(ST&&ST.occasions)||[];return o.length?mean(o.map(x=>OCC[x]||2.8)):null}
+function target(){const o=(ST&&ST.occasions)||[],off=(ST&&ST.learn&&ST.learn.formal)||0;
+  const base=o.length?mean(o.map(x=>OCC[x]||2.8)):(off?2.8:null);return base===null?null:base+off}
 function fz(parts){const t=target();if(t===null)return 0;return -1.2*Math.max(0,Math.abs(mean(parts.map(formal))-t)-.4)}
 function summary(){if(!ST)return '';const b=[];
   if(ST.vibes&&ST.vibes.length)b.push(ST.vibes.map(v=>VIBE_NAME[v]).join(' + '));
@@ -96,15 +119,54 @@ function summary(){if(!ST)return '';const b=[];
   if(ST.patterns==='none')b.push('no patterns');else if(ST.patterns==='love')b.push('likes patterns');
   if(ST.brands&&ST.brands.length)b.push(ST.brands.length+' favourite brand'+(ST.brands.length>1?'s':''));
   return b.join(' · ')}
+function learnedSummary(){const L=ST&&ST.learn;if(!L)return '';const b=[];
+  if(L.formal<=-.9)b.push('much less dressy');else if(L.formal<0)b.push('a bit less dressy');else if(L.formal>=.9)b.push('much dressier');else if(L.formal>0)b.push('a bit dressier');
+  const net=(neg,pos)=>{const k=new Set([...Object.keys(neg),...Object.keys(pos)]);return[...k].map(x=>[x,(pos[x]||0)-(neg[x]||0)]).filter(x=>x[1])};
+  net(L.color,L.lcolor).sort((a,b)=>a[1]-b[1]).slice(0,4).forEach(([c,n])=>b.push((n<0?'less ':'more ')+c));
+  net(L.brand,L.lbrand).sort((a,b)=>a[1]-b[1]).slice(0,3).forEach(([s,n])=>b.push((n<0?'fewer ':'more ')+s.trim()));
+  Object.entries(L.fit).forEach(([g,f])=>Object.keys(f).forEach(x=>b.push('fewer '+x+(g==='bottom'?' trousers':' tops'))));
+  Object.keys(L.price).forEach(k=>b.push('cheaper '+({top:'tops',bottom:'trousers',shoes:'shoes',outerwear:'layers'}[k])));
+  return b.join(' · ')}
+function renderStyle(){const el=$('mystyle'),t=summary(),l=learnedSummary();
+  if(!t&&!l){el.hidden=true;return}
+  el.innerHTML=(t?'<b>Your style:</b> '+esc(t)+' · <a href="quiz.html">Edit</a>':'<a href="quiz.html">Take the style quiz</a>')+
+    (l?'<br><b>Learned from your taps:</b> '+esc(l)+' · <button type="button" class="lnk" id="undo">Undo last</button> · <button type="button" class="lnk" id="forget">Reset what it learned</button>':'');
+  el.hidden=false;
+  if(l){$('undo').onclick=undo;$('forget').onclick=()=>{if(!confirm('Forget everything learned from your Swap and Love taps? Your quiz answers stay.'))return;ST.learn=NEWL();HIST=[];save();renderStyle();run(false)}}}
+let HIST=[];
+function remember(banned){ensureST();HIST.push({learn:JSON.stringify(ST.learn),never:[...(ST.never||[])],off:[...OFF],banned:banned||null,liked:[...LIKED]});if(HIST.length>15)HIST.shift()}
+function undo(){const h=HIST.pop();if(!h){toast('Nothing to undo');return}
+  ST.learn=JSON.parse(h.learn);ST.never=h.never;OFF=new Set(h.off);LIKED=new Set(h.liked);if(h.banned)BANNED.delete(h.banned);
+  save();updBan();chips();renderStyle();run(false);toast('Undone')}
+let TT;function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(TT);TT=setTimeout(()=>t.hidden=true,3500)}
+const REASONS=[['dressy','Too dressy'],['casual','Too casual'],['colour','Not this colour'],['fit','Not my fit'],['brand','Not this brand'],['price','Too pricey'],['just','Just not this one']];
+// apply one reason; returns [message, follow-up question or null]
+function learnFrom(x,r){const L=ensureST(),g=x.kind==='bottom'?'bottom':'top',cols=COL(x);let msg='',ask=null;
+  if(r==='dressy'){L.formal=Math.max(-1.5,+(L.formal-.3).toFixed(2));msg='Got it: a bit less dressy from now on'}
+  else if(r==='casual'){L.formal=Math.min(1.5,+(L.formal+.3).toFixed(2));msg='Got it: a bit dressier from now on'}
+  else if(r==='colour'){if(!cols.length)msg='I couldn’t tell this piece’s colour, so I just swapped it';
+    else{cols.forEach(c=>cnt(L.color,c,1));msg='Got it: less '+cols.join(' and ');
+      const c=cols.find(c=>(L.color[c]||0)>=2&&!(ST.never||[]).includes(c)&&!L.asked['c:'+c]);if(c)ask=['colour',c]}}
+  else if(r==='fit'){if(!x.fit)msg='This store doesn’t say how it fits, so I just swapped it';
+    else{L.fit[g]=L.fit[g]||{};cnt(L.fit[g],x.fit,1);msg='Got it: fewer '+x.fit+'-fit '+(g==='bottom'?'trousers':'tops')}}
+  else if(r==='brand'){cnt(L.brand,x.store,1);msg='Got it: fewer pieces from '+x.store.trim();
+    if((L.brand[x.store]||0)>=2&&!OFF.has(x.store)&&!L.asked['b:'+x.store])ask=['brand',x.store]}
+  else if(r==='price'){cnt(L.price,x.kind,1);msg='Got it: cheaper '+({top:'tops',bottom:'trousers',shoes:'shoes',outerwear:'layers'}[x.kind])}
+  else msg='Swapped';
+  return[msg,ask]}
+function followUp(ask){if(!ask)return;const L=ST.learn;
+  if(ask[0]==='colour'){L.asked['c:'+ask[1]]=1;if(confirm('You’ve passed on '+ask[1]+' pieces twice. Hide all '+ask[1]+' pieces from now on? (You can change this in the style quiz.)')){ST.never=[...new Set([...(ST.never||[]),ask[1]])];save();renderStyle();run(false);toast('Hiding '+ask[1]+' pieces')}else save()}
+  else{L.asked['b:'+ask[1]]=1;if(confirm('You’ve passed on '+ask[1].trim()+' twice. Stop showing this store? (You can turn it back on under Advanced.)')){OFF.add(ask[1]);save();chips();run(false);toast('Stopped showing '+ask[1].trim())}else save()}}
+function scoreItem(i,p,shuffle){return i.off_pct/20+sty(i)+2*hit(txt(i),list(p.like))+.5*wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
   const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
-  ok.forEach(i=>{i._s=i.off_pct/20+sty(i)+2*hit(txt(i),likeW)+wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)});POOL=ok;
+  ok.forEach(i=>{i._s=scoreItem(i,p,shuffle)});POOL=ok;
   // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
   // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
   const pick=(k,n)=>{const fam={},all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).filter(i=>{const f=FAM(i);fam[f]=(fam[f]||0)+1;return fam[f]<=2});
     return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
-  const tops=pick('top',60),bots=pick('bottom',40),shoes=pick('shoes',30),lay=pick('outerwear',20),base=[];
+  const tops=pick('top',60),bots=pick('bottom',40),shoes=p.shoes?pick('shoes',30):[],lay=pick('outerwear',20),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
     base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts)+fz(parts),parts,cost])}
@@ -136,7 +198,7 @@ const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}c
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
 const snap=x=>({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
 const okey=parts=>parts.map(x=>x.url).sort().join('|');
-const sizeNote=x=>x.sizes_unknown?'Sizes not listed here: check the retailer’s page':(x.sizes_verified===false?'Your size is listed (stock not confirmed): ':'Your size in stock: ')+mySizes(x,CUR).join(', ');
+const sizeNote=x=>x.sizes_unknown?'Sizes not listed here: check the retailer’s page':(hasPref(x,CUR)?(x.sizes_verified===false?'Your size is listed (stock not confirmed): ':'Your size in stock: '):(x.sizes_verified===false?'Sizes listed: ':'Sizes in stock: '))+mySizes(x,CUR).slice(0,12).join(', ');
 const KO={top:0,bottom:1,shoes:2,outerwear:3};
 const SLOT={2:{top:[2,2,47,96,0],bottom:[51,2,47,96,0]},
 3:{top:[2,2,47,60,0],shoes:[2,64,47,34,0],outerwear:[2,64,47,34,0],bottom:[51,2,47,96,0]},
@@ -147,7 +209,7 @@ function flat(parts){const S=SLOT[parts.length]||SLOT[3];
 function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad');
   return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
     parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em></div><b>'+money(x.price_cad)+'</b>'+
-      '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Swap this piece</button></div></li>').join('')+
+      '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Not me, swap it</button></div></li>').join('')+
     '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
 function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}
 function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==k),hasLayer=rest.some(x=>x.kind==='outerwear');
@@ -177,15 +239,37 @@ $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.datase
   if(i>=0)L.splice(i,1);else L.unshift({key,t:Date.now(),parts:parts.map(snap)});try{localStorage.setItem('saved',JSON.stringify(L.slice(0,100)))}catch(err){}redraw(n);return}
   const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
   const bump=(it,d)=>tok(it).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+d))});
-  if(v>0){const P=getPieces();if(LIKED.has(x.url)){LIKED.delete(x.url);bump(x,-1);delete P[x.url]}else{LIKED.add(x.url);bump(x,1);P[x.url]=snap(x)}try{localStorage.setItem('pieces',JSON.stringify(P))}catch(err){}save();redraw(n);return}
-  BANNED.add(x.url);LIKED.delete(x.url);bump(x,-1.5);save();updBan();swap(n,k)};
+  if(b.dataset.r==='cancel'){redraw(n);return}
+  if(b.dataset.r){const[msg,ask]=(remember(x.url),learnFrom(x,b.dataset.r));
+    BANNED.add(x.url);LIKED.delete(x.url);bump(x,-.5);POOL.forEach(i=>i._s=scoreItem(i,CUR,false));save();updBan();renderStyle();swap(n,k);toast(msg);setTimeout(()=>followUp(ask),50);return}
+  if(v>0){const P=getPieces(),L=ensureST(),d=LIKED.has(x.url)?-1:1;remember();
+    COL(x).forEach(c=>cnt(L.lcolor,c,d));cnt(L.lbrand,x.store,d);(x.vibes||[]).forEach(t=>cnt(L.vibe,t,d));
+    if(d<0){LIKED.delete(x.url);bump(x,-1);delete P[x.url]}else{LIKED.add(x.url);bump(x,1);P[x.url]=snap(x)}
+    try{localStorage.setItem('pieces',JSON.stringify(P))}catch(err){}save();renderStyle();redraw(n);if(d>0)toast('Loved: more like this from now on');return}
+  // "Not me": ask why (one tap), then learn and swap
+  const li=b.closest('li'),pc=li&&li.querySelector('.pc');if(!pc)return;
+  pc.innerHTML='<span class="why">Why not this one?</span>'+REASONS.map(([r,l])=>'<button type="button" class="pb rs" data-o="'+n+'" data-k="'+k+'" data-r="'+r+'">'+l+'</button>').join('')+
+    '<button type="button" class="pb rs" data-o="'+n+'" data-k="'+k+'" data-r="cancel">Cancel</button>'};
 $('go').onclick=()=>run(false);$('quizgo').onclick=()=>{save();location.href='quiz.html'};$('share').onclick=()=>{const u=location.origin+location.pathname;try{navigator.clipboard.writeText(u);$('share').textContent='Link copied'}catch(e){prompt('Copy this link',u)}};$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
-$('reset').onclick=()=>{try{localStorage.removeItem('profile')}catch(e){}W={};ST=null;$('mystyle').hidden=true;OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan()};
+$('reset').onclick=()=>{if(!confirm('Reset your sizes, style and everything learned on this device?'))return;try{localStorage.removeItem('profile')}catch(e){}W={};ST=null;HIST=[];SAVED=false;OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan();renderStyle();
+  OUT=[];$('feed').innerHTML='';$('count').textContent='';$('more').hidden=$('more2').hidden=true;welcome()};
 $('unban').onclick=()=>{BANNED=new Set();save();updBan();run(false)};
-show(load());updBan();
-(()=>{const t=summary(),el=$('mystyle');if(t){el.innerHTML='<b>Your style:</b> '+esc(t)+' · <a href="quiz.html">Edit</a>';el.hidden=false}})();
+// first visit: a short welcome card (sizes, budget, shoes) that leads into the style quiz
+function welcome(){const W_=$('welcome');W_.hidden=false;$('setup').open=false;
+  const chipset=(id,vals,input)=>{const cur=new Set(String($(input).value).split(/[,\s]+/).filter(Boolean).map(x=>x.toUpperCase()));
+    $(id).innerHTML=vals.map(v=>'<button type="button" class="chip'+(cur.has(String(v).toUpperCase())?' on':'')+'" data-v="'+v+'">'+v+'</button>').join('');
+    $(id).onclick=e=>{const c=e.target.closest('.chip');if(!c)return;c.classList.toggle('on');$(input).value=[...$(id).querySelectorAll('.chip.on')].map(x=>x.dataset.v).join(', ')}};
+  chipset('w_tops',['XS','S','M','L','XL','XXL'],'tops');
+  chipset('w_waist',[28,29,30,31,32,33,34,36,38,40],'waist');
+  chipset('w_shoe',[7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13],'shoe');
+  const bud=$('w_budget');bud.value=$('budget').value||DEF.budget;const bv=()=>{$('w_bval').textContent='CA$'+bud.value;$('budget').value=bud.value};bud.oninput=bv;bv();
+  const sh=$('w_shoes');sh.checked=$('withshoes').checked;$('w_shoe').hidden=!sh.checked;
+  sh.onchange=()=>{$('withshoes').checked=sh.checked;$('w_shoe').hidden=!sh.checked};
+  $('w_quiz').onclick=()=>{save();location.href='quiz.html'};
+  $('w_go').onclick=()=>{W_.hidden=true;SAVED=true;run(false);renderStyle()}}
+show(load());updBan();renderStyle();
 fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;chips();
   $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
-  if(SAVED){$('setup').open=false;run(false)}else{$('intro').hidden=false}
+  if(SAVED){$('setup').open=false;run(false)}else welcome()
 }).catch(()=>{$('meta').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});
 </script></body></html>
