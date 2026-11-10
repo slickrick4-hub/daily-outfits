@@ -43,8 +43,9 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
 const re=w=>new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
 const hit=(t,ws)=>ws.filter(w=>re(w).test(t)).length;
-const txt=i=>i.title.toLowerCase()+' '+(i.colors||[]).join(' ');
-const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)));(i.colors||[]).forEach(c=>w.add(c));return[...w]};
+const COL=i=>i.colors&&i.colors.length?i.colors:(i.photo_colors||[]);  // title colours, else colours read from the photo (hints only)
+const txt=i=>i.title.toLowerCase()+' '+(i.colors||[]).join(' ');  // word filters use title colours only (avoid words hide pieces)
+const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(x=>!STOP.has(x)));COL(i).forEach(c=>w.add(c));return[...w]};
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 let ST=null,CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
@@ -58,7 +59,7 @@ function mySizes(i,p){if(i.sizes_unknown)return['?'];const ss=(i.sizes||[]).map(
   if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&nums(p.waist).includes(+m[1])});
   const want=list(p.tops).map(x=>x.toUpperCase());return ss.filter(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
 const DARK=['black','navy','grey'];
-function cb(parts){const f=new Set(parts.flatMap(x=>x.colors||[]));if(!f.size)return 0;let b=0;
+function cb(parts){const f=new Set(parts.flatMap(COL));if(!f.size)return 0;let b=0;
   if([...f].every(c=>DARK.includes(c)))b-=2.5;if([...f].some(c=>!DARK.includes(c)))b+=1.5;if(f.size>=4)b-=3;if(f.has('bright'))b-=2;return b}
 const wsum=i=>Math.max(-6,Math.min(8,tok(i).reduce((a,t)=>a+(W[t]||0),0)));
 const mean=a=>a.reduce((n,x)=>n+x,0)/a.length;
@@ -72,7 +73,7 @@ function formal(i){const t=i.title.toLowerCase(),k=i.kind;
 function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
 function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
   const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s}
-function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(x=>x.colors||[]))].slice(0,3).join(' + ');
+function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(COL))].slice(0,3).join(' + ');
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 // ---- style profile from the quiz (ST): looks, occasions, fit, colors, patterns, favourite brands ----
 const OCC={work:3.6,weekend:2.2,out:3.1,travel:2.6};
@@ -81,7 +82,7 @@ const OCC_NAME={work:'work',weekend:'weekends',out:'going out',travel:'travel'};
 const never=i=>!!(ST&&((ST.never&&(i.colors||[]).some(c=>ST.never.includes(c)))||(ST.patterns==='none'&&i.pattern)));  // hard filters
 function sty(i){if(!ST)return 0;let s=0;const v=i.vibes||[];
   if(ST.vibes&&ST.vibes.length){if(v.some(x=>ST.vibes.includes(x)))s+=1.5;else if(v.length)s-=.75}
-  if(ST.love)s+=.75*(i.colors||[]).filter(c=>ST.love.includes(c)).length;
+  if(ST.love)s+=.75*COL(i).filter(c=>ST.love.includes(c)).length;
   const fp=ST.fit&&ST.fit[i.kind==='bottom'?'bottom':'top'];if(fp&&fp!=='any'&&i.fit&&i.kind!=='shoes')s+=i.fit===fp?1:-1.5;
   if(i.pattern&&ST.patterns==='love')s+=1;
   if(ST.brands&&ST.brands.includes(i.store))s+=2;return s}
