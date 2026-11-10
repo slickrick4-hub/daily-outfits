@@ -18,6 +18,7 @@
 <div class="wrow"><b>Waist (inches)</b><div class="chips" id="w_waist"></div></div>
 <div class="wrow"><b>Budget per outfit: <span id="w_bval"></span></b><input type="range" id="w_budget" min="100" max="800" step="25"></div>
 <div class="wrow"><label class="tog"><input type="checkbox" id="w_shoes"> Include shoes in outfits</label><div class="chips" id="w_shoe" hidden></div></div>
+<p class="sub"><button type="button" class="lnk" id="w_own">Already own some basics? Add a few</button> and some outfits will build around them.</p>
 <div class="act"><button id="w_quiz">Take the 1-minute style quiz</button><button class="o" id="w_go">Just show me outfits</button></div>
 </section>
 <details id="setup" open><summary>Your sizes, budget and taste</summary>
@@ -28,6 +29,12 @@
 <label>Budget per outfit (CAD)<input id="budget" type="number" min="50"></label>
 <label class="tog"><input type="checkbox" id="withshoes"> Include shoes in outfits</label>
 </div>
+<div class="wrow" id="wardrobe"><b>Pieces you already own (up to 8)</b>
+<p class="sub">Tap a type, then its colour. About half the outfits will use one of them, so you only buy what’s missing. Shoes you own show up when shoes are included.</p>
+<div class="chips" id="own_list"></div>
+<div class="chips" id="own_types"></div>
+<div class="chips" id="own_cols" hidden></div>
+</div>
 <details class="adv"><summary>Advanced: words and stores</summary><div class="grid">
 <label class="wide">Words you like (colors, styles)<input id="like"></label>
 <label class="wide">Words to avoid<input id="avoid"></label>
@@ -35,6 +42,7 @@
 </div></details>
 <div class="act"><button id="go">Show my outfits</button><button id="quizgo" class="o">Take the style quiz</button><button id="reset" class="o">Reset</button><button id="unban" class="o" hidden>Bring back removed pieces</button></div>
 </details>
+<label class="tog" id="onlywrap" hidden><input type="checkbox" id="onlymine"> Only looks with my pieces</label>
 <p class="sub" id="count"></p>
 <section id="feed"></section>
 <div class="act"><button id="more2" hidden>Show more outfits</button><button id="more" class="o" hidden>Shuffle for new ideas</button><button id="share" class="o">Copy link to share</button></div>
@@ -44,7 +52,7 @@
 <script>
 const $=id=>document.getElementById(id);
 // neutral starting point for new visitors: no sizes means "any size", no words, shoes off
-const DEF={tops:'',waist:'',shoe:'',budget:250,like:'',avoid:'',shoes:false};
+const DEF={tops:'',waist:'',shoe:'',budget:250,like:'',avoid:'',shoes:false,onlymine:false};
 const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
 const list=s=>String(s).split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
 const money=n=>'CAD '+Number(n).toFixed(2);
@@ -58,9 +66,48 @@ const tok=i=>{const w=new Set((i.title.toLowerCase().match(/[a-z]{3,}/g)||[]).fi
 const sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
 const LABEL={top:'Top',bottom:'Bottom',shoes:'Shoes',outerwear:'Layer'};
 let ST=null,CAT=[],SAVED=false,W={},OFF=new Set(),LIKED=new Set(),BANNED=new Set(),POOL=[],OUT=[],SH=0,CUR=DEF;
+// ---- "My wardrobe": pieces the visitor already owns (type + colour), kept only in this browser ----
+// [id, label, kind, words used for matching, drawn shape]
+const OWN_T=[['jeans','Jeans','bottom','jeans','pants'],['chinos','Chinos','bottom','chinos','pants'],['trousers','Dress trousers','bottom','dress trousers','pants'],
+  ['oxford','Oxford shirt','top','oxford shirt','shirt'],['tee','Tee','top','tee','tee'],['sweater','Knit sweater','top','knit sweater','sweater'],
+  ['overcoat','Overcoat','outerwear','wool overcoat','coat'],['jacket','Jacket','outerwear','jacket','jacket'],
+  ['sneakers','Sneakers','shoes','sneakers','shoe'],['loafers','Loafers','shoes','loafers','loafer'],['boots','Boots','shoes','boots','boot']];
+const OWN_C=[['black','#2a2a2a'],['navy','#1f2a44'],['grey','#8a8d91'],['white','#f6f3ec'],['blue','#4a78b5'],['brown','#6b4a32'],['tan','#c8b08a'],['green','#5f6f45'],['red','#8e2f2f'],['bright','#e0a030']];
+const SHAPE={pants:['M30 6H70L80 120H58L50 42L42 120H20Z','M30 14H70'],
+  tee:['M32 10L44 6Q50 13 56 6L68 10L90 28L80 40L72 34V116H28V34L20 40L10 28Z',''],
+  shirt:['M32 10L44 6L50 14L56 6L68 10L82 22L92 112H80L72 46V116H28V46L20 112H8L18 22Z','M44 6L50 20L56 6M50 20V116'],
+  sweater:['M32 10L44 6Q50 14 56 6L68 10L82 22L92 112H80L72 46V116H28V46L20 112H8L18 22Z','M28 108H72M8 104H20M80 104H92'],
+  coat:['M30 8L44 4L50 12L56 4L70 8L84 20L94 118H82L74 48V122H26V48L18 118H6L16 20Z','M44 4L50 30L56 4M50 30V122'],
+  jacket:['M30 18L44 14L50 22L56 14L70 18L84 30L92 102H80L74 56V106H26V56L20 102H8L16 30Z','M50 22V106'],
+  shoe:['M6 78Q6 58 22 56L40 54Q52 64 72 68L90 74Q98 78 96 92H6Z','M6 86H96'],
+  loafer:['M6 82Q6 66 20 64L44 62Q60 66 76 70L92 76Q98 80 96 92H6Z','M40 66Q50 72 62 68M6 87H96'],
+  boot:['M14 20H46V60Q62 66 80 70Q96 74 96 92H8V30Z','M8 86H96']};
+const OWN_DRAW=(shape,hex)=>{const[d,l]=SHAPE[shape];
+  return 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125"><path d="'+d+'" fill="'+hex+'" stroke="rgba(0,0,0,.4)" stroke-width="1.5" stroke-linejoin="round"/>'+(l?'<path d="'+l+'" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1.2"/>':'')+'</svg>')};
+let OWN=[];try{OWN=JSON.parse(localStorage.getItem('owned')||'[]').filter(o=>OWN_T.some(t=>t[0]===o.t)&&OWN_C.some(c=>c[0]===o.c)).slice(0,8)}catch(e){}
+const ownName=o=>{const t=OWN_T.find(x=>x[0]===o.t);return o.c[0].toUpperCase()+o.c.slice(1)+' '+t[1].toLowerCase()};
+// turns a saved {t,c} into an item the outfit builder can use like any sale piece (price 0, never linked)
+function ownItem(o){const t=OWN_T.find(x=>x[0]===o.t),hex=OWN_C.find(c=>c[0]===o.c)[1];
+  return{owned:true,kind:t[2],title:o.c+' '+t[3],name:ownName(o),colors:[o.c],url:'own:'+o.t+':'+o.c,image:OWN_DRAW(t[4],hex),
+    store:'Yours',price_cad:0,was_cad:0,off_pct:0,sizes:[],vibes:[]}}
+function saveOwn(){try{localStorage.setItem('owned',JSON.stringify(OWN))}catch(e){}}
+let OWN_PICK=null;
+function renderOwn(){
+  $('own_list').innerHTML=OWN.length?OWN.map((o,k)=>'<button type="button" class="chip on" data-k="'+k+'" aria-label="Remove '+esc(ownName(o))+'"><i class="dot" style="background:'+OWN_C.find(c=>c[0]===o.c)[1]+'"></i>'+esc(ownName(o))+' ✕</button>').join(''):'<span class="sub">Nothing added yet.</span>';
+  $('own_types').hidden=OWN.length>=8;
+  $('own_types').innerHTML=OWN_T.map(t=>'<button type="button" class="chip'+(OWN_PICK===t[0]?' on':'')+'" data-t="'+t[0]+'">+ '+t[1]+'</button>').join('');
+  $('own_cols').hidden=!OWN_PICK;
+  $('own_cols').innerHTML=OWN_PICK?'<span class="why">What colour are your '+esc(OWN_T.find(t=>t[0]===OWN_PICK)[1].toLowerCase())+'?</span>'+OWN_C.map(([c,h])=>'<button type="button" class="chip" data-c="'+c+'"><i class="dot" style="background:'+h+'"></i>'+c+'</button>').join(''):'';
+  $('onlywrap').hidden=!OWN.length}
+function ownChanged(msg){saveOwn();renderOwn();toast(msg);if(OUT.length||($('welcome').hidden&&SAVED)){const o=$('setup').open;run(false);$('setup').open=o}}  // keep the panel open while adding pieces
+$('own_types').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;OWN_PICK=OWN_PICK===b.dataset.t?null:b.dataset.t;renderOwn()};
+$('own_cols').onclick=e=>{const b=e.target.closest('.chip');if(!b||!OWN_PICK)return;const o={t:OWN_PICK,c:b.dataset.c};OWN_PICK=null;
+  if(OWN.some(x=>x.t===o.t&&x.c===o.c)){renderOwn();toast('Already in your wardrobe');return}
+  OWN.push(o);ownChanged('Added '+ownName(o).toLowerCase())};
+$('own_list').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const o=OWN.splice(+b.dataset.k,1)[0];ownChanged('Removed '+ownName(o).toLowerCase())};
 function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(q.shoes===undefined)p.shoes='tops' in q;/* profiles from before the switch keep shoes */if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};ST=q.style||null;OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
-function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid;$('withshoes').checked=!!p.shoes}
-function read(){return{tops:$('tops').value,waist:$('waist').value.trim(),shoe:$('shoe').value.trim(),budget:+$('budget').value||DEF.budget,shoes:$('withshoes').checked,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
+function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid;$('withshoes').checked=!!p.shoes;$('onlymine').checked=!!p.onlymine}
+function read(){return{tops:$('tops').value,waist:$('waist').value.trim(),shoe:$('shoe').value.trim(),budget:+$('budget').value||DEF.budget,shoes:$('withshoes').checked,onlymine:$('onlymine').checked,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
 const hasPref=(i,p)=>i.kind==='shoes'?nums(p.shoe).length>0:i.kind==='bottom'?nums(p.waist).length>0:list(p.tops).length>0;
@@ -166,37 +213,49 @@ function build(items,p,shuffle){
   // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
   const pick=(k,n)=>{const fam={},all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).filter(i=>{const f=FAM(i);fam[f]=(fam[f]||0)+1;return fam[f]<=2});
     return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
-  const tops=pick('top',60),bots=pick('bottom',40),shoes=p.shoes?pick('shoes',30):[],lay=pick('outerwear',20),base=[];
+  // pieces the visitor owns join the pool at the score of a good (10th best) sale piece of the same kind
+  const own=k=>{const mine=OWN.map(ownItem).filter(o=>o.kind===k&&(k!=='shoes'||p.shoes));if(!mine.length)return[];
+    const ss=ok.filter(i=>i.kind===k).map(i=>i._s).sort((a,b)=>b-a),ref=ss.length?ss[Math.min(9,ss.length-1)]:3;
+    mine.forEach(o=>o._s=ref+2*hit(txt(o),likeW));return mine};
+  const nOwn=a=>a.filter(x=>x.owned).length;
+  const tops=pick('top',60).concat(own('top')),bots=pick('bottom',40).concat(own('bottom')),shoes=p.shoes?pick('shoes',30).concat(own('shoes')):[],lay=pick('outerwear',20).concat(own('outerwear')),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
+    const no=nOwn(parts);if(no>2||no===parts.length)continue;   // at most 2 of yours, always something to buy
     base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts)+fz(parts),parts,cost])}
   base.sort((a,b)=>b[0]-a[0]);
   const combos=base.map(x=>[x[0],x[1]]);
   for(const[,parts,cost]of base.slice(0,500)){if(!layerable(parts[0]))continue;
-    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
+    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);if(nOwn(f)>2)continue;combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
-  const out=[],uT={},uB={},uS={},uL={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
-  const add=parts=>{const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear');
-    const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs;
-    if(seen[key]||uT[ft]||(uB[fb]||0)>=CB||(s&&(uS[fs]||0)>=CS)||(o&&((uL[fo]||0)>=3||nl*3>out.length+3)))return false;
-    seen[key]=1;uT[ft]=1;uB[fb]=(uB[fb]||0)+1;if(s)uS[fs]=(uS[fs]||0)+1;if(o){uL[fo]=(uL[fo]||0)+1;nl++}
+  const only=p.onlymine&&OWN.length>0,CO=only?60:20;  // CO: outfits allowed per owned piece (about a third)
+  const out=[],uT={},uB={},uS={},uL={},uO={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
+  const add=parts=>{const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear'),mine=parts.filter(x=>x.owned);
+    const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs+'|'+fo;
+    // the per-piece limits apply to sale pieces; your own pieces have their own limit (CO)
+    if(seen[key]||mine.some(x=>(uO[x.url]||0)>=CO)||(!t.owned&&uT[ft])||(!b.owned&&(uB[fb]||0)>=CB)||(s&&!s.owned&&(uS[fs]||0)>=CS)||(o&&((!o.owned&&(uL[fo]||0)>=3)||nl*3>out.length+3)))return false;
+    seen[key]=1;if(!t.owned)uT[ft]=1;if(!b.owned)uB[fb]=(uB[fb]||0)+1;if(s&&!s.owned)uS[fs]=(uS[fs]||0)+1;if(o){if(!o.owned)uL[fo]=(uL[fo]||0)+1;nl++}
+    mine.forEach(x=>uO[x.url]=(uO[x.url]||0)+1);
     out.push({parts,label:label(parts)});return true};
-  // every 4th outfit includes a big-retailer piece when one fits; otherwise it's simply the best outfit
-  const big=combos.filter(c=>c[1].some(x=>x.sizes_unknown)),rest=combos;
-  let ib=0,ir=0;
+  // every 4th outfit includes a big-retailer piece when one fits; every other one uses a piece you own
+  // (when you've added any); otherwise it's simply the best outfit
+  const isMine=c=>c[1].some(x=>x.owned),all=only?combos.filter(isMine):combos;
+  const big=all.filter(c=>c[1].some(x=>x.sizes_unknown)),mine=OWN.length?all.filter(isMine):[],plain=OWN.length&&!only?all.filter(c=>!isMine(c)):all;
+  let ib=0,im=0,ip=0;
   const next=(L,i)=>{while(i<L.length&&!add(L[i][1]))i++;return i<L.length?i+1:-1};
   while(out.length<60){
-    const wantBig=out.length%4===3&&ib>=0;
-    if(wantBig){ib=next(big,ib);if(ib>=0)continue}
-    if(ir>=0){ir=next(rest,ir);if(ir>=0)continue}
+    if(out.length%4===3&&ib>=0){ib=next(big,ib);if(ib>=0)continue}
+    if(out.length%2===0&&im>=0){im=next(mine,im);if(im>=0)continue}
+    if(ip>=0){ip=next(plain,ip);if(ip>=0)continue}
+    if(im>=0){im=next(mine,im);if(im>=0)continue}
     if(ib>=0){ib=next(big,ib);if(ib>=0)continue}
     break}
   // too few looks (often a tight budget): let bottoms and shoes repeat a bit more, tops stay unique
-  if(out.length<36){CB=5;CS=9;ir=0;while(out.length<60&&ir>=0)ir=next(rest,ir)}
+  if(out.length<36){CB=5;CS=9;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
   return out}
 const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
-const snap=x=>({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
+const snap=x=>x.owned?{owned:true,kind:x.kind,store:'Yours',title:x.name,url:x.url,image:x.image,price_cad:0,was_cad:0}:({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
 const okey=parts=>parts.map(x=>x.url).sort().join('|');
 const sizeNote=x=>x.sizes_unknown?'Sizes not listed here: check the retailer’s page':(hasPref(x,CUR)?(x.sizes_verified===false?'Your size is listed (stock not confirmed): ':'Your size in stock: '):(x.sizes_verified===false?'Sizes listed: ':'Sizes in stock: '))+mySizes(x,CUR).slice(0,12).join(', ');
 const KO={top:0,bottom:1,shoes:2,outerwear:3};
@@ -205,12 +264,14 @@ const SLOT={2:{top:[2,2,47,96,0],bottom:[51,2,47,96,0]},
 4:{outerwear:[2,2,47,31,0],top:[2,35,47,36,0],shoes:[2,73,47,25,0],bottom:[51,2,47,96,0]}};
 function flat(parts){const S=SLOT[parts.length]||SLOT[3];
   return '<div class="board">'+parts.map(x=>{const s=S[x.kind]||[0,0,50,50,0];
-    return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
-function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad');
+    const pos='left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)';
+    if(x.owned)return '<div class="slot own" style="'+pos+'"><img src="'+esc(x.image)+'" alt="Your '+esc(x.name.toLowerCase())+'"><i class="yours">Yours</i></div>';
+    return '<a class="slot" style="'+pos+'" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
+function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad'),buy=parts.filter(x=>!x.owned).length;
   return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
-    parts.map((x,k)=>'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em></div><b>'+money(x.price_cad)+'</b>'+
+    parts.map((x,k)=>x.owned?'<li class="mine"><div><span>'+LABEL[x.kind]+' · Yours</span>'+esc(x.name)+'<em>From your wardrobe</em></div><b></b><div class="pc"><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-skip="1">Skip mine here</button></div></li>':'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em></div><b>'+money(x.price_cad)+'</b>'+
       '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Not me, swap it</button></div></li>').join('')+
-    '</ul><p class="tot">'+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
+    '</ul><p class="tot">'+(buy<parts.length?'You buy '+buy+' piece'+(buy>1?'s':'')+': ':'')+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
 function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}
 function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==k),hasLayer=rest.some(x=>x.kind==='outerwear');
   const used=new Set(OUT.flatMap(q=>q.parts.map(x=>x.url))),fams=new Set(OUT.flatMap(q=>q.parts.filter(x=>x.kind===old.kind).map(FAM))),base=sum(rest,'price_cad');
@@ -240,6 +301,7 @@ $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.datase
   const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
   const bump=(it,d)=>tok(it).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+d))});
   if(b.dataset.r==='cancel'){redraw(n);return}
+  if(b.dataset.skip){swap(n,k);toast('Swapped in a sale piece instead');return}   // your own piece: no learning, nothing banned
   if(b.dataset.r){const[msg,ask]=(remember(x.url),learnFrom(x,b.dataset.r));
     BANNED.add(x.url);LIKED.delete(x.url);bump(x,-.5);POOL.forEach(i=>i._s=scoreItem(i,CUR,false));save();updBan();renderStyle();swap(n,k);toast(msg);setTimeout(()=>followUp(ask),50);return}
   if(v>0){const P=getPieces(),L=ensureST(),d=LIKED.has(x.url)?-1:1;remember();
@@ -251,7 +313,7 @@ $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.datase
   pc.innerHTML='<span class="why">Why not this one?</span>'+REASONS.map(([r,l])=>'<button type="button" class="pb rs" data-o="'+n+'" data-k="'+k+'" data-r="'+r+'">'+l+'</button>').join('')+
     '<button type="button" class="pb rs" data-o="'+n+'" data-k="'+k+'" data-r="cancel">Cancel</button>'};
 $('go').onclick=()=>run(false);$('quizgo').onclick=()=>{save();location.href='quiz.html'};$('share').onclick=()=>{const u=location.origin+location.pathname;try{navigator.clipboard.writeText(u);$('share').textContent='Link copied'}catch(e){prompt('Copy this link',u)}};$('more2').onclick=showMore;$('more').onclick=()=>{run(true);window.scrollTo(0,0)};
-$('reset').onclick=()=>{if(!confirm('Reset your sizes, style and everything learned on this device?'))return;try{localStorage.removeItem('profile')}catch(e){}W={};ST=null;HIST=[];SAVED=false;OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan();renderStyle();
+$('reset').onclick=()=>{if(!confirm('Reset your sizes, style and everything learned on this device? Your wardrobe and saved looks stay.'))return;try{localStorage.removeItem('profile')}catch(e){}W={};ST=null;HIST=[];SAVED=false;OFF=new Set();LIKED=new Set();BANNED=new Set();show(DEF);chips();updBan();renderStyle();
   OUT=[];$('feed').innerHTML='';$('count').textContent='';$('more').hidden=$('more2').hidden=true;welcome()};
 $('unban').onclick=()=>{BANNED=new Set();save();updBan();run(false)};
 // first visit: a short welcome card (sizes, budget, shoes) that leads into the style quiz
@@ -266,8 +328,10 @@ function welcome(){const W_=$('welcome');W_.hidden=false;$('setup').open=false;
   const sh=$('w_shoes');sh.checked=$('withshoes').checked;$('w_shoe').hidden=!sh.checked;
   sh.onchange=()=>{$('withshoes').checked=sh.checked;$('w_shoe').hidden=!sh.checked};
   $('w_quiz').onclick=()=>{save();location.href='quiz.html'};
+  $('w_own').onclick=()=>{$('setup').open=true;$('wardrobe').scrollIntoView({behavior:'smooth',block:'start'})};
   $('w_go').onclick=()=>{W_.hidden=true;SAVED=true;run(false);renderStyle()}}
-show(load());updBan();renderStyle();
+show(load());updBan();renderStyle();renderOwn();
+$('onlymine').onchange=()=>run(false);
 fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;chips();
   $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
   if(SAVED){$('setup').open=false;run(false)}else welcome()

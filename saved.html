@@ -30,11 +30,12 @@ const SLOT={2:{top:[2,2,47,96,0],bottom:[51,2,47,96,0]},
 4:{outerwear:[2,2,47,31,0],top:[2,35,47,36,0],shoes:[2,73,47,25,0],bottom:[51,2,47,96,0]}};
 function flat(parts){const S=SLOT[parts.length]||SLOT[3];
   return '<div class="board">'+parts.map(x=>{const s=S[x.kind]||[0,0,50,50,0];
+    if(x.owned)return '<div class="slot own" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%"><img src="'+esc(x.image)+'" alt="Your '+esc(x.title.toLowerCase())+'"><i class="yours">Yours</i></div>';
     return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(img(x))+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
 
 const cur=x=>CAT[x.url];const img=x=>cur(x)?cur(x).image:x.image;
 function look(s,n){const parts=s.parts;let tot=0,gone=0;
-  const rows=parts.map(x=>{const c=cur(x);if(c)tot+=c.price_cad;else gone++;
+  const rows=parts.map(x=>{if(x.owned)return '<li class="mine"><div><span>'+LABEL[x.kind]+' · Yours</span>'+esc(x.title)+'<em>From your wardrobe</em></div><b></b></li>';const c=cur(x);if(c)tot+=c.price_cad;else gone++;
     return '<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a><em class="'+(c?'':'gone')+'">'+(c?'On sale now':'No longer in the sale list')+'</em></div><b>'+money(c?c.price_cad:x.price_cad)+'</b></li>'}).join('');
   return '<article class="outfit">'+flat(parts)+'<ul>'+rows+'</ul><p class="tot">'+money(tot)+(gone?' <span class="gone">· '+gone+' piece'+(gone>1?'s':'')+' gone</span>':'')+'</p><div class="pc"><button type="button" class="pb rm" data-n="'+n+'">Remove</button></div></article>'}
 function piece(x){const c=cur(x)||x,on=!!cur(x);
@@ -47,7 +48,7 @@ function draw(){const L=get('saved','[]'),P=get('pieces','{}'),lk=(get('profile'
 $('looks').onclick=e=>{const b=e.target.closest('.rm');if(!b)return;const L=get('saved','[]');L.splice(+b.dataset.n,1);localStorage.setItem('saved',JSON.stringify(L));draw()};
 $('loved').onclick=e=>{const b=e.target.closest('.rp');if(!b)return;const p=get('profile','{}'),P=get('pieces','{}');p.liked=(p.liked||[]).filter(u=>u!==b.dataset.u);delete P[b.dataset.u];
   localStorage.setItem('profile',JSON.stringify(p));localStorage.setItem('pieces',JSON.stringify(P));draw()};
-$('copy').onclick=()=>{const L=get('saved','[]');const t=L.map((s,i)=>'Look '+(i+1)+'\n'+s.parts.map(x=>'- '+nice(x.title)+' ('+x.store+', '+money((cur(x)||x).price_cad)+') '+x.url).join('\n')).join('\n\n');
+$('copy').onclick=()=>{const L=get('saved','[]');const t=L.map((s,i)=>'Look '+(i+1)+'\n'+s.parts.map(x=>x.owned?'- '+x.title+' (yours)':'- '+nice(x.title)+' ('+x.store+', '+money((cur(x)||x).price_cad)+') '+x.url).join('\n')).join('\n\n');
   try{navigator.clipboard.writeText(t);$('copy').textContent='Copied'}catch(e){prompt('Copy your list',t)}};
 draw();
 fetch('data/catalog.json?'+Date.now()).then(r=>r.json()).then(c=>{c.items.forEach(i=>CAT[i.url]=i);$('meta').textContent='Prices and availability checked against today’s sales.';draw()}).catch(()=>{});
