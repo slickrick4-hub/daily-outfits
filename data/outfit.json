@@ -1,17 +1,16 @@
 {
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "budget_cad": 500,
  "items": [
   {
    "store": "Canada Weather Gear",
-   "title": "Lightweight Polo - Grey",
-   "url": "https://canadaweathergear.com/products/627-8240-10",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_11ee44f1-b06d-45ed-8281-2a3166914817.jpg?v=1787339227",
+   "title": "Striped Sports Polo Shirt - Black",
+   "url": "https://canadaweathergear.com/products/628-5232-01",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_00258d06-1c0e-4fe3-8ef9-3c1efdd9ff99.jpg?v=1783611821",
    "price_cad": 10.0,
    "was_cad": 50.0,
    "off_pct": 80,
    "sizes": [
-    "L",
     "M",
     "S",
     "XL"
@@ -20,17 +19,17 @@
    "kind": "top"
   },
   {
-   "store": "Universal Works",
-   "title": "Brown Kennedy Stripe Hi Water Trouser",
-   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
-   "price_cad": 117.0,
-   "was_cad": 288.0,
-   "off_pct": 59,
+   "store": "Wax London",
+   "title": "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "url": "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
+   "image": "https://cdn.shopify.com/s/files/1/0575/9575/6709/files/tyne-black-and-khaki-chenille-jacquard-trousers_9b40d9cd.jpg?v=1771618965",
+   "price_cad": 121.5,
+   "was_cad": 243.0,
+   "off_pct": 50,
    "sizes": [
     "28",
-    "32",
-    "36"
+    "30",
+    "34"
    ],
    "final_sale": false,
    "kind": "bottom"
@@ -62,18 +61,15 @@
   },
   {
    "store": "Canada Weather Gear",
-   "title": "Puffer Vest - Black",
-   "url": "https://canadaweathergear.com/products/303-4642-04",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_0395b5a9-dd16-460b-91ce-88802bce0910.jpg?v=1782834298",
+   "title": "Colour Block Camo Hooded Vest - Olive",
+   "url": "https://canadaweathergear.com/products/303-2250-84",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_a1eea5ca-65b7-4332-9412-ccc835acced1.jpg?v=1784618289",
    "price_cad": 29.99,
-   "was_cad": 100.0,
-   "off_pct": 70,
+   "was_cad": 120.0,
+   "off_pct": 75,
    "sizes": [
-    "L",
     "M",
-    "S",
-    "XL",
-    "XXL"
+    "XL"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -81,38 +77,29 @@
  ],
  "alternatives": [
   [
-   "Striped Sports Polo Shirt - Black",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "Asher Oxfords - Suede - Men\u00b4s",
-   "Puffer Vest - Black"
-  ],
-  [
    "Striped Sports Polo Shirt - Blue",
-   "Brown Kennedy Stripe Hi Water Trouser",
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
    "Asher Oxfords - Suede - Men\u00b4s",
-   "Puffer Vest - Black"
+   "Colour Block Hooded Vest - Black"
   ],
   [
    "Striped Polo Shirt - Green",
-   "Brown Kennedy Stripe Hi Water Trouser",
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
    "Asher Oxfords - Suede - Men\u00b4s",
-   "Puffer Vest - Black"
+   "Colour Block Camo Hooded Vest - Olive"
+  ],
+  [
+   "Striped Polo Shirt - Red",
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "Asher Oxfords - Suede - Men\u00b4s",
+   "Colour Block Hooded Vest - Black"
   ]
  ],
- "total_cad": 459.21,
- "was_total_cad": 921.0,
- "saved_cad": 461.79,
- "note": "Colors: black + brown + grey.",
+ "total_cad": 463.71,
+ "was_total_cad": 896.0,
+ "saved_cad": 432.29,
+ "note": "Colors: black + green + tan.",
  "history": [
-  {
-   "date": "2026-11-04",
-   "urls": [
-    "https://taylorstitch.com/products/merino-polo-in-heather-black-2407",
-    "https://rowingblazers.com/products/mens-pleated-relaxed-trouser-navy",
-    "https://nisolo.com/products/rey-everyday-derby-lug-umber-brown-suede",
-    "https://rowingblazers.com/products/mens-cotton-patchwork-vest-multicolor-block"
-   ]
-  },
   {
    "date": "2026-11-05",
    "urls": [
@@ -153,6 +140,15 @@
     "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
     "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
     "https://canadaweathergear.com/products/303-4642-04"
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "urls": [
+    "https://canadaweathergear.com/products/628-5232-01",
+    "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
+    "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
+    "https://canadaweathergear.com/products/303-2250-84"
    ]
   }
  ]
