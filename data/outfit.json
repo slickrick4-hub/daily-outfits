@@ -1,47 +1,51 @@
 {
- "date": "2026-11-10",
+ "date": "2026-11-11",
  "budget_cad": 500,
  "items": [
   {
    "store": "Canada Weather Gear",
-   "title": "Striped Sports Polo Shirt - Black",
-   "url": "https://canadaweathergear.com/products/628-5232-01",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_00258d06-1c0e-4fe3-8ef9-3c1efdd9ff99.jpg?v=1783611821",
+   "title": "Striped Polo Shirt - Green",
+   "url": "https://canadaweathergear.com/products/633-8213-81",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_25d7cc94-94ee-4ed7-bbcf-ca31d80b63db.jpg?v=1785497157",
    "price_cad": 10.0,
    "was_cad": 50.0,
    "off_pct": 80,
    "sizes": [
+    "L",
     "M",
     "S",
-    "XL"
+    "XL",
+    "XXL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Wax London",
-   "title": "Tyne - Black And Khaki Chenille Jacquard Trousers",
-   "url": "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
-   "image": "https://cdn.shopify.com/s/files/1/0575/9575/6709/files/tyne-black-and-khaki-chenille-jacquard-trousers_9b40d9cd.jpg?v=1771618965",
-   "price_cad": 121.5,
-   "was_cad": 243.0,
-   "off_pct": 50,
+   "store": "Todd Snyder",
+   "title": "Italian Tuxedo Trouser",
+   "url": "https://toddsnyder.com/products/tuxedo-suit-pantnavy",
+   "image": "https://cdn.shopify.com/s/files/1/0186/1574/files/made-in-italy-tuxedo-pant-in-navytodd-snyder-339371.jpg?v=1736193074",
+   "price_cad": 102.12,
+   "was_cad": 549.24,
+   "off_pct": 81,
    "sizes": [
-    "28",
-    "30",
-    "34"
+    "30/32",
+    "31/32",
+    "32/34",
+    "34/32",
+    "34/34"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
-   "store": "Beckett Simonon",
-   "title": "Asher Oxfords - Suede - Men\u00b4s",
-   "url": "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
-   "image": "https://cdn.shopify.com/s/files/1/0175/8496/files/color_brown_1_asher_oxfords_suede.jpg?v=1782419621",
-   "price_cad": 302.22,
-   "was_cad": 483.0,
-   "off_pct": 37,
+   "store": "Taft",
+   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
+   "price_cad": 172.5,
+   "was_cad": 413.99,
+   "off_pct": 58,
    "sizes": [
     "10",
     "10.5",
@@ -49,8 +53,6 @@
     "11.5",
     "12",
     "13",
-    "14",
-    "7",
     "8",
     "8.5",
     "9",
@@ -60,14 +62,15 @@
    "kind": "shoes"
   },
   {
-   "store": "Canada Weather Gear",
-   "title": "Colour Block Camo Hooded Vest - Olive",
-   "url": "https://canadaweathergear.com/products/303-2250-84",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_a1eea5ca-65b7-4332-9412-ccc835acced1.jpg?v=1784618289",
-   "price_cad": 29.99,
-   "was_cad": 120.0,
-   "off_pct": 75,
+   "store": "Universal Works",
+   "title": "Brown Kennedy Stripe Boston Blazer",
+   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-boston-blazer",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34106_kennedy-stripe-brown_1_82dd8013-2af6-4093-849b-c3b95722660c.jpg?v=1771258043",
+   "price_cad": 178.2,
+   "was_cad": 441.0,
+   "off_pct": 60,
    "sizes": [
+    "L",
     "M",
     "XL"
    ],
@@ -78,37 +81,28 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Blue",
-   "Tyne - Black And Khaki Chenille Jacquard Trousers",
-   "Asher Oxfords - Suede - Men\u00b4s",
-   "Colour Block Hooded Vest - Black"
-  ],
-  [
-   "Striped Polo Shirt - Green",
-   "Tyne - Black And Khaki Chenille Jacquard Trousers",
-   "Asher Oxfords - Suede - Men\u00b4s",
-   "Colour Block Camo Hooded Vest - Olive"
+   "Italian Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Brown Kennedy Stripe Boston Blazer"
   ],
   [
    "Striped Polo Shirt - Red",
-   "Tyne - Black And Khaki Chenille Jacquard Trousers",
-   "Asher Oxfords - Suede - Men\u00b4s",
-   "Colour Block Hooded Vest - Black"
+   "Italian Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Brown Kennedy Stripe Boston Blazer"
+  ],
+  [
+   "Striped Polo Shirt - Beige",
+   "Italian Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Brown Kennedy Stripe Boston Blazer"
   ]
  ],
- "total_cad": 463.71,
- "was_total_cad": 896.0,
- "saved_cad": 432.29,
- "note": "Colors: black + green + tan.",
+ "total_cad": 462.82,
+ "was_total_cad": 1454.23,
+ "saved_cad": 991.41,
+ "note": "Colors: blue + brown + green.",
  "history": [
-  {
-   "date": "2026-11-05",
-   "urls": [
-    "https://tecovas.com/products/mens-polo-pearl-snap-ss-white-cotton",
-    "https://freshcleanthreads.com/products/cloud-grey-stretch-tech-pant",
-    "https://beckettsimonon.com/products/vasco-oxfords",
-    "https://kotn.com/products/mens-mina-vest-in-black"
-   ]
-  },
   {
    "date": "2026-11-06",
    "urls": [
@@ -149,6 +143,15 @@
     "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
     "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
     "https://canadaweathergear.com/products/303-2250-84"
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "urls": [
+    "https://canadaweathergear.com/products/633-8213-81",
+    "https://toddsnyder.com/products/tuxedo-suit-pantnavy",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://universalworks.co.uk/products/brown-kennedy-stripe-boston-blazer"
    ]
   }
  ]
