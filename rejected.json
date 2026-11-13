@@ -158,5 +158,9 @@
  "hiutdenim.co.uk": {
   "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
   "date": "2026-11-13"
+ },
+ "emestudios.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-13"
  }
 }
