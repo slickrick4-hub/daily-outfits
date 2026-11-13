@@ -19,7 +19,7 @@ MAT_RX = _rx(MATERIALS)
 PATTERN_RX = _rx(["stripe", "striped", "stripes", "plaid", "check", "checked", "gingham", "houndstooth",
                   "camo", "camouflage", "floral", "print", "printed", "paisley", "herringbone", "tartan",
                   "graphic", "fair isle", "jacquard", "patterned"])
-# Four broad looks the quiz asks about. Matched on title and product type only (tags are too noisy).
+# Five broad looks the quiz asks about. Matched on title and product type only (tags are too noisy).
 VIBES = {
     "classic": _rx(["oxford", "oxfords", "chino", "chinos", "loafer", "loafers", "blazer", "sportcoat",
                     "trouser", "trousers", "merino", "cashmere", "tweed", "herringbone", "polo", "cardigan",
@@ -34,7 +34,16 @@ VIBES = {
     "casual": _rx(["tee", "t-shirt", "hoodie", "hooded", "sweatshirt", "jogger", "sweatpant", "sneaker",
                    "sneakers", "trainer", "fleece", "graphic", "shorts", "camp", "slide", "terry",
                    "pullover", "jersey", "zip hoodie", "track"]),
+    # streetwear: oversized cuts, graphics and cargos (plain hoodies alone are just casual)
+    "street": _rx(["oversized", "boxy", "heavyweight", "graphic", "logo", "baggy", "cargo", "cargos",
+                   "parachute", "skate", "carpenter", "varsity", "distressed", "washed hoodie",
+                   "track jacket", "track pant", "baggy jean", "loose fit", "drop shoulder"]),
 }
+try:   # every piece from a store marked "street": true in stores.json counts as streetwear
+    import json as _json
+    STREET_STORES = {st["name"] for st in _json.load(open("stores.json")) if st.get("street")}
+except Exception:
+    STREET_STORES = set()
 
 
 def _tags_text(item):
@@ -52,7 +61,10 @@ def style_of(item):
     fit = next((name for name, rx in FIT.items() if rx.search(main)), None)
     mats = sorted(set(MAT_RX.findall(full)))
     patterned = bool(PATTERN_RX.search(title)) or bool(re.search(r"pattern:\s*(?!solid)\w", full))
-    vibes = sorted(v for v, rx in VIBES.items() if rx.search(main))
+    vibes = {v for v, rx in VIBES.items() if rx.search(main)}
+    if item.get("store") in STREET_STORES:
+        vibes.add("street")
+    vibes = sorted(vibes)
     out = {"vibes": vibes}
     if patterned:              # only stored when true, to keep the catalog small
         out["pattern"] = True

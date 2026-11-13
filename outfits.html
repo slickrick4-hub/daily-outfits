@@ -135,7 +135,7 @@ function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMa
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 // ---- style profile from the quiz (ST): looks, occasions, fit, colors, patterns, favourite brands ----
 const OCC={work:3.6,weekend:2.2,out:3.1,travel:2.6};
-const VIBE_NAME={classic:'Classic & tailored',rugged:'Rugged & workwear',minimal:'Clean & minimal',casual:'Relaxed & casual'};
+const VIBE_NAME={classic:'Classic & tailored',rugged:'Rugged & workwear',minimal:'Clean & minimal',casual:'Relaxed & casual',street:'Streetwear'};
 const OCC_NAME={work:'work',weekend:'weekends',out:'going out',travel:'travel'};
 const never=i=>!!(ST&&((ST.never&&(i.colors||[]).some(c=>ST.never.includes(c)))||(ST.patterns==='none'&&i.pattern)));  // hard filters
 // what the site learned from Swap reasons and Love taps (shown in "Your style", undoable)

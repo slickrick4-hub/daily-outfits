@@ -45,7 +45,8 @@
   "name": "Reigning Champ",
   "domain": "reigningchamp.com",
   "path": "/products.json",
-  "currency": "CAD"
+  "currency": "CAD",
+  "street": true
  },
  {
   "name": "Outerknown",
@@ -84,7 +85,8 @@
   "name": "Saturdays NYC",
   "domain": "saturdaysnyc.com",
   "path": "/products.json",
-  "currency": "USD"
+  "currency": "USD",
+  "street": true
  },
  {
   "name": "Rowing Blazers",
@@ -170,7 +172,8 @@
   "name": "Noah",
   "domain": "noahny.com",
   "path": "/products.json",
-  "currency": "USD"
+  "currency": "USD",
+  "street": true
  },
  {
   "name": "Fresh Clean Threads",
@@ -868,97 +871,111 @@
   "domain": "scuffers.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "about:blank",
   "domain": "about---blank.com",
   "path": "/products.json",
   "currency": "GBP",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Nude Project",
   "domain": "nude-project.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Cole Buxton",
   "domain": "colebuxton.com",
   "path": "/products.json",
   "currency": "GBP",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "REPRESENT | US",
   "domain": "representclo.com",
   "path": "/products.json",
   "currency": "USD",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Arte Antwerp",
   "domain": "arte-antwerp.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Daily Paper Worldwide ",
   "domain": "dailypaperclothing.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Aim\u00e9 Leon Dore",
   "domain": "aimeleondore.com",
   "path": "/products.json",
   "currency": "USD",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "OLAF",
   "domain": "olafhussein.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Pop Trading Company",
   "domain": "poptradingcompany.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Filling Pieces",
   "domain": "fillingpieces.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "PEGADOR\u00ae",
   "domain": "pegador.com",
   "path": "/products.json",
   "currency": "EUR",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "HYPER DENIM",
   "domain": "hyperdenim.com",
   "path": "/products.json",
   "currency": "USD",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  },
  {
   "name": "Sporty & Rich",
   "domain": "sportyandrich.com",
   "path": "/products.json",
   "currency": "USD",
-  "platform": "shopify"
+  "platform": "shopify",
+  "street": true
  }
 ]

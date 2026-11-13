@@ -41,7 +41,8 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nice=s=>s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s\/-])\w/g,c=>c.toUpperCase()):s;
 const VIBES=[['classic','Classic & tailored','Oxfords, chinos, merino, loafers'],['rugged','Rugged & workwear','Denim, flannel, boots, canvas'],
-  ['minimal','Clean & minimal','Plain knits, crews, simple lines'],['casual','Relaxed & casual','Tees, sweats, sneakers']];
+  ['minimal','Clean & minimal','Plain knits, crews, simple lines'],['casual','Relaxed & casual','Tees, sweats, sneakers'],
+  ['street','Streetwear','Oversized hoodies, graphics, cargos']];
 const OCCS=[['work','Work','Office or smart casual'],['weekend','Weekends','Errands, coffee, hanging out'],['out','Going out','Dinners, dates, events'],['travel','Travel','Comfortable but put together']];
 const FITS=[['slim','Slim'],['regular','Regular'],['relaxed','Relaxed'],['any','No preference']];
 const COLORS=[['black','#222'],['navy','#1f2a44'],['grey','#8a8d91'],['white','#f4f1ea'],['blue','#4a78b5'],['brown','#6b4a32'],
