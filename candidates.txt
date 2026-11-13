@@ -98,6 +98,27 @@ carminashoemaker.com
 paulevansny.com
 yuketen.com
 
+# Similar to Uniqlo: everyday basics
+muji.ca
+trueclassictees.com
+naadam.co
+# Similar to Abercrombie: casual denim, knits, athleisure
+vuoriclothing.com
+rails.com
+agjeans.com
+citizensofhumanity.com
+frame-store.com
+paige.com
+mavi.com
+tentree.ca
+publicrec.com
+rhone.com
+18east.co
+apc-us.com
+hiutdenim.co.uk
+aloyoga.com
+cotopaxi.com
+
 # Parked: streetwear, off-style for now (remove the # to test them)
 # bdgastore.com
 # kith.com
