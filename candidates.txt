@@ -119,6 +119,23 @@ hiutdenim.co.uk
 aloyoga.com
 cotopaxi.com
 
+# European streetwear and heavyweight basics (like Scuffers, Eme Studios, About Blank)
+scuffers.com
+emestudios.com
+about---blank.com
+nude-project.com
+colebuxton.com
+representclo.com
+arte-antwerp.com
+dailypaperclothing.com
+aimeleondore.com
+olafhussein.com
+poptradingcompany.com
+fillingpieces.com
+pegador.com
+hyperdenim.com
+sportyandrich.com
+
 # Parked: streetwear, off-style for now (remove the # to test them)
 # bdgastore.com
 # kith.com
