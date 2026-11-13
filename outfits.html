@@ -28,6 +28,7 @@
 <label>Shoe size(s), US<input id="shoe" placeholder="9, 9.5"></label>
 <label>Budget per outfit (CAD)<input id="budget" type="number" min="50"></label>
 <label class="tog"><input type="checkbox" id="withshoes"> Include shoes in outfits</label>
+<label class="tog"><input type="checkbox" id="near"> Only stores in Canada and the US (no overseas duties)</label>
 </div>
 <div class="wrow" id="wardrobe"><b>Pieces you already own (up to 8)</b>
 <p class="sub">Tap a type, then its colour. About half the outfits will use one of them, so you only buy what’s missing. Shoes you own show up when shoes are included.</p>
@@ -52,7 +53,11 @@
 <script>
 const $=id=>document.getElementById(id);
 // neutral starting point for new visitors: no sizes means "any size", no words, shoes off
-const DEF={tops:'',waist:'',shoe:'',budget:250,like:'',avoid:'',shoes:false,onlymine:false};
+const DEF={tops:'',waist:'',shoe:'',budget:250,like:'',avoid:'',shoes:false,onlymine:false,near:false};
+const IMG=u=>/cdn\.shopify\.com|\/cdn\/shop\//.test(u||'')&&!/[?&]width=/.test(u)?u+(u.includes('?')?'&':'?')+'width=600':u;  // phone-sized Shopify photos
+// where stores ship from (catalog "stores"), for the overseas note and the Canada/US-only option
+let REG={};const FAR={UK:'the UK',EU:'Europe',JP:'Japan',AU:'Australia',NZ:'New Zealand'};
+const shipNote=x=>{const r=REG[x.store];return FAR[r]?'Ships from '+FAR[r]+': shipping and duties to Canada may add to the price':r==='US'?'Ships from the US':''};
 const STOP=new Set(['men','mens','women','womens','the','and','with','for','unisex','final','sale','guy']);
 const list=s=>String(s).split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
 const money=n=>'CAD '+Number(n).toFixed(2);
@@ -106,8 +111,8 @@ $('own_cols').onclick=e=>{const b=e.target.closest('.chip');if(!b||!OWN_PICK)ret
   OWN.push(o);ownChanged('Added '+ownName(o).toLowerCase())};
 $('own_list').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const o=OWN.splice(+b.dataset.k,1)[0];ownChanged('Removed '+ownName(o).toLowerCase())};
 function load(){let p=Object.assign({},DEF);try{const s=localStorage.getItem('profile');if(s){const q=JSON.parse(s);Object.assign(p,q);SAVED=true;if(q.shoes===undefined)p.shoes='tops' in q;/* profiles from before the switch keep shoes */if(typeof p.waist==='number')p.waist=[p.waist-1,p.waist,p.waist+1].join(', ');if(typeof p.shoe==='number')p.shoe=String(p.shoe);W=q.weights||{};ST=q.style||null;OFF=new Set(q.off||[]);LIKED=new Set(q.liked||[]);BANNED=new Set(q.banned||[])}}catch(e){}return p}
-function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid;$('withshoes').checked=!!p.shoes;$('onlymine').checked=!!p.onlymine}
-function read(){return{tops:$('tops').value,waist:$('waist').value.trim(),shoe:$('shoe').value.trim(),budget:+$('budget').value||DEF.budget,shoes:$('withshoes').checked,onlymine:$('onlymine').checked,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
+function show(p){$('tops').value=p.tops;$('waist').value=p.waist;$('shoe').value=p.shoe;$('budget').value=p.budget;$('like').value=p.like;$('avoid').value=p.avoid;$('withshoes').checked=!!p.shoes;$('onlymine').checked=!!p.onlymine;$('near').checked=!!p.near}
+function read(){return{tops:$('tops').value,waist:$('waist').value.trim(),shoe:$('shoe').value.trim(),budget:+$('budget').value||DEF.budget,shoes:$('withshoes').checked,onlymine:$('onlymine').checked,near:$('near').checked,like:$('like').value,avoid:$('avoid').value,weights:W,off:[...OFF],liked:[...LIKED],banned:[...BANNED],style:ST}}
 function save(){try{localStorage.setItem('profile',JSON.stringify(read()))}catch(e){}}
 const nums=s=>String(s).split(/[,\s]+/).map(Number).filter(n=>n>0);
 const hasPref=(i,p)=>i.kind==='shoes'?nums(p.shoe).length>0:i.kind==='bottom'?nums(p.waist).length>0:list(p.tops).length>0;
@@ -207,7 +212,7 @@ function followUp(ask){if(!ask)return;const L=ST.learn;
 function scoreItem(i,p,shuffle){return i.off_pct/20+sty(i)+2*hit(txt(i),list(p.like))+.5*wsum(i)-(i.final_sale?1:0)+(LIKED.has(i.url)?2:0)+(shuffle?Math.random()*4:0)}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
-  const ok=items.filter(i=>!OFF.has(i.store)&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
+  const ok=items.filter(i=>!OFF.has(i.store)&&!(p.near&&FAR[REG[i.store]])&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
   ok.forEach(i=>{i._s=scoreItem(i,p,shuffle)});POOL=ok;
   // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
   // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
@@ -266,10 +271,10 @@ function flat(parts){const S=SLOT[parts.length]||SLOT[3];
   return '<div class="board">'+parts.map(x=>{const s=S[x.kind]||[0,0,50,50,0];
     const pos='left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)';
     if(x.owned)return '<div class="slot own" style="'+pos+'"><img src="'+esc(x.image)+'" alt="Your '+esc(x.name.toLowerCase())+'"><i class="yours">Yours</i></div>';
-    return '<a class="slot" style="'+pos+'" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(x.image)+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
+    return '<a class="slot" style="'+pos+'" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(IMG(x.image))+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
 function card(o,n){const parts=o.parts,tot=sum(parts,'price_cad'),was=sum(parts,'was_cad'),buy=parts.filter(x=>!x.owned).length;
   return '<article class="outfit" data-n="'+n+'">'+flat(parts)+'<ul>'+
-    parts.map((x,k)=>x.owned?'<li class="mine"><div><span>'+LABEL[x.kind]+' · Yours</span>'+esc(x.name)+'<em>From your wardrobe</em></div><b></b><div class="pc"><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-skip="1">Skip mine here</button></div></li>':'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em></div><b>'+money(x.price_cad)+'</b>'+
+    parts.map((x,k)=>x.owned?'<li class="mine"><div><span>'+LABEL[x.kind]+' · Yours</span>'+esc(x.name)+'<em>From your wardrobe</em></div><b></b><div class="pc"><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-skip="1">Skip mine here</button></div></li>':'<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a>'+(x.final_sale?'<i class="fs">final sale</i>':'')+'<em>'+esc(sizeNote(x))+'</em>'+(shipNote(x)?'<em class="ship">'+esc(shipNote(x))+'</em>':'')+'</div><b>'+money(x.price_cad)+'</b>'+
       '<div class="pc"><button type="button" class="pb'+(LIKED.has(x.url)?' on':'')+'" data-o="'+n+'" data-k="'+k+'" data-v="1">'+(LIKED.has(x.url)?'♥ Loved':'♡ Love')+'</button><button type="button" class="pb" data-o="'+n+'" data-k="'+k+'" data-v="-1">✕ Not me, swap it</button></div></li>').join('')+
     '</ul><p class="tot">'+(buy<parts.length?'You buy '+buy+' piece'+(buy>1?'s':'')+': ':'')+money(tot)+'<s>'+money(was)+'</s>you save '+money(was-tot)+'</p><div class="pc"><button type="button" class="pb sv" data-n="'+n+'">'+(getSaved().some(s=>s.key===okey(parts))?'♥ Saved':'♡ Save this look')+'</button></div></article>'}
 function redraw(n){const el=document.querySelector('.outfit[data-n="'+n+'"]');if(el)el.outerHTML=card(OUT[n],n)}
@@ -332,7 +337,7 @@ function welcome(){const W_=$('welcome');W_.hidden=false;$('setup').open=false;
   $('w_go').onclick=()=>{W_.hidden=true;SAVED=true;run(false);renderStyle()}}
 show(load());updBan();renderStyle();renderOwn();
 $('onlymine').onchange=()=>run(false);
-fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;chips();
+fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;REG=c.stores||{};chips();
   $('meta').textContent=CAT.length+' men’s sale items, updated '+new Date(c.generated_at).toLocaleDateString(undefined,{month:'long',day:'numeric'});
   if(SAVED){$('setup').open=false;run(false)}else welcome()
 }).catch(()=>{$('meta').textContent='Couldn’t load the catalog. Open this page from your GitHub Pages address, not as a file on your computer.'});

@@ -58,9 +58,10 @@ const toggle=(arr,v,max)=>{const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else{a
 const pickOne=a=>a[Math.floor(Math.random()*a.length)];
 
 // ---- step screens ----
+const IMG=u=>/cdn\.shopify\.com|\/cdn\/shop\//.test(u||'')&&!/[?&]width=/.test(u)?u+(u.includes('?')?'&':'?')+'width=600':u;  // phone-sized Shopify photos
 function lookCard(v){const imgs=['top','bottom','shoes'].map(k=>{const pool=CAT.filter(i=>i.kind===k&&i.image&&(i.vibes||[]).includes(v[0]));
     return pool.length?pool.sort((a,b)=>b.off_pct-a.off_pct)[Math.floor(Math.random()*Math.min(8,pool.length))]:null}).filter(Boolean);
-  return '<button type="button" class="look'+(ST.vibes.includes(v[0])?' on':'')+'" data-v="'+v[0]+'"><div class="mini">'+imgs.map(i=>'<img src="'+esc(i.image)+'" alt="" loading="lazy">').join('')+'</div>'+esc(v[1])+'<small class="sub" style="display:block;font-weight:400;margin:2px 0 0">'+esc(v[2])+'</small></button>'}
+  return '<button type="button" class="look'+(ST.vibes.includes(v[0])?' on':'')+'" data-v="'+v[0]+'"><div class="mini">'+imgs.map(i=>'<img src="'+esc(IMG(i.image))+'" alt="" loading="lazy">').join('')+'</div>'+esc(v[1])+'<small class="sub" style="display:block;font-weight:400;margin:2px 0 0">'+esc(v[2])+'</small></button>'}
 const opt=(on,attr,val,label,small)=>'<button type="button" class="opt'+(on?' on':'')+'" data-'+attr+'="'+val+'">'+esc(label)+(small?'<small>'+esc(small)+'</small>':'')+'</button>';
 const STEPS=[
  {t:'Which looks feel most like you?',s:'Pick one or two. The photos are real pieces on sale today.',
@@ -106,7 +107,7 @@ function makePair(){const axes=['vibe','color','vibe','color','pattern'];
 function drawPair(){$('pg').style.width=((STEPS.length+round)/TOTAL*100)+'%';
   if(round>=ROUNDS)return finish();cur=makePair();if(!cur)return finish();cur.items.forEach(i=>used.add(i.url));
   $('step').innerHTML='<h2>This or that?</h2><p class="sub">Round '+(round+1)+' of '+ROUNDS+'. Pick the one you’d rather wear.</p>';
-  $('pair').hidden=false;$('pair').innerHTML=cur.items.map((i,n)=>'<button class="pick" data-n="'+n+'"><img src="'+esc(i.image)+'" alt=""><span>'+esc(nice(i.title))+'</span></button>').join('');
+  $('pair').hidden=false;$('pair').innerHTML=cur.items.map((i,n)=>'<button class="pick" data-n="'+n+'"><img src="'+esc(IMG(i.image))+'" alt=""><span>'+esc(nice(i.title))+'</span></button>').join('');
   $('next').textContent='Neither';$('back').hidden=false;$('back').textContent='Finish now'}
 $('pair').onclick=e=>{const b=e.target.closest('.pick');if(!b)return;const win=cur.items[+b.dataset.n],lose=cur.items[1-b.dataset.n];
   if(cur.axis==='vibe'){vote.vibe[one(win,'vibes')]=(vote.vibe[one(win,'vibes')]||0)+1;vote.vibe[one(lose,'vibes')]=(vote.vibe[one(lose,'vibes')]||0)-1}

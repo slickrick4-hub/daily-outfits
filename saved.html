@@ -33,13 +33,14 @@ function flat(parts){const S=SLOT[parts.length]||SLOT[3];
     if(x.owned)return '<div class="slot own" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%"><img src="'+esc(x.image)+'" alt="Your '+esc(x.title.toLowerCase())+'"><i class="yours">Yours</i></div>';
     return '<a class="slot" style="left:'+s[0]+'%;top:'+s[1]+'%;width:'+s[2]+'%;height:'+s[3]+'%;transform:rotate('+s[4]+'deg)" href="'+esc(x.url)+'" target="_blank" rel="noopener" title="'+esc(nice(x.title))+'"><img src="'+esc(img(x))+'" alt="'+esc(nice(x.title))+'" loading="lazy"></a>'}).join('')+'</div>'}
 
-const cur=x=>CAT[x.url];const img=x=>cur(x)?cur(x).image:x.image;
+const IMG=u=>/cdn\.shopify\.com|\/cdn\/shop\//.test(u||'')&&!/[?&]width=/.test(u)?u+(u.includes('?')?'&':'?')+'width=600':u;  // phone-sized Shopify photos
+const cur=x=>CAT[x.url];const img=x=>IMG(cur(x)?cur(x).image:x.image);
 function look(s,n){const parts=s.parts;let tot=0,gone=0;
   const rows=parts.map(x=>{if(x.owned)return '<li class="mine"><div><span>'+LABEL[x.kind]+' · Yours</span>'+esc(x.title)+'<em>From your wardrobe</em></div><b></b></li>';const c=cur(x);if(c)tot+=c.price_cad;else gone++;
     return '<li><div><span>'+LABEL[x.kind]+' · '+esc(x.store)+'</span><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a><em class="'+(c?'':'gone')+'">'+(c?'On sale now':'No longer in the sale list')+'</em></div><b>'+money(c?c.price_cad:x.price_cad)+'</b></li>'}).join('');
   return '<article class="outfit">'+flat(parts)+'<ul>'+rows+'</ul><p class="tot">'+money(tot)+(gone?' <span class="gone">· '+gone+' piece'+(gone>1?'s':'')+' gone</span>':'')+'</p><div class="pc"><button type="button" class="pb rm" data-n="'+n+'">Remove</button></div></article>'}
 function piece(x){const c=cur(x)||x,on=!!cur(x);
-  return '<div class="pcard"><a href="'+esc(x.url)+'" target="_blank" rel="noopener"><img src="'+esc(c.image)+'" alt=""></a><p><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a></p><p class="sub">'+esc(x.store)+' · '+money(c.price_cad)+(on?'':' · <span class="gone">gone</span>')+'</p><button type="button" class="pb rp" data-u="'+esc(x.url)+'">Remove</button></div>'}
+  return '<div class="pcard"><a href="'+esc(x.url)+'" target="_blank" rel="noopener"><img src="'+esc(IMG(c.image))+'" alt=""></a><p><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(nice(x.title))+'</a></p><p class="sub">'+esc(x.store)+' · '+money(c.price_cad)+(on?'':' · <span class="gone">gone</span>')+'</p><button type="button" class="pb rp" data-u="'+esc(x.url)+'">Remove</button></div>'}
 function draw(){const L=get('saved','[]'),P=get('pieces','{}'),lk=(get('profile','{}').liked||[]);
   $('looks').innerHTML=L.length?L.map(look).join(''):'<p class="sub">Nothing saved yet. Tap “Save this look” under any outfit.</p>';
   $('looks').className=L.length?'grid2':'';
