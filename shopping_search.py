@@ -18,8 +18,8 @@ def search(q):
 
 def retailer_of(source):
     s = (source or "").lower()
-    for name in CFG["retailers"]:
-        if name.lower() in s:
+    for name in CFG["retailers"]:   # "aliases": other ways Google names the store, e.g. "abercrombie.com"
+        if any(a.lower() in s for a in [name] + CFG.get("aliases", {}).get(name, [])):
             return name
     return None
 
@@ -41,15 +41,26 @@ def main():
         print("No SERPAPI_KEY set, skipping the big-retailer search")
         return
     sales = json.load(open("data/sales.json"))
-    queries = [f"{r} men's {c} sale" for r in CFG["retailers"] for c in CFG["categories"]]
-    n = min(CFG.get("queries_per_run", 8), len(queries))
-    start = (date.today().toordinal() * n) % len(queries)
+    q_of = lambda rs: [f"{r} men's {c} sale" for r in rs for c in CFG["categories"]]
+    day = date.today().toordinal()
+    only = [r.strip() for r in os.environ.get("SHOP_ONLY", "").split(",") if r.strip()]
+    if only:   # one-off fill for named retailers: every category once
+        todo = q_of(only)
+    else:
+        # "priority" retailers get their own share of each day's searches, so they come round
+        # every few days; the rest take turns with what's left
+        n = CFG.get("queries_per_run", 8)
+        pri = q_of([r for r in CFG["retailers"] if r in CFG.get("priority", [])])
+        rest = q_of([r for r in CFG["retailers"] if r not in CFG.get("priority", [])])
+        np_ = min(CFG.get("priority_per_run", 0), len(pri), n)
+        pick = lambda L, k: [L[(day * k + i) % len(L)] for i in range(min(k, len(L)))] if L and k else []
+        todo = pick(pri, np_) + pick(rest, n - np_)
     try:
         cache = json.load(open(CACHE))
     except Exception:
         cache = {}
     today, seen_sources = str(date.today()), Counter()
-    for q in [queries[(start + i) % len(queries)] for i in range(n)]:
+    for q in todo:
         try:
             results = search(q).get("shopping_results") or []
         except Exception as e:

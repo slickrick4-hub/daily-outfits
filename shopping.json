@@ -24,5 +24,15 @@
   "pants",
   "jacket",
   "shoes"
- ]
+ ],
+ "priority": [
+  "Uniqlo",
+  "Abercrombie & Fitch"
+ ],
+ "priority_per_run": 2,
+ "aliases": {
+  "Abercrombie & Fitch": [
+   "abercrombie"
+  ]
+ }
 }
