@@ -801,7 +801,8 @@
   "domain": "trueclassictees.com",
   "path": "/products.json",
   "currency": "USD",
-  "platform": "shopify"
+  "platform": "shopify",
+  "mens_only": true
  },
  {
   "name": "Rails",
@@ -912,7 +913,8 @@
   "path": "/products.json",
   "currency": "EUR",
   "platform": "shopify",
-  "street": true
+  "street": true,
+  "mens_only": true
  },
  {
   "name": "Daily Paper Worldwide ",
