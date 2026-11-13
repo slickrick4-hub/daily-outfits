@@ -134,5 +134,29 @@
  "yuketen.com": {
   "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
   "date": "2026-11-09"
+ },
+ "vuoriclothing.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-13"
+ },
+ "paige.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-13"
+ },
+ "mavi.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-13"
+ },
+ "publicrec.com": {
+  "reason": "Shopify: JSONDecodeError | WooCommerce: JSONDecodeError",
+  "date": "2026-11-13"
+ },
+ "rhone.com": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-13"
+ },
+ "hiutdenim.co.uk": {
+  "reason": "Shopify: HTTPError | WooCommerce: HTTPError",
+  "date": "2026-11-13"
  }
 }

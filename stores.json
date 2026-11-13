@@ -785,5 +785,82 @@
   "currency": "USD",
   "platform": "shopify",
   "mens_only": true
+ },
+ {
+  "name": "MUJI",
+  "domain": "muji.ca",
+  "path": "/products.json",
+  "currency": "CAD",
+  "platform": "shopify"
+ },
+ {
+  "name": "True Classic",
+  "domain": "trueclassictees.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Rails",
+  "domain": "rails.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "AG Jeans",
+  "domain": "agjeans.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Citizens of Humanity",
+  "domain": "citizensofhumanity.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "FRAME",
+  "domain": "frame-store.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Tentree Canada",
+  "domain": "tentree.ca",
+  "path": "/products.json",
+  "currency": "CAD",
+  "platform": "shopify"
+ },
+ {
+  "name": "18 East",
+  "domain": "18east.co",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "A.P.C.",
+  "domain": "apc-us.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Alo Yoga",
+  "domain": "aloyoga.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
+ },
+ {
+  "name": "Cotopaxi",
+  "domain": "cotopaxi.com",
+  "path": "/products.json",
+  "currency": "USD",
+  "platform": "shopify"
  }
 ]
