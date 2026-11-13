@@ -1,47 +1,47 @@
 {
- "date": "2026-11-12",
+ "date": "2026-11-13",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Canada Weather Gear",
-   "title": "Striped Polo Shirt - Beige",
-   "url": "https://canadaweathergear.com/products/633-8213-15",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_27120c34-a1ec-4eee-b1ec-7f613a7cea67.jpg?v=1786542727",
-   "price_cad": 10.0,
-   "was_cad": 50.0,
-   "off_pct": 80,
+   "store": "Rowing Blazers",
+   "title": "Cashmere Striped Sweater Navy and Cream Stripe",
+   "url": "https://rowingblazers.com/products/mens-cashmere-striped-sweater-navy-and-cream-stripe",
+   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_SWEATER_STRIPE_BLUE_WHITE.jpg?v=1777662732",
+   "price_cad": 142.42,
+   "was_cad": 356.04,
+   "off_pct": 60,
    "sizes": [
     "L",
-    "M",
-    "XL",
-    "XXL"
+    "S",
+    "XS"
    ],
-   "final_sale": false,
+   "final_sale": true,
    "kind": "top"
   },
   {
    "store": "Everlane",
-   "title": "'90s Baggy Cargo Pant | Olive",
-   "url": "https://everlane.com/products/mens-90s-baggy-cargo-pant-olive",
-   "image": "https://cdn.shopify.com/s/files/1/0623/7916/3734/files/bc7b7312_3eff.jpg?v=1762190904",
-   "price_cad": 41.4,
-   "was_cad": 204.24,
+   "title": "Baggy Rigid Jean | Mid Indigo | 30\"",
+   "url": "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
+   "image": "https://cdn.shopify.com/s/files/1/0623/7916/3734/files/320f54b0_02d2.jpg?v=1755830708",
+   "price_cad": 46.92,
+   "was_cad": 231.84,
    "off_pct": 80,
    "sizes": [
-    "29",
+    "30",
     "31",
     "32",
+    "33",
     "34",
-    "36"
+    "35"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
    "store": "Taft",
-   "title": "The Sterling Penny Loafer in Taupe Suede (Final Sale)",
-   "url": "https://taftclothing.com/products/the-sterling-loafer-in-taupe-suede",
-   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-TSU_TAFT1_b45d64e2-4c2c-44f9-baae-32bb9da9297d.jpg?v=1762447435",
+   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
    "price_cad": 172.5,
    "was_cad": 413.99,
    "off_pct": 58,
@@ -61,17 +61,19 @@
    "kind": "shoes"
   },
   {
-   "store": "Universal Works",
-   "title": "Indigo Hickory Stripe Denim Marine Gilet",
-   "url": "https://universalworks.co.uk/products/universal-works-marine-gilet-in-indigo-hickory-stripe-denim",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/p32015_hickory-stripe-denim-indigo_1.jpg?v=1753712318",
-   "price_cad": 117.0,
-   "was_cad": 279.0,
-   "off_pct": 58,
+   "store": "Wax London",
+   "title": "Montague - Brown And Ecru Striped Ribbed Organic Cotton Vest",
+   "url": "https://waxlondon.com/products/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest",
+   "image": "https://cdn.shopify.com/s/files/1/0575/9575/6709/files/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest.jpg?v=1739647035",
+   "price_cad": 43.2,
+   "was_cad": 72.0,
+   "off_pct": 40,
    "sizes": [
     "L",
+    "M",
     "S",
-    "XL"
+    "XL",
+    "XS"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -80,36 +82,28 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Blue",
-   "'90s Baggy Cargo Pant | Washed Black",
-   "The Sterling Penny Loafer in Black Croco (Final Sale)",
-   "Indigo Hickory Stripe Denim Marine Gilet"
+   "Italian Flannel Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Colour Block Hooded Vest - Black"
   ],
   [
    "Striped Polo Shirt - Red",
-   "'90s Baggy Cargo Pant | Washed Black",
-   "The Sterling Penny Loafer in Black Croco (Final Sale)",
-   "Indigo Hickory Stripe Denim Marine Gilet"
+   "Italian Flannel Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Colour Block Hooded Vest - Black"
   ],
   [
    "The Startup Polo | Black Chambray",
-   "'90s Baggy Cargo Pant | Washed Black",
-   "The Sterling Penny Loafer in Black Croco (Final Sale)",
-   "Indigo Hickory Stripe Denim Marine Gilet"
+   "Italian Flannel Tuxedo Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Colour Block Hooded Vest - Black"
   ]
  ],
- "total_cad": 340.9,
- "was_total_cad": 947.23,
- "saved_cad": 606.33,
- "note": "Colors: green + navy + tan.",
+ "total_cad": 405.04,
+ "was_total_cad": 1073.87,
+ "saved_cad": 668.83,
+ "note": "Colors: brown + navy + white.",
  "history": [
-  {
-   "date": "2026-11-07",
-   "urls": [
-    "https://rowingblazers.com/products/mens-cotton-pooh-superlative-t-shirt-cream",
-    "https://rowingblazers.com/products/mens-classic-twill-trouser-navy-32-inseam",
-    "https://beckettsimonon.com/products/vasco-oxfords"
-   ]
-  },
   {
    "date": "2026-11-08",
    "urls": [
@@ -152,6 +146,15 @@
     "https://everlane.com/products/mens-90s-baggy-cargo-pant-olive",
     "https://taftclothing.com/products/the-sterling-loafer-in-taupe-suede",
     "https://universalworks.co.uk/products/universal-works-marine-gilet-in-indigo-hickory-stripe-denim"
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "urls": [
+    "https://rowingblazers.com/products/mens-cashmere-striped-sweater-navy-and-cream-stripe",
+    "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://waxlondon.com/products/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest"
    ]
   }
  ]
