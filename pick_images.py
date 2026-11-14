@@ -176,6 +176,27 @@ def main():
                     it["photo_colors"] = cols
                 coloured += bool(cols)
                 cache.setdefault(it["url"], {"key": "", "image": it["image"]}).update(cimg=it["image"], colors=cols)
+    # Google Shopping thumbnails can't be requested bigger, and some are only ~200px wide, which looks
+    # blurry on an outfit board. Measure each once (remembered as "w") and mark the tiny ones "lowres".
+    def width_work(it):
+        if time.monotonic() > DEADLINE:
+            return None
+        try:
+            return it, load(it["image"]).size[0]
+        except Exception:
+            return it, 0
+    gthumbs = [it for it in cat["items"] if "gstatic.com" in (it.get("image") or "")]
+    unknown = [it for it in gthumbs if (cache.get(it["url"]) or {}).get("wimg") != it["image"]]
+    with ThreadPoolExecutor(8) as ex:
+        for res in ex.map(width_work, unknown):
+            if res and res[1]:
+                cache.setdefault(res[0]["url"], {"key": "", "image": res[0]["image"]}).update(wimg=res[0]["image"], w=res[1])
+    low = 0
+    for it in gthumbs:
+        c = cache.get(it["url"]) or {}
+        if c.get("wimg") == it["image"] and c.get("w", 999) < 300:
+            it["lowres"] = True
+            low += 1
     for it in cat["items"]:
         it.pop("images", None)
     live = {i["url"] for i in cat["items"]}
@@ -186,6 +207,7 @@ def main():
         json.dump(cache, f, separators=(",", ":"))
     print(f"Photos: analysed {done} of {len(todo)} new items, switched {changed} to a cleaner shot")
     print(f"Colours: read {coloured} of {len(need)} uncoloured items from their photos")
+    print(f"Google thumbnails: {len(gthumbs)} pieces, {low} too small to look sharp (left out of outfits)")
 
 
 if __name__ == "__main__":

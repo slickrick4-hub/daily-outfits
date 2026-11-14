@@ -325,7 +325,7 @@ function formulaCombos(ok,p){const res=[],want=ST&&ST.vibes&&ST.vibes.length?ST.
   return res.sort((a,b)=>b[0]-a[0])}
 function build(items,p,shuffle){
   const likeW=list(p.like),avoidW=list(p.avoid);
-  const ok=items.filter(i=>!OFF.has(i.store)&&!(p.near&&FAR[REG[i.store]])&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
+  const ok=items.filter(i=>!i.lowres&&!OFF.has(i.store)&&!(p.near&&FAR[REG[i.store]])&&!BANNED.has(i.url)&&i.price_cad<=p.budget&&mySizes(i,p).length&&hit(txt(i),avoidW)===0&&!never(i));
   ok.forEach(i=>{i._s=scoreItem(i,p,shuffle)});POOL=ok;
   // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
   // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
