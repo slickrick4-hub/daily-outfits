@@ -122,20 +122,46 @@ function mySizes(i,p){if(i.sizes_unknown)return['?'];const ss=(i.sizes||[]).map(
   if(i.kind==='bottom')return ss.filter(s=>{const m=/^(\d{2})(?:\s*[\/x-]\s*(\d{2}))?$/i.exec(s.trim());return m&&nums(p.waist).includes(+m[1])});
   const want=list(p.tops).map(x=>x.toUpperCase());return ss.filter(s=>want.includes(s.split(' - ')[0].trim().toUpperCase()))}
 const DARK=['black','navy','grey'];
-function cb(parts){const f=new Set(parts.flatMap(COL));if(!f.size)return 0;let b=0;
-  if([...f].every(c=>DARK.includes(c)))b-=2.5;if([...f].some(c=>!DARK.includes(c)))b+=1.5;if(f.size>=4)b-=3;if(f.has('bright'))b-=2;return b}
+// how well two colour families sit together in menswear (+2 classic pairing … -2 clash)
+const CP={white:{black:1,grey:1,navy:2,blue:1,brown:1,tan:1,green:1,red:1,bright:0},
+  black:{grey:1,navy:-1,blue:0,brown:-1.5,tan:-.5,green:0,red:0,bright:0},
+  grey:{navy:1.5,blue:1,brown:0,tan:0,green:.5,red:.5,bright:.5},
+  navy:{blue:1,brown:1.5,tan:2,green:1,red:.5,bright:0},
+  blue:{brown:1.5,tan:1.5,green:0,red:0,bright:0},
+  brown:{tan:1.5,green:1.5,red:0,bright:-1},
+  tan:{green:1.5,red:0,bright:-.5},
+  green:{red:-2,bright:-1},red:{bright:-1.5},bright:{}};
+const pair=(a,b)=>a===b?(a==='black'?0:.5):((CP[a]||{})[b]??(CP[b]||{})[a]??0);   // same colour = tonal, fine
+const EARTH=['brown','tan','green','white'],COOL=['navy','blue','grey','white'];
+function palette(parts){const f=[...new Set(parts.flatMap(COL))];if(f.length<2)return '';
+  if(f.every(c=>EARTH.includes(c))&&f.filter(c=>c!=='white').length>=2)return 'Earth tones';
+  if(f.every(c=>COOL.includes(c))&&f.filter(c=>c!=='white').length>=2)return 'Cool blues and greys';
+  if(f.includes('navy')&&(f.includes('tan')||f.includes('brown'))&&f.every(c=>['navy','tan','brown','white','blue'].includes(c)))return 'Navy and tan';
+  return ''}
+function cb(parts){const cs=parts.map(COL).filter(c=>c.length);if(!cs.length)return 0;const f=new Set(cs.flat());let b=0,n=0,t=0;
+  for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){let best=-9;for(const a of cs[i])for(const c of cs[j])best=Math.max(best,pair(a,c));t+=best;n++}
+  if(n)b+=1.2*t/n;                                  // average pairing of every two pieces
+  if([...f].every(c=>DARK.includes(c)))b-=1.5;       // all dark looks flat
+  if(f.size>=4)b-=2.5;if(f.has('bright'))b-=1;       // too busy / loud
+  const pal=palette(parts);if(pal==='Earth tones')b+=1.5;else if(pal)b+=.8;
+  return b}
 const wsum=i=>Math.max(-6,Math.min(8,tok(i).reduce((a,t)=>a+(W[t]||0),0)));
 const mean=a=>a.reduce((n,x)=>n+x,0)/a.length;
 const FAM=i=>i.title.toLowerCase().split(/ in | - /)[0].trim();
 const PAT=/stripe|plaid|check|gingham|houndstooth|camo|floral|print|paisley/;
 function formal(i){const t=i.title.toLowerCase(),k=i.kind;
-  if(k==='shoes')return /loafer|derby|derbies|oxfords|brogue|monk|wingtip/.test(t)?4:/boot|chelsea/.test(t)?3:/sneaker|trainer|slip.on|driver|moc/.test(t)?2:3;
-  if(k==='bottom')return /trouser|slack|wool/.test(t)?4:/chino/.test(t)?3:/denim|jean|selvedge|selvage/.test(t)?2:/cargo|jogger|sweatpant|track|short/.test(t)?1:3;
+  if(k==='shoes')return /loafer|derby|derbies|oxfords|brogue|monk|wingtip/.test(t)?4:/boot|chelsea/.test(t)?3:/sneaker|trainer|slip.on|driver|moc/.test(t)?2:2.3;   // unnamed styles are usually sneakers
+  if(k==='bottom')return /tuxedo|suit pant/.test(t)?5:/trouser|slack|wool/.test(t)?4:/chino/.test(t)?3:/denim|jean|selvedge|selvage/.test(t)?2:/cargo|jogger|sweatpant|track|short/.test(t)?1:3;
   if(k==='outerwear')return /blazer|sportcoat|suit/.test(t)?5:/coat|trench|wool/.test(t)?4:/overshirt|vest|shacket/.test(t)?3:/hood/.test(t)?1:2.5;
   return /\btee\b|hoodie|sweatshirt|henley|tank/.test(t)?1:/oxford|button|chambray|poplin|dress shirt/.test(t)?3.5:/polo/.test(t)?3:2.5}
 function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
 function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
-  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s+prop(parts)}
+  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s+prop(parts)+onelook(parts)}
+const CLASH=[['classic','street']];
+function onelook(parts){const vs=parts.map(x=>x.vibes||[]).filter(v=>v.length);if(vs.length<2)return 0;const n={};vs.forEach(v=>v.forEach(x=>n[x]=(n[x]||0)+1));
+  const top=Math.max(...Object.values(n));let s=top>=vs.length?1.2:top>=2?.5:-.6;   // all one look / mostly / all different
+  for(const[a,b]of CLASH)if(vs.some(v=>v.includes(a)&&!v.includes(b))&&vs.some(v=>v.includes(b)&&!v.includes(a)))s-=1;
+  return s}
 // proportions: roomy on top looks best over roomy trousers (the streetwear silhouette), not over slim ones
 const WIDE=/oversized|boxy|baggy|\bwide|relaxed|loose|drop.shoulder|puffer|cargo|parachute|carpenter|barrel|balloon|skater|\bskate/,
   SLIM=/\bslim|skinny|tapered|fitted|muscle|athletic fit/;
@@ -152,7 +178,7 @@ function prop(parts){const b=parts.find(x=>x.kind==='bottom');if(!b)return 0;con
   if(up==='wide'&&lo==='wide')return street?1:.6;      // roomy top, roomy trousers
   if(up==='slim'&&lo==='wide')return -.7;               // fitted top swallowed by wide trousers
   return 0}
-function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(COL))].slice(0,3).join(' + ');
+function label(parts){const m=mean(parts.map(formal)),c=palette(parts)||[...new Set(parts.flatMap(COL))].slice(0,3).join(' + ');
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 // ---- style profile from the quiz (ST): looks, occasions, fit, colors, patterns, favourite brands ----
 const OCC={work:3.6,weekend:2.2,out:3.1,travel:2.6};

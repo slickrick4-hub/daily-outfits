@@ -21,7 +21,7 @@ SKIP_REGEX = (r"\b(hat|cap|beanie|scarf|tote|belt|wallet|bandana|patch|sock|glov
               # summer-only shirts
               r"|camp collar|summerweight|hawaiian|\baloha\b")
 # open summer shoes; checked before the shoe words, since "sandal" would otherwise make it a shoe
-SUMMER_SHOES = re.compile(r"sandal|\bslides?\b|flip.?flop|huarache|espadrille|\bclogs?\b|\bthong\b")
+SUMMER_SHOES = re.compile(r"sandal|\bslides?\b|flip.?flop|huarache|espadrille|\bclogs?\b|\bthong\b|slipper")   # and house slippers
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
