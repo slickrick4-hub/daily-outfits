@@ -135,7 +135,23 @@ function formal(i){const t=i.title.toLowerCase(),k=i.kind;
   return /\btee\b|hoodie|sweatshirt|henley|tank/.test(t)?1:/oxford|button|chambray|poplin|dress shirt/.test(t)?3.5:/polo/.test(t)?3:2.5}
 function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
 function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
-  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s}
+  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s+prop(parts)}
+// proportions: roomy on top looks best over roomy trousers (the streetwear silhouette), not over slim ones
+const WIDE=/oversized|boxy|baggy|\bwide|relaxed|loose|drop.shoulder|puffer|cargo|parachute|carpenter|barrel|balloon|skater|\bskate/,
+  SLIM=/\bslim|skinny|tapered|fitted|muscle|athletic fit/;
+function shape(i){if(i.owned)return null;const t=i.title.toLowerCase();
+  if(i.fit==='slim'||SLIM.test(t))return 'slim';
+  if(i.fit==='relaxed'||WIDE.test(t))return 'wide';
+  if(i.kind!=='bottom'&&(i.vibes||[]).includes('street')&&REG_STREET(i))return 'wide';  // streetwear brands cut tops roomy
+  return null}
+const REG_STREET=i=>/hood|sweat|crew|tee|t-shirt|jacket|bomber|varsity|knit|sweater|zip/.test(i.title.toLowerCase());
+function prop(parts){const b=parts.find(x=>x.kind==='bottom');if(!b)return 0;const lo=shape(b);if(!lo)return 0;
+  const ups=parts.filter(x=>x.kind==='top'||x.kind==='outerwear').map(shape),up=ups.includes('wide')?'wide':ups.includes('slim')?'slim':null;
+  if(!up)return 0;const street=parts.some(x=>(x.vibes||[]).includes('street'));
+  if(up==='wide'&&lo==='slim')return street?-2:-1.5;   // oversized hoodie over skinny jeans
+  if(up==='wide'&&lo==='wide')return street?1:.6;      // roomy top, roomy trousers
+  if(up==='slim'&&lo==='wide')return -.7;               // fitted top swallowed by wide trousers
+  return 0}
 function label(parts){const m=mean(parts.map(formal)),c=[...new Set(parts.flatMap(COL))].slice(0,3).join(' + ');
   return(m>=3.6?'Dressed up':m>=2.8?'Smart casual':'Casual')+(c?' · '+c:'')}
 // ---- style profile from the quiz (ST): looks, occasions, fit, colors, patterns, favourite brands ----
