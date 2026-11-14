@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU-only build, much smaller
-      - run: pip install pillow transformers
+      - run: pip install pillow "transformers<5"   # 5.x changed what get_*_features returns
       - uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface
