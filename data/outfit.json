@@ -1,38 +1,35 @@
 {
- "date": "2026-11-13",
+ "date": "2026-11-14",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Rowing Blazers",
-   "title": "Cashmere Striped Sweater Navy and Cream Stripe",
-   "url": "https://rowingblazers.com/products/mens-cashmere-striped-sweater-navy-and-cream-stripe",
-   "image": "https://cdn.shopify.com/s/files/1/1770/6343/files/RB-08AUG25_SWEATER_STRIPE_BLUE_WHITE.jpg?v=1777662732",
-   "price_cad": 142.42,
-   "was_cad": 356.04,
-   "off_pct": 60,
+   "store": "Canada Weather Gear",
+   "title": "1/4 Zip Striped Pullover Sweater - Black",
+   "url": "https://canadaweathergear.com/products/665-2902-02",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_8ae4d31b-b959-451b-8984-6da0b882e39c.jpg?v=1784618314",
+   "price_cad": 20.0,
+   "was_cad": 60.0,
+   "off_pct": 67,
    "sizes": [
     "L",
-    "S",
-    "XS"
+    "M",
+    "S"
    ],
-   "final_sale": true,
+   "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Everlane",
-   "title": "Baggy Rigid Jean | Mid Indigo | 30\"",
-   "url": "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
-   "image": "https://cdn.shopify.com/s/files/1/0623/7916/3734/files/320f54b0_02d2.jpg?v=1755830708",
-   "price_cad": 46.92,
-   "was_cad": 231.84,
-   "off_pct": 80,
+   "store": "Universal Works",
+   "title": "Brown Kennedy Stripe Hi Water Trouser",
+   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
+   "price_cad": 117.0,
+   "was_cad": 288.0,
+   "off_pct": 59,
    "sizes": [
-    "30",
-    "31",
+    "28",
     "32",
-    "33",
-    "34",
-    "35"
+    "36"
    ],
    "final_sale": false,
    "kind": "bottom"
@@ -61,19 +58,16 @@
    "kind": "shoes"
   },
   {
-   "store": "Wax London",
-   "title": "Montague - Brown And Ecru Striped Ribbed Organic Cotton Vest",
-   "url": "https://waxlondon.com/products/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest",
-   "image": "https://cdn.shopify.com/s/files/1/0575/9575/6709/files/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest.jpg?v=1739647035",
-   "price_cad": 43.2,
-   "was_cad": 72.0,
-   "off_pct": 40,
+   "store": "Canada Weather Gear",
+   "title": "Colour Block Hooded Vest - Black",
+   "url": "https://canadaweathergear.com/products/303-2250-01",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_ff613879-09a0-441b-99ab-da76f60328f4.jpg?v=1784618284",
+   "price_cad": 29.99,
+   "was_cad": 120.0,
+   "off_pct": 75,
    "sizes": [
     "L",
-    "M",
-    "S",
-    "XL",
-    "XS"
+    "M"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -82,36 +76,28 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Blue",
-   "Italian Flannel Tuxedo Trouser",
+   "Brown Kennedy Stripe Hi Water Trouser",
    "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
    "Colour Block Hooded Vest - Black"
   ],
   [
    "Striped Polo Shirt - Red",
-   "Italian Flannel Tuxedo Trouser",
+   "Brown Kennedy Stripe Hi Water Trouser",
    "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
    "Colour Block Hooded Vest - Black"
   ],
   [
    "The Startup Polo | Black Chambray",
-   "Italian Flannel Tuxedo Trouser",
+   "Brown Kennedy Stripe Hi Water Trouser",
    "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
    "Colour Block Hooded Vest - Black"
   ]
  ],
- "total_cad": 405.04,
- "was_total_cad": 1073.87,
- "saved_cad": 668.83,
- "note": "Colors: brown + navy + white.",
+ "total_cad": 339.49,
+ "was_total_cad": 881.99,
+ "saved_cad": 542.5,
+ "note": "Colors: black + brown.",
  "history": [
-  {
-   "date": "2026-11-08",
-   "urls": [
-    "https://southerntide.com/products/brrr-eeze-meadowbrook-stripe-polo-garden-grove",
-    "https://kotn.com/products/mens-work-trouser-in-dark-camel",
-    "https://beckettsimonon.com/products/vasco-oxfords"
-   ]
-  },
   {
    "date": "2026-11-09",
    "urls": [
@@ -155,6 +141,15 @@
     "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
     "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
     "https://waxlondon.com/products/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest"
+   ]
+  },
+  {
+   "date": "2026-11-14",
+   "urls": [
+    "https://canadaweathergear.com/products/665-2902-02",
+    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://canadaweathergear.com/products/303-2250-01"
    ]
   }
  ]
