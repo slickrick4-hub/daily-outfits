@@ -1,13 +1,21 @@
 name: Photo tagging test
 
-# One-off test of FashionCLIP photo tagging. Run it from the Actions tab.
+# Tests FashionCLIP photo tagging. Run it from the Actions tab.
 # It changes nothing on the site: results are saved as a downloadable artifact for 7 days.
+#   mode "sheets": tags a sample and makes contact sheets to check by eye
+#   mode "daily":  runs the daily tagging on the real catalog and saves the tagged catalog
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: "sheets or daily"
+        default: "daily"
       count:
-        description: "How many photos to tag"
+        description: "sheets mode: how many photos"
         default: "300"
+      minutes:
+        description: "daily mode: time limit"
+        default: "25"
 
 permissions:
   contents: read
@@ -27,7 +35,12 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: fashion-clip-v1
-      - run: python tag_photos.py --test ${{ inputs.count }}
+      - if: inputs.mode == 'sheets'
+        run: python tag_photos.py --test ${{ inputs.count }}
+      - if: inputs.mode == 'daily'
+        run: |
+          python tag_photos.py --minutes ${{ inputs.minutes }}
+          mkdir -p test_out && cp data/catalog.json data/photo_tags.json test_out/
       - uses: actions/upload-artifact@v4
         with:
           name: photo-test

@@ -1,9 +1,12 @@
 """Tags catalog pieces from their product photo with FashionCLIP (an open-source fashion image model,
 MIT licence): shape, look, pattern and colour. Runs on GitHub, never in visitors' browsers.
 
-Test mode (now):  python tag_photos.py --test 300
-  tags a spread-out sample of pieces and writes test_out/report.json plus contact sheets
-  (test_out/sheet_*.png) so the tags can be checked by eye. Nothing on the site changes."""
+Daily:  python tag_photos.py [--minutes 20]
+  tags pieces whose photo hasn't been seen before (remembered in data/photo_tags.json) and writes
+  the confident tags into data/catalog.json. Checked by eye on 80 photos (Nov 2026): colour 94% right,
+  pattern 96%, confident oversized/slim calls 93%. The "look" tag was only ~56% right, so it isn't used.
+Test:   python tag_photos.py --test 300
+  tags a spread-out sample and writes contact sheets to test_out/ to check by eye."""
 import io, json, os, random, re, sys, time, urllib.request
 
 from PIL import Image, ImageDraw, ImageFont
@@ -83,9 +86,11 @@ class Tagger:
         best = max(tot, key=tot.get)
         return best, round(tot[best], 2)
 
-    def tags(self, item, img):
+    def tags(self, item, img, look=True):
         emb, n = self.image(img), noun_of(item)
-        out = {"look": self.pick(emb, LOOK, n), "colour": self.pick(emb, COLOUR, n)}
+        out = {"colour": self.pick(emb, COLOUR, n)}
+        if look:
+            out["look"] = self.pick(emb, LOOK, n)
         if item["kind"] != "shoes":
             out["shape"] = self.pick(emb, SHAPE_LO if item["kind"] == "bottom" else SHAPE_UP, n)
             out["pattern"] = self.pick(emb, PATTERN, n)
@@ -165,8 +170,74 @@ def test(n):
             print(f"{tag:8} median confidence {sorted(ps)[len(ps) // 2]:.2f}, sure (>=0.6) on {sum(p >= .6 for p in ps)} of {len(ps)}")
 
 
+CACHE = "data/photo_tags.json"
+
+
+def apply(it, t):
+    """Write the confident tags into a catalog item. Words from the store always win."""
+    c, cp = t.get("c"), t.get("cp", 0)
+    if c and cp >= 0.6 and not it.get("colors"):
+        it["photo_colors"] = [c]                     # replaces the rougher pixel-based guess
+    p, pp = t.get("p"), t.get("pp", 0)
+    if p and p != "solid" and pp >= 0.8 and not (p == "graphic" and it["kind"] == "bottom"):
+        it["pattern"] = True                         # plain jeans sometimes read as "graphic"
+        if p == "graphic":
+            it["ptype"] = "graphic"
+    s, sp = t.get("s"), t.get("sp", 0)
+    if s in ("wide", "slim") and sp >= 0.85 and not it.get("fit"):
+        it["pshape"] = s                             # only confident oversized/slim calls
+
+
+def daily(minutes):
+    cat = json.load(open("data/catalog.json"))
+    try:
+        cache = json.load(open(CACHE))
+    except Exception:
+        cache = {}
+    todo = [it for it in cat["items"] if it.get("image") and it["image"] not in cache]
+    print(f"Photo tags: {len(todo)} new photos to tag")
+    deadline = time.monotonic() + minutes * 60
+    done = 0
+    if todo:
+        tg = Tagger()
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(6) as ex:           # download photos in parallel, tag one at a time
+            for k in range(0, len(todo), 60):          # in small batches, so the time limit is respected
+                if time.monotonic() > deadline:
+                    break
+                for it, ph in ex.map(lambda i: (i, _safe_load(i["image"])), todo[k:k + 60]):
+                    if ph is None:
+                        cache[it["image"]] = {}
+                        continue
+                    t = tg.tags(it, ph, look=False)
+                    row = {"c": t["colour"][0], "cp": t["colour"][1]}
+                    if "pattern" in t:
+                        row.update(p=t["pattern"][0], pp=t["pattern"][1], s=t["shape"][0], sp=t["shape"][1])
+                    cache[it["image"]] = row
+                    done += 1
+    live = {it["image"] for it in cat["items"] if it.get("image")}
+    cache = {u: v for u, v in cache.items() if u in live}
+    for it in cat["items"]:
+        if it.get("image") in cache:
+            apply(it, cache[it["image"]])
+    json.dump(cat, open("data/catalog.json", "w"), separators=(",", ":"))
+    json.dump(cache, open(CACHE, "w"), separators=(",", ":"))
+    left = sum(1 for it in cat["items"] if it.get("image") and it["image"] not in cache)
+    n = lambda k: sum(1 for it in cat["items"] if it.get(k))
+    print(f"Photo tags: tagged {done} today, {left} left for the next run; "
+          f"{n('pshape')} pieces have a photo shape, {n('ptype')} a graphic print")
+
+
+def _safe_load(u):
+    try:
+        return load(u)
+    except Exception:
+        return None
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[1] == "--test":
         test(int(sys.argv[2]))
     else:
-        print("Usage: python tag_photos.py --test 300")
+        mins = float(sys.argv[sys.argv.index("--minutes") + 1]) if "--minutes" in sys.argv else 20
+        daily(mins)
