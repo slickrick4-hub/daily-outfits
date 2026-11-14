@@ -28,8 +28,8 @@ details.adv{border:0;padding:0;margin:4px 0;background:transparent}
 @media (max-width:680px){.grid2{grid-template-columns:1fr}.pieces{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 /* one outfit per row: big flat-lay on the left, the pieces and buttons on the right */
 @media (min-width:760px){
- .outfit{display:grid;grid-template-columns:minmax(0,640px) minmax(260px,1fr);column-gap:26px;align-items:start}
- .outfit>.board{grid-row:1/span 4}
+ .outfit{display:grid;grid-template-columns:minmax(0,640px) minmax(260px,1fr);grid-template-rows:repeat(5,auto) 1fr;column-gap:26px;align-items:start}
+ .outfit>.board{grid-row:1/span 6}
  .outfit>:not(.board){grid-column:2}
  .outfit>ul{margin-top:0}
  .outfit li{font-size:15px}
@@ -78,3 +78,4 @@ main p{max-width:68ch}
 .slot.own .yours{position:absolute;left:4px;bottom:4px;font:600 11px/1 "Bricolage Grotesque",system-ui,sans-serif;font-style:normal;letter-spacing:.06em;text-transform:uppercase;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
 li.mine{color:var(--mut)}
 #onlywrap{margin:4px 0 0}
+.fwhy{font-size:13px;color:var(--mut);margin:-6px 4px 6px}
