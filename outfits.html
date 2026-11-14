@@ -156,7 +156,7 @@ function formal(i){const t=i.title.toLowerCase(),k=i.kind;
   return /\btee\b|hoodie|sweatshirt|henley|tank/.test(t)?1:/oxford|button|chambray|poplin|dress shirt/.test(t)?3.5:/polo/.test(t)?3:2.5}
 function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
 function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
-  const pats=parts.filter(x=>PAT.test(x.title.toLowerCase())).length;if(pats>1)s-=3*(pats-1);return s+prop(parts)+onelook(parts)}
+  const pats=parts.filter(x=>x.pattern||PAT.test(x.title.toLowerCase())).length;/* name or photo */if(pats>1)s-=3*(pats-1);return s+prop(parts)+onelook(parts)}
 const CLASH=[['classic','street']];
 function onelook(parts){const vs=parts.map(x=>x.vibes||[]).filter(v=>v.length);if(vs.length<2)return 0;const n={};vs.forEach(v=>v.forEach(x=>n[x]=(n[x]||0)+1));
   const top=Math.max(...Object.values(n));let s=top>=vs.length?1.2:top>=2?.5:-.6;   // all one look / mostly / all different
@@ -168,6 +168,7 @@ const WIDE=/oversized|boxy|baggy|\bwide|relaxed|loose|drop.shoulder|puffer|cargo
 function shape(i){if(i.owned)return null;const t=i.title.toLowerCase();
   if(i.fit==='slim'||SLIM.test(t))return 'slim';
   if(i.fit==='relaxed'||WIDE.test(t))return 'wide';
+  if(i.pshape)return i.pshape;                       // read from the photo (only confident calls)
   if(i.kind!=='bottom'&&(i.vibes||[]).includes('street')&&REG_STREET(i))return 'wide';  // streetwear brands cut tops roomy
   return null}
 const REG_STREET=i=>/hood|sweat|crew|tee|t-shirt|jacket|bomber|varsity|knit|sweater|zip/.test(i.title.toLowerCase());
@@ -290,7 +291,7 @@ const FORMULAS=[
  {id:'hoodiecargo',name:'Hoodie & cargos',vibe:'street',why:'Roomy hoodie over roomy cargos: the core streetwear shape.',
   top:{rx:/hood/,sh:'wide'},bottom:{rx:/cargo|parachute/,sh:'wide'},shoes:{rx:SNEAK}},
  {id:'graphicbaggy',name:'Graphic tee & baggy denim',vibe:'street',why:'A loud graphic top balanced by plain, wide denim.',
-  top:{rx:[/tee|t-shirt|sweatshirt|crew/,/graphic|logo|print|embroider|heart/]},bottom:{rx:/jean|denim/,sh:'wide'},shoes:{rx:SNEAK}},
+  top:{rx:/tee|t-shirt|sweatshirt|crew|hood/,gfx:1},bottom:{rx:/jean|denim/,sh:'wide'},shoes:{rx:SNEAK}},
  {id:'varsity',name:'Varsity & track',vibe:'street',why:'A varsity or bomber jacket over a simple top and roomy trousers.',
   top:{rx:/tee|t-shirt|hood|crew|sweat/},bottom:{rx:/track|cargo|jean|pant/,sh:'wide'},shoes:{rx:SNEAK},outerwear:{rx:/varsity|bomber|track jacket|coach jacket/}},
  {id:'tonalstreet',name:'Tonal sweats',vibe:'street',why:'Top and trousers in the same colour: easy, relaxed, deliberate.',tonal:1,
@@ -299,6 +300,7 @@ const FORMULAS=[
   top:{rx:/tee|t-shirt|crew/,sh:'wide'},bottom:{rx:/carpenter|work pant|double knee|painter/},shoes:{rx:/sneaker|trainer|boot/}}];
 const fitsSlot=(i,sl)=>{if(!sl)return false;const t=i.title.toLowerCase();
   if(![].concat(sl.rx).every(r=>r.test(t)))return false;
+  if(sl.gfx&&i.ptype!=='graphic'&&!/graphic|logo|print|embroider/.test(t))return false;   // graphic in the name or the photo
   if(sl.c&&COL(i).length&&!COL(i).some(c=>sl.c.includes(c)))return false;   // unknown colour still allowed
   if(sl.sh){const h=shape(i);if(h&&h!==sl.sh)return false}
   return true};
@@ -309,6 +311,7 @@ function formulaCombos(ok,p){const res=[],want=ST&&ST.vibes&&ST.vibes.length?ST.
   for(const f of FORMULAS){
     const near=want&&want.some(v=>(NEAR[v]||[]).includes(f.vibe));
     if(want&&!want.includes(f.vibe)&&!near)continue;               // other looks' formulas are left out
+    if(ST&&ST.patterns==='none'&&f.top&&f.top.gfx)continue;          // "solids only": no graphic-tee formula
     const pref=want?(want.includes(f.vibe)?1.5:-1):0;
     const pick=(k,n)=>f[k]?ok.filter(i=>i.kind===k&&fitsSlot(i,f[k])).sort((a,b)=>b._s-a._s).slice(0,n):[];
     const T=pick('top',10),B=pick('bottom',10),S=p.shoes?pick('shoes',6):[],L=pick('outerwear',5);

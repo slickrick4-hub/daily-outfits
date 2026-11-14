@@ -220,8 +220,10 @@ def daily(minutes):
     for it in cat["items"]:
         if it.get("image") in cache:
             apply(it, cache[it["image"]])
-    json.dump(cat, open("data/catalog.json", "w"), separators=(",", ":"))
-    json.dump(cache, open(CACHE, "w"), separators=(",", ":"))
+    for path, data in (("data/catalog.json", cat), (CACHE, cache)):   # write-then-rename, never half a file
+        with open(path + ".tmp", "w") as f:
+            json.dump(data, f, separators=(",", ":"))
+        os.replace(path + ".tmp", path)
     left = sum(1 for it in cat["items"] if it.get("image") and it["image"] not in cache)
     n = lambda k: sum(1 for it in cat["items"] if it.get(k))
     print(f"Photo tags: tagged {done} today, {left} left for the next run; "
