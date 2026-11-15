@@ -1,53 +1,52 @@
 {
- "date": "2026-11-14",
+ "date": "2026-11-15",
  "budget_cad": 500,
  "items": [
   {
    "store": "Canada Weather Gear",
-   "title": "1/4 Zip Striped Pullover Sweater - Black",
-   "url": "https://canadaweathergear.com/products/665-2902-02",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_8ae4d31b-b959-451b-8984-6da0b882e39c.jpg?v=1784618314",
-   "price_cad": 20.0,
-   "was_cad": 60.0,
-   "off_pct": 67,
+   "title": "Classic Sports Polo Shirt - Black",
+   "url": "https://canadaweathergear.com/products/628-5230-01",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_50f49ec2-ca8c-46bb-8b4a-9bbdcbb1192a.jpg?v=1783512695",
+   "price_cad": 10.0,
+   "was_cad": 50.0,
+   "off_pct": 80,
    "sizes": [
     "L",
     "M",
-    "S"
+    "S",
+    "XL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Universal Works",
-   "title": "Brown Kennedy Stripe Hi Water Trouser",
-   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
-   "price_cad": 117.0,
-   "was_cad": 288.0,
-   "off_pct": 59,
+   "store": "Wax London",
+   "title": "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "url": "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
+   "image": "https://cdn.shopify.com/s/files/1/0575/9575/6709/files/tyne-black-and-khaki-chenille-jacquard-trousers_9b40d9cd.jpg?v=1771618965",
+   "price_cad": 121.5,
+   "was_cad": 243.0,
+   "off_pct": 50,
    "sizes": [
     "28",
-    "32",
-    "36"
+    "30",
+    "34"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
    "store": "Taft",
-   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
+   "title": "The Sterling Penny Loafer in Black Croco (Final Sale)",
+   "url": "https://taftclothing.com/products/the-sterling-loafer-in-black-croc",
+   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-CBK_TAFT1.jpg?v=1762447432",
    "price_cad": 172.5,
    "was_cad": 413.99,
    "off_pct": 58,
    "sizes": [
     "10",
-    "10.5",
     "11",
     "11.5",
-    "12",
     "13",
     "8",
     "8.5",
@@ -59,15 +58,15 @@
   },
   {
    "store": "Canada Weather Gear",
-   "title": "Colour Block Hooded Vest - Black",
-   "url": "https://canadaweathergear.com/products/303-2250-01",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_ff613879-09a0-441b-99ab-da76f60328f4.jpg?v=1784618284",
+   "title": "Colour Block Camo Hooded Vest - Olive",
+   "url": "https://canadaweathergear.com/products/303-2250-84",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_a1eea5ca-65b7-4332-9412-ccc835acced1.jpg?v=1784618289",
    "price_cad": 29.99,
    "was_cad": 120.0,
    "off_pct": 75,
    "sizes": [
-    "L",
-    "M"
+    "M",
+    "XL"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -75,38 +74,29 @@
  ],
  "alternatives": [
   [
+   "Striped Sports Polo Shirt - Black",
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "The Sterling Penny Loafer in Black Croco (Final Sale)",
+   "Colour Block Camo Hooded Vest - Olive"
+  ],
+  [
    "Striped Sports Polo Shirt - Blue",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Colour Block Hooded Vest - Black"
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "The Sterling Penny Loafer in Black Croco (Final Sale)",
+   "Puffer Vest - Black"
   ],
   [
    "Striped Polo Shirt - Red",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Colour Block Hooded Vest - Black"
-  ],
-  [
-   "The Startup Polo | Black Chambray",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Colour Block Hooded Vest - Black"
+   "Tyne - Black And Khaki Chenille Jacquard Trousers",
+   "The Sterling Penny Loafer in Black Croco (Final Sale)",
+   "Puffer Vest - Black"
   ]
  ],
- "total_cad": 339.49,
- "was_total_cad": 881.99,
- "saved_cad": 542.5,
- "note": "Colors: black + brown.",
+ "total_cad": 333.99,
+ "was_total_cad": 826.99,
+ "saved_cad": 493.0,
+ "note": "Colors: black + green + tan.",
  "history": [
-  {
-   "date": "2026-11-09",
-   "urls": [
-    "https://canadaweathergear.com/products/627-8240-10",
-    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-    "https://beckettsimonon.com/products/asher-oxfords-suede-men-s",
-    "https://canadaweathergear.com/products/303-4642-04"
-   ]
-  },
   {
    "date": "2026-11-10",
    "urls": [
@@ -150,6 +140,15 @@
     "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
     "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
     "https://canadaweathergear.com/products/303-2250-01"
+   ]
+  },
+  {
+   "date": "2026-11-15",
+   "urls": [
+    "https://canadaweathergear.com/products/628-5230-01",
+    "https://waxlondon.com/products/tyne-black-and-khaki-chenille-jacquard-trousers",
+    "https://taftclothing.com/products/the-sterling-loafer-in-black-croc",
+    "https://canadaweathergear.com/products/303-2250-84"
    ]
   }
  ]
