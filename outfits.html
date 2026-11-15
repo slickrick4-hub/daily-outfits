@@ -342,7 +342,10 @@ function build(items,p,shuffle){
   ok.forEach(i=>{i._s=scoreItem(i,p,shuffle)});POOL=ok;
   // best n pieces of a kind, plus up to 8 more from big retailers (no size data) so they can compete
   // (at most 2 colour versions of the same product, so a few products can't fill the whole pool)
-  const pick=(k,n)=>{const fam={},all=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).filter(i=>{const f=FAM(i);fam[f]=(fam[f]||0)+1;return fam[f]<=2});
+  // (and at most a quarter of the pool from one store, so other stores get a chance)
+  const pick=(k,n)=>{const fam={},st={},sorted=ok.filter(i=>i.kind===k).sort((a,b)=>b._s-a._s).filter(i=>{const f=FAM(i);fam[f]=(fam[f]||0)+1;return fam[f]<=2});
+    let all=sorted.filter(i=>{st[i.store]=(st[i.store]||0)+1;return st[i.store]<=Math.ceil(n/4)});
+    if(all.length<n)all=all.concat(sorted.filter(i=>!all.includes(i)));   // few stores on: fill up anyway
     return all.slice(0,n).concat(all.slice(n).filter(i=>i.sizes_unknown).slice(0,8))};
   // pieces the visitor owns join the pool at the score of a good (10th best) sale piece of the same kind
   const own=k=>{const mine=OWN.map(ownItem).filter(o=>o.kind===k&&(k!=='shoes'||p.shoes));if(!mine.length)return[];
@@ -360,12 +363,19 @@ function build(items,p,shuffle){
     for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);if(nOwn(f)>2)continue;combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
   const only=p.onlymine&&OWN.length>0,CO=only?60:20;  // CO: outfits allowed per owned piece (about a third)
-  const out=[],uT={},uB={},uS={},uL={},uO={},uF={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
+  const out=[],uT={},uB={},uS={},uL={},uO={},uF={},uSt={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
+  // SC: sale pieces allowed per store across the feed (about an eighth of it), double for stores you starred
+  const FAV=new Set(ST&&ST.brands||[]);let SC=24;const capOf=s=>FAV.has(s)?SC*2:SC;
+  let MINQ=1;   // colour and fit score an outfit needs; the store limit must not push weak looks in
   const FCAP=ST&&ST.vibes&&ST.vibes.length?5:3;   // outfits per formula
   const add=(parts,f)=>{if(f&&(uF[f.id]||0)>=FCAP)return false;const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear'),mine=parts.filter(x=>x.owned);
     const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs+'|'+fo;
     // the per-piece limits apply to sale pieces; your own pieces have their own limit (CO)
     if(seen[key]||mine.some(x=>(uO[x.url]||0)>=CO)||(!t.owned&&uT[ft])||(!b.owned&&(uB[fb]||0)>=CB)||(s&&!s.owned&&(uS[fs]||0)>=CS)||(o&&((!o.owned&&(uL[fo]||0)>=3)||(!f&&nl*3>out.length+3))))return false;
+    if(coh(parts)+cb(parts)<MINQ)return false;
+    const per={};parts.forEach(x=>{if(!x.owned)per[x.store]=(per[x.store]||0)+1});
+    if(Object.keys(per).some(s=>(uSt[s]||0)+per[s]>capOf(s)))return false;
+    for(const s in per)uSt[s]=(uSt[s]||0)+per[s];
     seen[key]=1;if(!t.owned)uT[ft]=1;if(!b.owned)uB[fb]=(uB[fb]||0)+1;if(s&&!s.owned)uS[fs]=(uS[fs]||0)+1;if(o){if(!o.owned)uL[fo]=(uL[fo]||0)+1;nl++}
     mine.forEach(x=>uO[x.url]=(uO[x.url]||0)+1);
     if(f)uF[f.id]=(uF[f.id]||0)+1;
@@ -389,7 +399,10 @@ function build(items,p,shuffle){
     if(ib>=0){ib=next(big,ib);if(ib>=0)continue}
     break}
   // too few looks (often a tight budget): let bottoms and shoes repeat a bit more, tops stay unique
-  if(out.length<36){CB=5;CS=9;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
+  // short feed: first let stores appear more often, then (and the store limit is lifted,
+  // for visitors who turned most stores off) let bottoms and shoes repeat more too
+  if(out.length<60){SC=40;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
+  if(out.length<36){CB=5;CS=9;SC=1e9;MINQ=-1e9;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
   return out}
 const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
