@@ -79,3 +79,7 @@ main p{max-width:68ch}
 li.mine{color:var(--mut)}
 #onlywrap{margin:4px 0 0}
 .fwhy{font-size:13px;color:var(--mut);margin:-6px 4px 6px}
+/* first-visit sample outfits: same cards as the feed, without the buttons */
+#preview{margin:8px 0 18px}#preview h2{margin-bottom:2px}
+#pfeed{display:grid;grid-template-columns:1fr;gap:26px;margin-top:10px}
+#pfeed .pc{display:none}

@@ -20,13 +20,19 @@
 <p class="sub" id="mystyle" hidden></p>
 <section id="welcome" class="welcome" hidden>
 <h2>Welcome! Let’s fit this to you</h2>
-<p class="sub">Tap your sizes (skip any you don’t care about), set a budget, then take the 1-minute style quiz. Everything stays on this device.</p>
+<p class="sub">Tap your sizes (skip any you don’t care about), set a budget, then take the 1-minute style quiz. Everything stays on this device. <a href="#preview" id="w_peek" hidden>Or see a few of today’s looks first&nbsp;↓</a></p>
 <div class="wrow"><b>Top sizes</b><div class="chips" id="w_tops"></div></div>
 <div class="wrow"><b>Waist (inches)</b><div class="chips" id="w_waist"></div></div>
 <div class="wrow"><b>Budget per outfit: <span id="w_bval"></span></b><input type="range" id="w_budget" min="100" max="800" step="25"></div>
 <div class="wrow"><label class="tog"><input type="checkbox" id="w_shoes"> Include shoes in outfits</label><div class="chips" id="w_shoe" hidden></div></div>
 <p class="sub"><button type="button" class="lnk" id="w_own">Already own some basics? Add a few</button> and some outfits will build around them.</p>
 <div class="act"><button id="w_quiz">Take the 1-minute style quiz</button><button class="o" id="w_go">Just show me outfits</button></div>
+</section>
+<section id="preview" hidden>
+<h2>A taste of today’s looks</h2>
+<p class="sub">Picked without your sizes or style. Set those above and every outfit will fit you.</p>
+<div id="pfeed"></div>
+<div class="act"><button type="button" id="p_fit">Fit these to me</button></div>
 </section>
 <details id="setup" open><summary>Your sizes, budget and taste</summary>
 <div class="grid">
@@ -422,7 +428,7 @@ function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==
 function updBan(){$('unban').hidden=!BANNED.size;$('unban').textContent='Bring back '+BANNED.size+' removed pieces'}
 function showMore(){const next=OUT.slice(SH,SH+12);$('feed').insertAdjacentHTML('beforeend',next.map((o,k)=>card(o,SH+k)).join(''));SH+=next.length;
   $('count').textContent='Showing '+SH+' of '+OUT.length+' outfits';$('more2').hidden=SH>=OUT.length}
-function run(shuffle){const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;$('feed').innerHTML='';
+function run(shuffle){$('preview').hidden=true;$('pfeed').innerHTML='';const p=read();CUR=p;save();OUT=build(CAT,p,shuffle);SH=0;$('feed').innerHTML='';
   if(!OUT.length){$('feed').innerHTML='<p class="sub">No outfits fit right now. Try a bigger budget, fewer words to avoid, more stores, or check back tomorrow when new sales arrive.</p>';
     $('more').hidden=true;$('more2').hidden=true;$('count').textContent='';$('setup').open=true;return}
   showMore();$('more').hidden=false;$('setup').open=false}
@@ -462,7 +468,16 @@ function welcome(){const W_=$('welcome');W_.hidden=false;$('setup').open=false;
   sh.onchange=()=>{$('withshoes').checked=sh.checked;$('w_shoe').hidden=!sh.checked};
   $('w_quiz').onclick=()=>{save();location.href='quiz.html'};
   $('w_own').onclick=()=>{$('setup').open=true;$('wardrobe').scrollIntoView({behavior:'smooth',block:'start'})};
-  $('w_go').onclick=()=>{W_.hidden=true;SAVED=true;run(false);renderStyle()}}
+  $('w_go').onclick=()=>{W_.hidden=true;SAVED=true;run(false);renderStyle()};
+  preview()}
+// first visit: three sample outfits under the welcome card, so newcomers see what the site does.
+// Built from the default settings with shoes; nothing is saved, and the cards have no buttons.
+function preview(){let all=[],o=[];try{all=build(CAT,Object.assign({},read(),{shoes:true}),false)}catch(e){}
+  const seen=new Set(),overlap=x=>x.parts.filter(i=>seen.has(i.store)).length;   // three looks sharing as few stores as possible, so newcomers see the range
+  while(o.length<3&&o.length<all.length){let best=null;for(const x of all)if(!o.includes(x)&&(!best||overlap(x)<overlap(best)))best=x;
+    o.push(best);best.parts.forEach(i=>seen.add(i.store))}
+  if(!o.length)return;$('pfeed').innerHTML=o.map((x,k)=>card(x,'p'+k)).join('');$('preview').hidden=false;$('w_peek').hidden=false;
+  $('p_fit').onclick=()=>$('welcome').scrollIntoView({behavior:'smooth',block:'start'})}
 show(load());updBan();renderStyle();renderOwn();
 $('onlymine').onchange=()=>run(false);
 fetch('data/catalog.json?'+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(c=>{CAT=c.items;REG=c.stores||{};chips();
