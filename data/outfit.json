@@ -1,16 +1,17 @@
 {
- "date": "2026-11-18",
+ "date": "2026-11-19",
  "budget_cad": 500,
  "items": [
   {
    "store": "Canada Weather Gear",
-   "title": "Striped 1/4 Zip Pullover Sweater - Black",
-   "url": "https://canadaweathergear.com/products/658-0603-01",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_ac74ec4e-977c-473b-bfd6-53afb6ce4c16.jpg?v=1784618307",
+   "title": "1/4 Zip Striped Pullover Sweater - Black",
+   "url": "https://canadaweathergear.com/products/665-2902-02",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_8ae4d31b-b959-451b-8984-6da0b882e39c.jpg?v=1784618314",
    "price_cad": 20.0,
    "was_cad": 60.0,
    "off_pct": 67,
    "sizes": [
+    "L",
     "M",
     "S"
    ],
@@ -18,36 +19,35 @@
    "kind": "top"
   },
   {
-   "store": "Folk",
-   "title": "5 Pocket Trouser - Soft Grey Denim",
-   "url": "https://folkclothing.com/products/5-pocket-trouser-soft-grey-denim",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/SS25Flats2-217.jpg?v=1763391334",
-   "price_cad": 90.0,
-   "was_cad": 261.0,
-   "off_pct": 66,
+   "store": "Universal Works",
+   "title": "Brown Kennedy Stripe Hi Water Trouser",
+   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
+   "price_cad": 117.0,
+   "was_cad": 288.0,
+   "off_pct": 59,
    "sizes": [
     "28",
-    "30",
     "32",
-    "34",
-    "36",
-    "38"
+    "36"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
    "store": "Taft",
-   "title": "The Sterling Penny Loafer in Black Croco (Final Sale)",
-   "url": "https://taftclothing.com/products/the-sterling-loafer-in-black-croc",
-   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-CBK_TAFT1.jpg?v=1762447432",
+   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
    "price_cad": 172.5,
    "was_cad": 413.99,
    "off_pct": 58,
    "sizes": [
     "10",
+    "10.5",
     "11",
     "11.5",
+    "12",
     "13",
     "8",
     "8.5",
@@ -59,16 +59,15 @@
   },
   {
    "store": "Folk",
-   "title": "Hayley Vest - Soft Khaki",
-   "url": "https://folkclothing.com/products/folk-hayley-vest-soft-khaki",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-hayley-vest-soft-khaki-423.jpg?v=1793707675",
-   "price_cad": 54.0,
+   "title": "Thomas Overshirt - Black",
+   "url": "https://folkclothing.com/products/folk-thomas-overshirt-black",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-thomas-overshirt-black-2085.jpg?v=1793806716",
+   "price_cad": 72.0,
    "was_cad": 324.0,
-   "off_pct": 83,
+   "off_pct": 78,
    "sizes": [
     "L",
     "M",
-    "S",
     "XL"
    ],
    "final_sale": false,
@@ -78,37 +77,28 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Black",
-   "5 Pocket Trouser - Soft Grey Denim",
-   "The Sterling Penny Loafer in Black Croco (Final Sale)",
-   "Hayley Vest - Soft Khaki"
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Black"
   ],
   [
    "Striped Sports Polo Shirt - Blue",
-   "5 Pocket Trouser - Soft Grey Denim",
-   "The Sterling Penny Loafer in Taupe Suede (Final Sale)",
-   "Hayley Vest - Soft Khaki"
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Black"
   ],
   [
    "Striped Polo Shirt - Green",
-   "5 Pocket Trouser - Soft Grey Denim",
-   "The Sterling Penny Loafer in Taupe Suede (Final Sale)",
-   "Hayley Vest - Soft Khaki"
+   "Brown Kennedy Stripe Hi Water Trouser",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Black"
   ]
  ],
- "total_cad": 336.5,
- "was_total_cad": 1058.99,
- "saved_cad": 722.49,
- "note": "Colors: black + grey + tan.",
+ "total_cad": 381.5,
+ "was_total_cad": 1085.99,
+ "saved_cad": 704.49,
+ "note": "Colors: black + brown.",
  "history": [
-  {
-   "date": "2026-11-13",
-   "urls": [
-    "https://rowingblazers.com/products/mens-cashmere-striped-sweater-navy-and-cream-stripe",
-    "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
-    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-    "https://waxlondon.com/products/montague-brown-and-ecru-striped-ribbed-organic-cotton-vest"
-   ]
-  },
   {
    "date": "2026-11-14",
    "urls": [
@@ -152,6 +142,15 @@
     "https://folkclothing.com/products/5-pocket-trouser-soft-grey-denim",
     "https://taftclothing.com/products/the-sterling-loafer-in-black-croc",
     "https://folkclothing.com/products/folk-hayley-vest-soft-khaki"
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "urls": [
+    "https://canadaweathergear.com/products/665-2902-02",
+    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://folkclothing.com/products/folk-thomas-overshirt-black"
    ]
   }
  ]
