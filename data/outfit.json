@@ -1,35 +1,35 @@
 {
- "date": "2026-11-19",
+ "date": "2026-11-20",
  "budget_cad": 500,
  "items": [
   {
    "store": "Canada Weather Gear",
-   "title": "1/4 Zip Striped Pullover Sweater - Black",
-   "url": "https://canadaweathergear.com/products/665-2902-02",
-   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_8ae4d31b-b959-451b-8984-6da0b882e39c.jpg?v=1784618314",
-   "price_cad": 20.0,
-   "was_cad": 60.0,
-   "off_pct": 67,
+   "title": "Striped Sports Polo Shirt - Black",
+   "url": "https://canadaweathergear.com/products/628-5232-01",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_00258d06-1c0e-4fe3-8ef9-3c1efdd9ff99.jpg?v=1783611821",
+   "price_cad": 10.0,
+   "was_cad": 50.0,
+   "off_pct": 80,
    "sizes": [
-    "L",
     "M",
-    "S"
+    "S",
+    "XL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Universal Works",
-   "title": "Brown Kennedy Stripe Hi Water Trouser",
-   "url": "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/34134_kennedy-stripe-brown_1_37f85515-edd4-4b2d-ba94-5478690f0e13.jpg?v=1771258149",
-   "price_cad": 117.0,
-   "was_cad": 288.0,
-   "off_pct": 59,
+   "store": "Arte Antwerp",
+   "title": "Striped Trousers - Navy",
+   "url": "https://arte-antwerp.com/products/striped-trousers-black",
+   "image": "https://cdn.shopify.com/s/files/1/0844/1061/files/striopednavypants.jpg?v=1720687716",
+   "price_cad": 158.1,
+   "was_cad": 263.5,
+   "off_pct": 40,
    "sizes": [
-    "28",
     "32",
-    "36"
+    "36",
+    "40"
    ],
    "final_sale": false,
    "kind": "bottom"
@@ -59,16 +59,14 @@
   },
   {
    "store": "Folk",
-   "title": "Thomas Overshirt - Black",
-   "url": "https://folkclothing.com/products/folk-thomas-overshirt-black",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-thomas-overshirt-black-2085.jpg?v=1793806716",
+   "title": "Thomas Overshirt - Dark Navy",
+   "url": "https://folkclothing.com/products/folk-thomas-overshirt-dark-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-thomas-overshirt-dark-navy-1774.jpg?v=1793806716",
    "price_cad": 72.0,
    "was_cad": 324.0,
    "off_pct": 78,
    "sizes": [
-    "L",
-    "M",
-    "XL"
+    "L"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -76,38 +74,29 @@
  ],
  "alternatives": [
   [
-   "Striped Sports Polo Shirt - Black",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Thomas Overshirt - Black"
+   "Native Striped T-Shirt - Khaki / Navy / Ecru",
+   "Striped Trousers - Navy",
+   "The Sterling Penny Loafer in Taupe Suede (Final Sale)",
+   "Thomas Overshirt - Dark Navy"
   ],
   [
    "Striped Sports Polo Shirt - Blue",
-   "Brown Kennedy Stripe Hi Water Trouser",
+   "Striped Trousers - Navy",
    "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Thomas Overshirt - Black"
+   "Thomas Overshirt - Dark Navy"
   ],
   [
    "Striped Polo Shirt - Green",
-   "Brown Kennedy Stripe Hi Water Trouser",
+   "Striped Trousers - Navy",
    "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "Thomas Overshirt - Black"
+   "Thomas Overshirt - Dark Navy"
   ]
  ],
- "total_cad": 381.5,
- "was_total_cad": 1085.99,
- "saved_cad": 704.49,
- "note": "Colors: black + brown.",
+ "total_cad": 412.6,
+ "was_total_cad": 1051.49,
+ "saved_cad": 638.89,
+ "note": "Colors: black + brown + navy.",
  "history": [
-  {
-   "date": "2026-11-14",
-   "urls": [
-    "https://canadaweathergear.com/products/665-2902-02",
-    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-    "https://canadaweathergear.com/products/303-2250-01"
-   ]
-  },
   {
    "date": "2026-11-15",
    "urls": [
@@ -151,6 +140,15 @@
     "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
     "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
     "https://folkclothing.com/products/folk-thomas-overshirt-black"
+   ]
+  },
+  {
+   "date": "2026-11-20",
+   "urls": [
+    "https://canadaweathergear.com/products/628-5232-01",
+    "https://arte-antwerp.com/products/striped-trousers-black",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://folkclothing.com/products/folk-thomas-overshirt-dark-navy"
    ]
   }
  ]
