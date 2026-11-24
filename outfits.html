@@ -160,14 +160,47 @@ function cb(parts){const cs=parts.map(COL).filter(c=>c.length);if(!cs.length)ret
   return b}
 const wsum=i=>Math.max(-6,Math.min(8,tok(i).reduce((a,t)=>a+(W[t]||0),0)));
 const mean=a=>a.reduce((n,x)=>n+x,0)/a.length;
-const FAM=i=>i.title.toLowerCase().split(/ in | - /)[0].trim();
+// product family: the same product in another colour counts once ("Carpenter Jean | Hanoi Stone" and "| Ermine Wash");
+// with "Brand | Product" titles, the part that names a garment is the product
+const GARM=/jean|pant|trouser|chino|cargo|short|shirt|tee|polo|henley|sweater|knit|crew|hood|cardigan|jacket|coat|vest|overshirt|blazer|parka|puffer|boot|sneaker|shoe|loafer|derby|trainer/;
+const FAM=i=>{const segs=i.title.toLowerCase().split(' | ');return (segs.find(x=>GARM.test(x))||segs[0]).split(/ in | - /)[0].trim()+'@'+i.store};
 const PAT=/stripe|plaid|check|gingham|houndstooth|camo|floral|print|paisley/;
 function formal(i){const t=i.title.toLowerCase(),k=i.kind;
   if(k==='shoes')return /loafer|derby|derbies|oxfords|brogue|monk|wingtip/.test(t)?4:/boot|chelsea/.test(t)?3:/sneaker|trainer|slip.on|driver|moc/.test(t)?2:2.3;   // unnamed styles are usually sneakers
   if(k==='bottom')return /tuxedo|suit pant/.test(t)?5:/trouser|slack|wool/.test(t)?4:/chino/.test(t)?3:/denim|jean|selvedge|selvage/.test(t)?2:/cargo|jogger|sweatpant|track|short/.test(t)?1:3;
   if(k==='outerwear')return /blazer|sportcoat|suit/.test(t)?5:/coat|trench|wool/.test(t)?4:/overshirt|vest|shacket/.test(t)?3:/hood/.test(t)?1:2.5;
   return /\btee\b|hoodie|sweatshirt|henley|tank/.test(t)?1:/oxford|button|chambray|poplin|dress shirt/.test(t)?3.5:/polo/.test(t)?3:2.5}
-function layerable(i){const t=i.title.toLowerCase();return /\btee\b|polo|henley|shirt|button|oxford|chambray|flannel|poplin|long.?sleeve/.test(t)&&!/sweater|hoodie|sweatshirt|cardigan|fleece|quarter|zip|crew/.test(t)}
+// ---- what can go under which layer ----
+// layer types, checked in this order (a "quilted overshirt" is an overshirt, a "down parka" a puffer)
+const LAYER_T=[['blazer',/blazer|sport ?coat|suit jacket/],['over',/overshirt|shirt jacket|shacket|chore|utility shirt/],
+  ['vest',/\bvest\b|gilet/],['denim',/trucker|denim jacket|jean jacket/],['puff',/puffer|\bdown\b|quilted|padded|insulated|parka/],
+  ['coat',/overcoat|top ?coat|peacoat|car ?coat|trench|wool coat|\bcoat\b/],['sport',/bomber|varsity|track jacket|coach|windbreaker|anorak|fleece|hood|shell|rain/]];
+const layerType=o=>{const t=o.title.toLowerCase();for(const[k,r]of LAYER_T)if(r.test(t))return k;return 'jacket'};
+// top types: summer pieces never go under a layer; then tees, hoodies, knits, polos, casual and dress shirts
+function topType(i){const t=(i.title||i.name||'').toLowerCase();
+  if(/short.?sleeve|\bs\/s\b|open collar|camp|resort|hawaiian|cuban|bowling|linen|tank|sleeveless/.test(t))return 'summer';
+  if(/full.?zip|fleece|track top/.test(t))return 'mid';                     // zip-up mid layers
+  if(/hood|sweatshirt/.test(t))return 'hood';
+  if(/\btee\b|t-shirt|tshirt/.test(t))return i.ptype==='graphic'||/graphic|logo|print/.test(t)?'graphic':'tee';
+  if(/polo/.test(t)&&!/rugby/.test(t))return 'polo';
+  if(/sweater|knit|crew|cardigan|cashmere|merino|turtleneck|mock|quarter|half.?zip|q-?zip|rugby|pullover/.test(t))return 'knit';
+  if(/henley|long.?sleeve|waffle|thermal/.test(t))return 'henley';
+  if(/flannel|chamois|corduroy|cord shirt|twill shirt|work shirt|western|overshirt/.test(t))return 'flannel';
+  if(/dress shirt|tailored|poplin|formal|tuxedo/.test(t))return 'dress';
+  if(/shirt|oxford|button|chambray|popover/.test(t))return 'shirt';
+  return 'other'}
+const UNDER={blazer:['tee','polo','knit','henley','shirt','dress','flannel','other'],
+  over:['tee','graphic','hood','knit','henley','other'],                        // never shirt on shirt
+  vest:['tee','hood','mid','knit','henley','shirt','dress','flannel','other'],
+  denim:['tee','graphic','hood','knit','henley','shirt','flannel','other'],
+  puff:['tee','graphic','hood','mid','knit','henley','shirt','flannel','other'],
+  coat:['tee','knit','henley','shirt','dress','flannel','other'],
+  sport:['tee','graphic','hood','knit','henley','polo','shirt','flannel','other'],
+  jacket:['tee','graphic','hood','mid','knit','henley','polo','shirt','flannel','other']};
+function canLayer(top,o){const tt=topType(top),lt=layerType(o),ot=o.title.toLowerCase();if(!UNDER[lt].includes(tt))return false;
+  if(/sweater|knit|\bcrew\b/.test(ot.split(' | ')[0])&&!/jacket|coat|cardigan|vest/.test(ot.split(' | ')[0]))return false;   // a sweater filed as a jacket
+  if(lt==='denim'&&/denim|chambray|jean/.test((top.title||'').toLowerCase()))return false;   // no denim on denim
+  return true}
 function coh(parts){const f=parts.map(formal),rng=Math.max(...f)-Math.min(...f);let s=-Math.max(0,rng-1.5)*2;
   const pats=parts.filter(x=>x.pattern||PAT.test(x.title.toLowerCase())).length;/* name or photo */if(pats>1)s-=3*(pats-1);return s+prop(parts)+onelook(parts)}
 const CLASH=[['classic','street']];
@@ -298,7 +331,7 @@ const FORMULAS=[
  {id:'weekend',name:'Weekend uniform',vibe:'casual',why:'Sweatshirt, easy trousers and white sneakers: comfortable and still sharp.',
   top:{rx:/sweatshirt|crewneck|hood|fleece/,c:NEUT},bottom:{rx:/chino|pant|jean/,c:['tan','navy','green','blue','grey']},shoes:{rx:SNEAK,c:['white']}},
  {id:'teejacket',name:'Tee & denim jacket',vibe:'casual',why:'A denim jacket turns a plain tee into an outfit.',
-  top:{rx:/tee|t-shirt/,c:['white','grey','black']},bottom:{rx:/chino|pant|cargo/,c:['tan','green','black','grey','brown']},shoes:{rx:SNEAK},outerwear:{rx:/denim jacket|trucker|jean jacket/}},
+  top:{rx:/tee|t-shirt/,c:['white','grey','black']},bottom:{rx:/chino|pant|cargo/,c:['tan','green','black','grey','brown']},shoes:{rx:SNEAK},outerwear:{rx:/denim jacket|trucker|jean jacket/,no:/camo|suede|leather|nubuck|terry|sherpa|corduroy|cord/}},
  {id:'henley',name:'Henley & jeans',vibe:'casual',why:'A henley sits between a tee and a shirt, perfect with jeans.',
   top:{rx:/henley/},bottom:{rx:/jean|denim/},shoes:{rx:/boot|sneaker|trainer/}},
  {id:'hoodiecargo',name:'Hoodie & cargos',vibe:'street',why:'Roomy hoodie over roomy cargos: the core streetwear shape.',
@@ -312,7 +345,7 @@ const FORMULAS=[
  {id:'carpenter',name:'Carpenter & boxy tee',vibe:'street',why:'Workwear trousers with a boxy tee: street with a utility edge.',
   top:{rx:/tee|t-shirt|crew/,sh:'wide'},bottom:{rx:/carpenter|work pant|double knee|painter/},shoes:{rx:/sneaker|trainer|boot/}}];
 const fitsSlot=(i,sl)=>{if(!sl)return false;const t=i.title.toLowerCase();
-  if(![].concat(sl.rx).every(r=>r.test(t)))return false;
+  if(![].concat(sl.rx).every(r=>r.test(t))||(sl.no&&sl.no.test(t)))return false;
   if(sl.gfx&&i.ptype!=='graphic'&&!/graphic|logo|print|embroider/.test(t))return false;   // graphic in the name or the photo
   if(sl.c&&COL(i).length&&!COL(i).some(c=>sl.c.includes(c)))return false;   // unknown colour still allowed
   if(sl.sh){const h=shape(i);if(h&&h!==sl.sh)return false}
@@ -332,7 +365,7 @@ function formulaCombos(ok,p){const res=[],want=ST&&ST.vibes&&ST.vibes.length?ST.
     const layers=f.outerwear?(f.outerwear.opt?[null,...L]:L):[null];
     for(const t of T)for(const b of B){
       if(f.tonal){const ct=COL(t),cbo=COL(b);if(!ct.length||!ct.some(c=>cbo.includes(c)))continue}
-      for(const s of(S.length?S:[null]))for(const o of layers){
+      for(const s of(S.length?S:[null]))for(const o of layers){if(o&&!canLayer(t,o))continue;
         const parts=[t,b,s,o].filter(Boolean),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
         res.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts)+fz(parts)+2+pref,parts,f])}}}
   return res.sort((a,b)=>b[0]-a[0])}
@@ -352,30 +385,32 @@ function build(items,p,shuffle){
     const ss=ok.filter(i=>i.kind===k).map(i=>i._s).sort((a,b)=>b-a),ref=ss.length?ss[Math.min(9,ss.length-1)]:3;
     mine.forEach(o=>o._s=ref+2*hit(txt(o),likeW));return mine};
   const nOwn=a=>a.filter(x=>x.owned).length;
-  const tops=pick('top',60).concat(own('top')),bots=pick('bottom',40).concat(own('bottom')),shoes=p.shoes?pick('shoes',30).concat(own('shoes')):[],lay=pick('outerwear',20).concat(own('outerwear')),base=[];
+  // pieces you loved that are still on sale always join the pool (they may score below the cut)
+  const loved=(a,k)=>{const have=new Set(a);ok.forEach(i=>{if(i.kind===k&&LIKED.has(i.url)&&!have.has(i))a.push(i)});return a};
+  const tops=loved(pick('top',60),'top').concat(own('top')),bots=loved(pick('bottom',40),'bottom').concat(own('bottom')),shoes=p.shoes?loved(pick('shoes',30),'shoes').concat(own('shoes')):[],lay=loved(pick('outerwear',20),'outerwear').concat(own('outerwear')),base=[];
   for(const t of tops)for(const b of bots)for(const s of(shoes.length?shoes:[null])){
     const parts=[t,b].concat(s?[s]:[]),cost=sum(parts,'price_cad');if(cost>p.budget)continue;
     const no=nOwn(parts);if(no>2||no===parts.length)continue;   // at most 2 of yours, always something to buy
     base.push([mean(parts.map(x=>x._s))+coh(parts)+cb(parts)+fz(parts),parts,cost])}
   base.sort((a,b)=>b[0]-a[0]);
   const combos=base.map(x=>[x[0],x[1]]);
-  for(const[,parts,cost]of base.slice(0,500)){if(!layerable(parts[0]))continue;
-    for(const o of lay)if(cost+o.price_cad<=p.budget){const f=parts.concat([o]);if(nOwn(f)>2)continue;combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
+  for(const[,parts,cost]of base.slice(0,500)){
+    for(const o of lay)if(cost+o.price_cad<=p.budget&&canLayer(parts[0],o)){const f=parts.concat([o]);if(nOwn(f)>2)continue;combos.push([mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f)+.3,f])}}
   combos.sort((a,b)=>b[0]-a[0]);
   const only=p.onlymine&&OWN.length>0,CO=only?60:20;  // CO: outfits allowed per owned piece (about a third)
-  const out=[],uT={},uB={},uS={},uL={},uO={},uF={},uSt={},seen={};let nl=0,CB=3,CS=5;  // CB/CS: outfits allowed per bottom / per shoe
-  // SC: sale pieces allowed per store across the feed (about an eighth of it), double for stores you starred
-  const FAV=new Set(ST&&ST.brands||[]);let SC=24;const capOf=s=>FAV.has(s)?SC*2:SC;
+  const out=[],uT={},uB={},uS={},uL={},uO={},uF={},uSt={},seen={};let nl=0,CB=2,CS=3;  // CB/CS: outfits allowed per bottom / per shoe
+  // SC: outfits a store may appear in (1 in 4 of the feed), more for stores you starred
+  const FAV=new Set(ST&&ST.brands||[]);let SC=15;const capOf=s=>FAV.has(s)?Math.round(SC*1.6):SC;
   let MINQ=1;   // colour and fit score an outfit needs; the store limit must not push weak looks in
   const FCAP=ST&&ST.vibes&&ST.vibes.length?5:3;   // outfits per formula
   const add=(parts,f)=>{if(f&&(uF[f.id]||0)>=FCAP)return false;const t=parts[0],b=parts[1],s=parts.find(x=>x.kind==='shoes'),o=parts.find(x=>x.kind==='outerwear'),mine=parts.filter(x=>x.owned);
     const ft=FAM(t),fb=FAM(b),fs=s?FAM(s):'',fo=o?FAM(o):'',key=ft+'|'+fb+'|'+fs+'|'+fo;
     // the per-piece limits apply to sale pieces; your own pieces have their own limit (CO)
-    if(seen[key]||mine.some(x=>(uO[x.url]||0)>=CO)||(!t.owned&&uT[ft])||(!b.owned&&(uB[fb]||0)>=CB)||(s&&!s.owned&&(uS[fs]||0)>=CS)||(o&&((!o.owned&&(uL[fo]||0)>=3)||(!f&&nl*3>out.length+3))))return false;
+    if(seen[key]||mine.some(x=>(uO[x.url]||0)>=CO)||(!t.owned&&uT[ft])||(!b.owned&&(uB[fb]||0)>=CB)||(s&&!s.owned&&(uS[fs]||0)>=CS)||(o&&((!o.owned&&(uL[fo]||0)>=2)||(!f&&nl*3>out.length+3))))return false;
     if(coh(parts)+cb(parts)<MINQ)return false;
-    const per={};parts.forEach(x=>{if(!x.owned)per[x.store]=(per[x.store]||0)+1});
-    if(Object.keys(per).some(s=>(uSt[s]||0)+per[s]>capOf(s)))return false;
-    for(const s in per)uSt[s]=(uSt[s]||0)+per[s];
+    const per=[...new Set(parts.filter(x=>!x.owned).map(x=>x.store))];
+    if(per.some(s=>(uSt[s]||0)>=capOf(s)))return false;
+    per.forEach(s=>uSt[s]=(uSt[s]||0)+1);
     seen[key]=1;if(!t.owned)uT[ft]=1;if(!b.owned)uB[fb]=(uB[fb]||0)+1;if(s&&!s.owned)uS[fs]=(uS[fs]||0)+1;if(o){if(!o.owned)uL[fo]=(uL[fo]||0)+1;nl++}
     mine.forEach(x=>uO[x.url]=(uO[x.url]||0)+1);
     if(f)uF[f.id]=(uF[f.id]||0)+1;
@@ -386,10 +421,13 @@ function build(items,p,shuffle){
   const big=all.filter(c=>c[1].some(x=>x.sizes_unknown)),mine=OWN.length?all.filter(isMine):[],plain=OWN.length&&!only?all.filter(c=>!isMine(c)):all;
   // formulas fill about half the feed (every 2nd slot, or every 4th when you've added your own pieces)
   const form=only?[]:formulaCombos(POOL,p);
-  let ib=0,im=0,ip=0,iF=0;
+  // about one outfit in five is built around a piece you loved
+  const lov=LIKED.size&&!only?all.filter(c=>c[1].some(x=>LIKED.has(x.url))):[];
+  let ib=0,im=0,ip=0,iF=0,il=0;
   const next=(L,i)=>{while(i<L.length&&!add(L[i][1],L[i][2]))i++;return i<L.length?i+1:-1};
   while(out.length<60){
     const k=out.length%4;
+    if(out.length%5===1&&il>=0){il=next(lov,il);if(il>=0)continue}
     if(k===3&&ib>=0){ib=next(big,ib);if(ib>=0)continue}
     if((k===2||(k===0&&!OWN.length))&&iF>=0){iF=next(form,iF);if(iF>=0)continue}
     if(k===0&&im>=0){im=next(mine,im);if(im>=0)continue}
@@ -401,9 +439,14 @@ function build(items,p,shuffle){
   // too few looks (often a tight budget): let bottoms and shoes repeat a bit more, tops stay unique
   // short feed: first let stores appear more often, then (and the store limit is lifted,
   // for visitors who turned most stores off) let bottoms and shoes repeat more too
-  if(out.length<60){SC=40;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
+  if(out.length<60){SC=18;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
   if(out.length<36){CB=5;CS=9;SC=1e9;MINQ=-1e9;let i=0;while(out.length<60&&i>=0)i=next(all,i)}
-  return out}
+  return spread(out)}
+// reorder so the next outfit shares no store with the one before, looking a few places ahead to keep the best first
+function spread(out){const left=out.slice(),res=[];
+  while(left.length){const prev=res.length?new Set(res[res.length-1].parts.map(x=>x.store)):new Set();
+    let k=left.slice(0,8).findIndex(o=>!o.parts.some(x=>!x.owned&&prev.has(x.store)));if(k<0)k=0;res.push(left.splice(k,1)[0])}
+  return res}
 const getSaved=()=>{try{return JSON.parse(localStorage.getItem('saved')||'[]')}catch(e){return[]}};
 const getPieces=()=>{try{return JSON.parse(localStorage.getItem('pieces')||'{}')}catch(e){return{}}};
 const snap=x=>x.owned?{owned:true,kind:x.kind,store:'Yours',title:x.name,url:x.url,image:x.image,price_cad:0,was_cad:0}:({kind:x.kind,store:x.store,title:x.title,url:x.url,image:x.image,price_cad:x.price_cad,was_cad:x.was_cad});
@@ -429,7 +472,8 @@ function swap(n,k){const o=OUT[n],old=o.parts[k],rest=o.parts.filter((_,i)=>i!==
   const find=strict=>{let best=null,bs=-1e9;
     for(const c of POOL){if(c.kind!==old.kind||BANNED.has(c.url)||base+c.price_cad>CUR.budget)continue;
       if(strict&&(used.has(c.url)||fams.has(FAM(c))))continue;
-      if(old.kind==='top'&&hasLayer&&!layerable(c))continue;
+      if(old.kind==='top'&&hasLayer&&!canLayer(c,rest.find(x=>x.kind==='outerwear')))continue;
+      if(old.kind==='outerwear'&&!canLayer(rest.find(x=>x.kind==='top'),c))continue;
       const f=rest.concat([c]),s=mean(f.map(x=>x._s))+coh(f)+cb(f)+fz(f);if(s>bs){bs=s;best=c}}
     return best};
   const best=find(true)||find(false);
@@ -449,7 +493,9 @@ function chips(){const n={};CAT.forEach(i=>n[i.store]=(n[i.store]||0)+1);
   $('stores').innerHTML=Object.keys(n).sort().map(s=>'<button type="button" class="chip'+(OFF.has(s)?'':' on')+'" data-s="'+esc(s)+'">'+(ST&&ST.brands&&ST.brands.includes(s)?'★ ':'')+esc(s)+' ('+n[s]+')</button>').join('')}
 $('stores').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=b.dataset.s;OFF.has(s)?OFF.delete(s):OFF.add(s);b.classList.toggle('on');save()};
 $('feed').onclick=e=>{const sv=e.target.closest('.sv');if(sv){const n=+sv.dataset.n,parts=OUT[n].parts,key=okey(parts);let L=getSaved();const i=L.findIndex(s=>s.key===key);
-  if(i>=0)L.splice(i,1);else L.unshift({key,t:Date.now(),parts:parts.map(snap)});try{localStorage.setItem('saved',JSON.stringify(L.slice(0,100)))}catch(err){}redraw(n);return}
+  if(i>=0)L.splice(i,1);else L.unshift({key,t:Date.now(),parts:parts.map(snap)});try{localStorage.setItem('saved',JSON.stringify(L.slice(0,100)))}catch(err){}
+  // saving a look counts as a light love for its pieces' words, colours and brands (undone when unsaved)
+  const d=i>=0?-.5:.5;parts.filter(x=>!x.owned).forEach(x=>tok(x).forEach(t=>{W[t]=Math.max(-3,Math.min(3,+((W[t]||0)+d).toFixed(2)))}));save();redraw(n);return}
   const b=e.target.closest('.pb');if(!b)return;const n=+b.dataset.o,k=+b.dataset.k,v=+b.dataset.v,x=OUT[n].parts[k];
   const bump=(it,d)=>tok(it).forEach(t=>{W[t]=Math.max(-3,Math.min(3,(W[t]||0)+d))});
   if(b.dataset.r==='cancel'){redraw(n);return}

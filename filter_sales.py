@@ -25,6 +25,7 @@ SUMMER_SHOES = re.compile(r"sandal|\bslides?\b|flip.?flop|huarache|espadrille|\b
 SHOES = ["loafer", "derby", "derbies", "oxfords", "wingtip", "boot", "sneaker", "trainer", "shoe",
          "chelsea", "monk", "brogue", "sandal", "driver", "slipper"]
 OUTER = ["jacket", "coat", "vest", "overshirt", "bomber", "shacket", "anorak", "blazer", "sportcoat", "parka"]
+OUTER_RX = re.compile(r"\b(" + "|".join(OUTER) + r"|overcoat|topcoat|raincoat|peacoat|carcoat|puffer|gilet|veste)s?\b(?!\s*pant)")
 BOTTOM = ["pant", "trouser", "jean", "chino", "cargo", "slack"]
 # fabric words that usually mean trousers, but only when the title doesn't name a top ("Denim Shirt" is a shirt)
 BOTTOM_FABRIC = ["denim", "selvedge", "selvage", "corduroy"]
@@ -68,7 +69,9 @@ def kind_of(item):
         return "shoes"
     if any(w in text for w in SKIP_WORDS) or re.search(SKIP_REGEX, text):
         return None
-    if any(w in text for w in OUTER):
+    # layers: whole words only ("Wax Coated" jeans), and not the colour "Trench Coat Khaki"
+    # ("Classic Sweater | Trench Coat Khaki" is a sweater, "Performance Chino | Trench Coat Khaki" trousers)
+    if OUTER_RX.search(text.replace("trench coat khaki", "khaki")):
         return "outerwear"
     if any(w in text for w in BOTTOM):
         return "bottom"

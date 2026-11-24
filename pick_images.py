@@ -1,4 +1,6 @@
-"""Chooses the cleanest product photo (plain background, no person) for each catalog item.
+"""Chooses the photo shown for each catalog item. The store's main (first) photo is almost always
+the clear front view, so it is kept, unless it is a busy lifestyle shot and the store also has a
+clean, front-on product photo (plain light background, no person, left-right symmetric).
 Results are remembered in data/image_cache.json so each photo is only analysed once."""
 import colorsys, io, json, time, urllib.request
 from collections import Counter
@@ -37,7 +39,18 @@ def analyse(img):
     diff = sum(1 for p in inner if sum(abs(p[i] - mean[i]) for i in range(3)) / 3 > 28) / len(inner)
     skin = sum(1 for r, g, b in inner if r > 95 and g > 40 and b > 20 and r > g > b and r - g > 15 and r - b > 30) / len(inner)
     plain = std < 14 and sum(mean) / 3 > 185      # even, light background
-    return plain, diff, skin
+    # left-right symmetry of the garment's outline: high for front (and back) views, low for
+    # side views, angled shots and close-ups
+    on = lambda x, y: sum(abs(px[x, y][i] - mean[i]) for i in range(3)) / 3 > 28
+    pts = same = 0
+    for y in range(band, h - band):
+        for x in range(band, w // 2):
+            a, b = on(x, y), on(w - 1 - x, y)
+            if a or b:
+                pts += 1
+                same += a == b
+    sym = same / pts if pts else 0
+    return plain, diff, skin, sym
 
 
 def family(r, g, b):
@@ -95,14 +108,19 @@ def garment_colors(img):
     return sorted(out)
 
 
-def quality(a):
-    plain, diff, skin = a
-    q = (2 if plain else 0) + min(diff, 0.6)
-    if skin > 0.08:
-        q -= 1.2                                  # probably a person in the shot
-    if diff < 0.08:
-        q -= 1                                    # nearly empty picture
-    return q
+def busy(a):
+    """A lifestyle shot: not on a plain light background, with a person in it."""
+    plain, diff, skin, sym = a
+    return not plain and skin > 0.05
+
+
+def clean_front(a):
+    """A product photo on a plain light background, no person, whole garment, facing the camera."""
+    plain, diff, skin, sym = a
+    return plain and skin < 0.03 and 0.12 < diff < 0.6 and sym > 0.8
+
+
+VERSION = 2   # cache entries from the old picker (which preferred any plain shot) are redone
 
 
 def main():
@@ -116,25 +134,30 @@ def main():
         imgs = it.get("images") or ([it["image"]] if it.get("image") else [])
         key = "|".join(imgs)
         c = cache.get(it["url"])
-        if c and c["key"] == key:
-            it["image"] = c["image"]
+        if c and c["key"] == key and (c.get("v") == VERSION or c["image"] == imgs[0]):
+            it["image"] = c["image"]           # old entries that kept the main photo stay valid
+            c["v"] = VERSION
         elif len(imgs) > 1:
             todo.append((it, imgs, key))
         elif imgs:
-            cache[it["url"]] = {"key": key, "image": imgs[0]}
+            cache[it["url"]] = {"key": key, "image": imgs[0], "v": VERSION}
 
     def work(t):
         it, imgs, key = t
         if time.monotonic() > DEADLINE:
             return None
-        scores = []
-        for u in imgs:
+        try:
+            if not busy(analyse(load(imgs[0]))):
+                return it, key, imgs[0]
+        except Exception:
+            return it, key, imgs[0]
+        for u in imgs[1:]:
             try:
-                scores.append(quality(analyse(load(u))))
+                if clean_front(analyse(load(u))):
+                    return it, key, u
             except Exception:
-                scores.append(-9)
-        best = max(range(len(imgs)), key=lambda i: (scores[i], -i)) if max(scores) > -9 else 0
-        return it, key, imgs[best]
+                pass
+        return it, key, imgs[0]
 
     done = changed = 0
     with ThreadPoolExecutor(8) as ex:
@@ -144,7 +167,7 @@ def main():
                 done += 1
                 changed += img != it["image"]
                 it["image"] = img
-                cache[it["url"]] = {"key": key, "image": img}
+                cache[it["url"]] = {"key": key, "image": img, "v": VERSION}
     # items whose title names no colour: read it from the chosen photo (cached per photo).
     # About 2 in 3 come out right or close, so the site uses these as hints only ("photo_colors"),
     # never to hide a piece.
@@ -205,7 +228,7 @@ def main():
         json.dump(cat, f, separators=(",", ":"))
     with open("data/image_cache.json", "w") as f:
         json.dump(cache, f, separators=(",", ":"))
-    print(f"Photos: analysed {done} of {len(todo)} new items, switched {changed} to a cleaner shot")
+    print(f"Photos: analysed {done} of {len(todo)} new items, {changed} changed photo")
     print(f"Colours: read {coloured} of {len(need)} uncoloured items from their photos")
     print(f"Google thumbnails: {len(gthumbs)} pieces, {low} too small to look sharp (left out of outfits)")
 
