@@ -1,44 +1,44 @@
 {
- "date": "2026-11-24",
+ "date": "2026-11-25",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Folk",
-   "title": "Native Striped T-Shirt - Khaki / Navy / Ecru",
-   "url": "https://folkclothing.com/products/folk-native-striped-t-shirt-khaki-navy-ecru",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-native-striped-t-shirt-khaki.jpg?v=1794836141",
-   "price_cad": 36.0,
-   "was_cad": 99.0,
-   "off_pct": 64,
+   "store": "Canada Weather Gear",
+   "title": "Vintage Striped Button Up Casual Shirt - Beige",
+   "url": "https://canadaweathergear.com/products/618-8506-10",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/618-8506-10-F.jpg?v=1783408682",
+   "price_cad": 10.0,
+   "was_cad": 60.0,
+   "off_pct": 83,
    "sizes": [
-    "L"
+    "M",
+    "S",
+    "XL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Everlane",
-   "title": "Baggy Rigid Jean | Mid Indigo | 30\"",
-   "url": "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
-   "image": "https://cdn.shopify.com/s/files/1/0623/7916/3734/files/320f54b0_02d2.jpg?v=1755830708",
-   "price_cad": 46.92,
-   "was_cad": 231.84,
-   "off_pct": 80,
+   "store": "Arte Antwerp",
+   "title": "Striped Trousers - Navy",
+   "url": "https://arte-antwerp.com/products/striped-trousers-black",
+   "image": "https://cdn.shopify.com/s/files/1/0844/1061/files/striopednavypants.jpg?v=1720687716",
+   "price_cad": 158.1,
+   "was_cad": 263.5,
+   "off_pct": 40,
    "sizes": [
-    "29",
-    "30",
-    "31",
     "32",
-    "33"
+    "36",
+    "40"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
    "store": "Taft",
-   "title": "The Sterling Penny Loafer in Taupe Suede (Final Sale)",
-   "url": "https://taftclothing.com/products/the-sterling-loafer-in-taupe-suede",
-   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-TSU_TAFT1_b45d64e2-4c2c-44f9-baae-32bb9da9297d.jpg?v=1762447435",
+   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
    "price_cad": 172.5,
    "was_cad": 413.99,
    "off_pct": 58,
@@ -48,6 +48,7 @@
     "11",
     "11.5",
     "12",
+    "13",
     "8",
     "8.5",
     "9",
@@ -57,16 +58,15 @@
    "kind": "shoes"
   },
   {
-   "store": "Universal Works",
-   "title": "Indigo Hickory Stripe Denim Marine Gilet",
-   "url": "https://universalworks.co.uk/products/universal-works-marine-gilet-in-indigo-hickory-stripe-denim",
-   "image": "https://cdn.shopify.com/s/files/1/1831/8429/files/p32015_hickory-stripe-denim-indigo_1.jpg?v=1753712318",
-   "price_cad": 117.0,
-   "was_cad": 279.0,
-   "off_pct": 58,
+   "store": "Folk",
+   "title": "Thomas Overshirt - Dark Navy",
+   "url": "https://folkclothing.com/products/folk-thomas-overshirt-dark-navy",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-thomas-overshirt-dark-navy-1774.jpg?v=1793806716",
+   "price_cad": 72.0,
+   "was_cad": 324.0,
+   "off_pct": 78,
    "sizes": [
-    "L",
-    "XL"
+    "L"
    ],
    "final_sale": false,
    "kind": "outerwear"
@@ -74,38 +74,29 @@
  ],
  "alternatives": [
   [
+   "Striped Sports Polo Shirt - Black",
+   "Striped Trousers - Navy",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Black"
+  ],
+  [
    "Striped Sports Polo Shirt - Blue",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "Men's Leather Loafer in Black",
-   "Colour Block Hooded Vest - Black"
+   "Striped Trousers - Navy",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Dark Navy"
   ],
   [
    "1/4 Zip Striped Pullover Sweater - Grey",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "Men's Leather Loafer in Black",
-   "Colour Block Hooded Vest - Black"
-  ],
-  [
-   "1/4 Zip Striped Pullover Sweater - Black",
-   "Brown Kennedy Stripe Hi Water Trouser",
-   "Men's Leather Loafer in Black",
-   "Colour Block Hooded Vest - Black"
+   "Striped Trousers - Navy",
+   "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
+   "Thomas Overshirt - Dark Navy"
   ]
  ],
- "total_cad": 372.42,
- "was_total_cad": 1023.83,
- "saved_cad": 651.41,
- "note": "Colors: navy + tan + white.",
+ "total_cad": 412.6,
+ "was_total_cad": 1061.49,
+ "saved_cad": 648.89,
+ "note": "Colors: brown + navy + tan.",
  "history": [
-  {
-   "date": "2026-11-19",
-   "urls": [
-    "https://canadaweathergear.com/products/665-2902-02",
-    "https://universalworks.co.uk/products/brown-kennedy-stripe-hi-water-trouser",
-    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-    "https://folkclothing.com/products/folk-thomas-overshirt-black"
-   ]
-  },
   {
    "date": "2026-11-20",
    "urls": [
@@ -149,6 +140,15 @@
     "https://everlane.com/products/mens-baggy-rigid-jean-mid-indigo",
     "https://taftclothing.com/products/the-sterling-loafer-in-taupe-suede",
     "https://universalworks.co.uk/products/universal-works-marine-gilet-in-indigo-hickory-stripe-denim"
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "urls": [
+    "https://canadaweathergear.com/products/618-8506-10",
+    "https://arte-antwerp.com/products/striped-trousers-black",
+    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
+    "https://folkclothing.com/products/folk-thomas-overshirt-dark-navy"
    ]
   }
  ]
