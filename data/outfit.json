@@ -1,71 +1,65 @@
 {
- "date": "2026-11-27",
+ "date": "2026-11-28",
  "budget_cad": 500,
  "items": [
   {
-   "store": "Folk",
-   "title": "Rib Knit Top - Navy / Brown Stripe",
-   "url": "https://folkclothing.com/products/folk-rib-knit-top-navy-brown-stripe",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/archive2025-965.jpg?v=1762781810",
-   "price_cad": 126.0,
-   "was_cad": 396.0,
-   "off_pct": 68,
+   "store": "Canada Weather Gear",
+   "title": "Lightweight Polo - Grey",
+   "url": "https://canadaweathergear.com/products/627-8240-10",
+   "image": "https://cdn.shopify.com/s/files/1/0116/0445/9616/files/file_11ee44f1-b06d-45ed-8281-2a3166914817.jpg?v=1787339227",
+   "price_cad": 10.0,
+   "was_cad": 50.0,
+   "off_pct": 80,
    "sizes": [
     "L",
     "M",
     "S",
-    "XL",
-    "XXL"
+    "XL"
    ],
    "final_sale": false,
    "kind": "top"
   },
   {
-   "store": "Everlane",
-   "title": "'90s Baggy Cargo Pant | Olive",
-   "url": "https://everlane.com/products/mens-90s-baggy-cargo-pant-olive",
-   "image": "https://cdn.shopify.com/s/files/1/0623/7916/3734/files/bc7b7312_3eff.jpg?v=1762190904",
-   "price_cad": 41.4,
-   "was_cad": 204.24,
-   "off_pct": 80,
+   "store": "Folk",
+   "title": "5 Pocket Trouser - Soft Grey Denim",
+   "url": "https://folkclothing.com/products/5-pocket-trouser-soft-grey-denim",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/SS25Flats2-217.jpg?v=1763391334",
+   "price_cad": 90.0,
+   "was_cad": 261.0,
+   "off_pct": 66,
    "sizes": [
+    "28",
     "30",
-    "31",
     "32",
     "34",
-    "36"
+    "36",
+    "38"
    ],
    "final_sale": false,
    "kind": "bottom"
   },
   {
-   "store": "Taft",
-   "title": "The Sterling Penny Loafer in Brown Floral Suede (Final Sale)",
-   "url": "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-   "image": "https://cdn.shopify.com/s/files/1/0468/9441/files/LF-STERLING-BRF_TAFT1.jpg?v=1762447431",
-   "price_cad": 172.5,
-   "was_cad": 413.99,
-   "off_pct": 58,
+   "store": "Sunspel",
+   "title": "Men's Leather Loafer in Black",
+   "url": "https://sunspel.com/products/mens-leather-loafer-in-black-mftw9488-bkaa",
+   "image": "https://cdn.shopify.com/s/files/1/0636/5154/5319/files/mftw9488-bkaa-1.jpg?v=1751967434",
+   "price_cad": 324.0,
+   "was_cad": 810.0,
+   "off_pct": 60,
    "sizes": [
     "10",
-    "10.5",
     "11",
-    "11.5",
-    "12",
-    "13",
-    "8",
-    "8.5",
-    "9",
-    "9.5"
+    "7",
+    "9"
    ],
    "final_sale": false,
    "kind": "shoes"
   },
   {
    "store": "Folk",
-   "title": "Luke Overshirt - Dark Navy",
-   "url": "https://folkclothing.com/products/folk-luke-overshirt-dark-navy",
-   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-luke-overshirt-dark-navy-1900.jpg?v=1793806487",
+   "title": "Luke Overshirt - Dark Khaki",
+   "url": "https://folkclothing.com/products/folk-luke-overshirt-dark-khaki",
+   "image": "https://cdn.shopify.com/s/files/1/1010/6206/files/folk-luke-overshirt-dark-khaki-1973.jpg?v=1793806487",
    "price_cad": 54.0,
    "was_cad": 324.0,
    "off_pct": 83,
@@ -82,37 +76,28 @@
  "alternatives": [
   [
    "Striped Sports Polo Shirt - Black",
-   "'90s Baggy Cargo Pant | Olive",
+   "5 Pocket Trouser - Soft Grey Denim",
    "Men's Leather Loafer in Black",
-   "Luke Overshirt - Dark Navy"
+   "Luke Overshirt - Dark Khaki"
   ],
   [
    "Striped Sports Polo Shirt - Blue",
-   "'90s Baggy Cargo Pant | Washed Black",
+   "5 Pocket Trouser - Soft Grey Denim",
    "Men's Leather Loafer in Black",
-   "Luke Overshirt - Dark Navy"
+   "Jerry Overshirt - Black Marl"
   ],
   [
    "Striped Polo Shirt - Green",
-   "'90s Baggy Cargo Pant | Olive",
+   "5 Pocket Trouser - Soft Grey Denim",
    "Men's Leather Loafer in Black",
-   "Luke Overshirt - Dark Navy"
+   "Jerry Overshirt - Black Marl"
   ]
  ],
- "total_cad": 393.9,
- "was_total_cad": 1338.23,
- "saved_cad": 944.33,
- "note": "Colors: brown + green + navy.",
+ "total_cad": 478.0,
+ "was_total_cad": 1445.0,
+ "saved_cad": 967.0,
+ "note": "Colors: black + grey + tan.",
  "history": [
-  {
-   "date": "2026-11-22",
-   "urls": [
-    "https://folkclothing.com/products/folk-camden-t-shirt-navy-pocket-stripe",
-    "https://everlane.com/products/mens-90s-baggy-cargo-pant-olive",
-    "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
-    "https://universalworks.co.uk/products/brown-kennedy-stripe-boston-blazer"
-   ]
-  },
   {
    "date": "2026-11-23",
    "urls": [
@@ -156,6 +141,15 @@
     "https://everlane.com/products/mens-90s-baggy-cargo-pant-olive",
     "https://taftclothing.com/products/the-sterling-loafer-in-brown-floral-suede",
     "https://folkclothing.com/products/folk-luke-overshirt-dark-navy"
+   ]
+  },
+  {
+   "date": "2026-11-28",
+   "urls": [
+    "https://canadaweathergear.com/products/627-8240-10",
+    "https://folkclothing.com/products/5-pocket-trouser-soft-grey-denim",
+    "https://sunspel.com/products/mens-leather-loafer-in-black-mftw9488-bkaa",
+    "https://folkclothing.com/products/folk-luke-overshirt-dark-khaki"
    ]
   }
  ]
